@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoneyDeck - FDR Verification Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: "#142B49",
+              teal: "#315B69",
+              gold: "#D7B978",
+              bg: "#F4F6F8",
+              border: "#E2E7ED",
+              primary: "#273444",
+              secondary: "#687586"
+            }
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #F1F4F8; }
+      ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    }
+  </style>
+</head>
+<body class="bg-[#F4F6F8] font-sans text-brand-primary min-h-screen flex antialiased selection:bg-[#142B49]/10">
+<!-- ==================== SECTION 1: SIMPLIFIED NAVIGATION (AICTE OFFICER PORTAL ONLY) ==================== -->
+<aside class="w-64 bg-white border-r border-brand-border flex flex-col justify-between shrink-0 transition-all duration-300 z-30 h-screen sticky top-0" id="sidebar">
+<div class="flex flex-col h-full overflow-hidden">
+<!-- Sidebar Header -->
+<div class="h-16 px-5 border-b border-brand-border flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-brand-navy flex items-center justify-center text-white font-bold text-sm shadow-sm">
+            MD
+          </div>
+<div class="flex flex-col">
+<span class="font-bold text-brand-navy text-[15px] tracking-tight leading-none">MoneyDeck</span>
+<span class="text-[11px] font-medium text-brand-teal tracking-wide mt-0.5">AICTE Officer Desk</span>
+</div>
+</div>
+<button class="text-brand-secondary hover:text-brand-navy p-1 rounded hover:bg-slate-100 transition-colors" id="sidebar-toggle-btn" title="Toggle Sidebar">
+<span class="material-symbols-outlined text-[20px]">menu_open</span>
+</button>
+</div>
+<!-- Navigation Links -->
+<div class="p-3.5 flex-1 overflow-y-auto">
+<div class="px-2.5 mb-2">
+<span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase">Portal Navigation</span>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">dashboard</span>
+<span>Overview Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">account_balance</span>
+<span>Colleges &amp; FDRs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-brand-navy text-white shadow-sm font-semibold text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">fact_check</span>
+<span>Verification Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">report_problem</span>
+<span>Problem Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">lock_open</span>
+<span>Release Requests</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">shield</span>
+<span>Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<span class="material-symbols-outlined text-[19px]">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Officer Profile Bottom Widget -->
+<div class="p-3.5 border-t border-brand-border bg-slate-50/70 shrink-0">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-white border border-brand-border">
+<div class="w-8 h-8 rounded-full bg-brand-navy/10 text-brand-navy flex items-center justify-center font-bold text-xs shrink-0">
+            VS
+          </div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-xs font-semibold text-brand-navy truncate">Dr. V. K. Sharma</span>
+<span class="text-[11px] text-brand-secondary truncate">Sr. Verification Officer</span>
+</div>
+<button class="text-slate-400 hover:text-brand-navy p-0.5 rounded" title="Officer menu">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- ==================== MAIN CONTENT AREA ==================== -->
+<div class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
+<!-- Top App Bar -->
+<header class="h-16 bg-white border-b border-brand-border px-6 flex items-center justify-between shrink-0 sticky top-0 z-20">
+<div class="flex items-center gap-3">
+<span class="px-2.5 py-0.5 rounded text-[11px] font-semibold tracking-wide uppercase bg-brand-navy/5 text-brand-navy border border-brand-navy/15">
+          AICTE Official Verification Desk
+        </span>
+<span class="text-xs text-brand-secondary hidden sm:inline">Northern Regional Office • Bureau of Technical Approvals</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-1.5 text-brand-secondary hover:text-brand-navy rounded-lg hover:bg-slate-100 transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1.5 text-brand-secondary hover:text-brand-navy rounded-lg hover:bg-slate-100 transition-colors" title="Help &amp; Support">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="h-4 w-px bg-brand-border"></div>
+<div class="flex items-center gap-1.5 text-xs text-brand-secondary font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+<span>Core System Connected</span>
+</div>
+</div>
+</header>
+<main class="p-6 max-w-[1720px] mx-auto w-full space-y-5 flex-1">
+<!-- ==================== SECTION 2: CLEAN FDR VERIFICATION HEADER ==================== -->
+<section class="bg-white border border-brand-border rounded-xl p-5 shadow-sm">
+<!-- Breadcrumb & Top Controls -->
+<div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-brand-border/70 mb-4">
+<nav class="flex items-center gap-2 text-xs text-brand-secondary font-medium">
+<a class="hover:text-brand-navy transition-colors" href="#">Colleges &amp; FDRs</a>
+<span class="text-slate-300">/</span>
+<a class="hover:text-brand-navy transition-colors font-semibold text-brand-teal" href="#">ABC Engineering College</a>
+<span class="text-slate-300">/</span>
+<span class="text-brand-primary font-bold">FDR123456</span>
+</nav>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-border text-xs font-medium text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Back to Queue</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-border text-xs font-medium text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span>Audit Trail</span>
+</button>
+</div>
+</div>
+<!-- Verification Title & Clean Horizontal Metadata Strip -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<h1 class="text-xl font-bold text-brand-navy tracking-tight">FDR Verification</h1>
+<p class="text-xs text-brand-secondary mt-0.5">Statutory fixed deposit certificate examination and regulatory reconciliation</p>
+</div>
+<!-- Metadata Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 bg-[#F4F6F8] p-3 rounded-lg border border-brand-border text-xs">
+<div class="flex flex-col">
+<span class="text-[11px] text-brand-secondary uppercase font-semibold">College</span>
+<span class="font-semibold text-brand-navy truncate" title="ABC Engineering College">ABC Engineering College</span>
+<span class="text-[10px] text-slate-400">ID: 12345</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] text-brand-secondary uppercase font-semibold">FDR Number</span>
+<span class="font-mono font-bold text-brand-navy">FDR123456</span>
+<span class="text-[10px] text-slate-400">SBI Connaught Place</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] text-brand-secondary uppercase font-semibold">Amount</span>
+<span class="font-bold text-brand-navy text-[13px]">₹5,00,000</span>
+<span class="text-[10px] text-slate-400">INR Five Lakhs</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] text-brand-secondary uppercase font-semibold">Maturity Date</span>
+<span class="font-semibold text-brand-navy">15 Nov 2026</span>
+<span class="text-[10px] text-slate-400">5-Year Tenor</span>
+</div>
+<div class="flex flex-col justify-center col-span-2 sm:col-span-1">
+<span class="text-[11px] text-brand-secondary uppercase font-semibold mb-1">Status</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 w-fit" id="verification-status-badge">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+<span>Under Review</span>
+</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== SPLIT WORKSPACE: 60% VIEWER / 40% VERIFICATION PANEL ==================== -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+<!-- ==================== SECTION 3: DOCUMENT VIEWER (~60% WIDTH) ==================== -->
+<section class="lg:col-span-7 bg-white border border-brand-border rounded-xl shadow-sm flex flex-col overflow-hidden">
+<!-- Toolbar Header -->
+<div class="p-3 bg-[#F8FAFC] border-b border-brand-border flex flex-wrap items-center justify-between gap-2 text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-rose-600 text-[20px]">picture_as_pdf</span>
+<span class="font-semibold text-brand-navy text-xs">ABC_Engg_FDR123456_Original.pdf</span>
+<span class="text-[11px] text-brand-secondary">(1.8 MB)</span>
+</div>
+<!-- Version Selector -->
+<div class="flex items-center gap-1 text-xs">
+<span class="text-brand-secondary text-[11px] hidden sm:inline">Version:</span>
+<select class="text-xs bg-white border border-brand-border rounded px-2 py-1 text-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy cursor-pointer">
+<option>Version 1 (Initial Submission - 24 Oct 2024)</option>
+</select>
+</div>
+</div>
+<!-- Document Controls Bar -->
+<div class="px-3.5 py-2 bg-white border-b border-brand-border flex flex-wrap items-center justify-between gap-3 text-xs">
+<!-- Page Navigation -->
+<div class="flex items-center gap-1.5 bg-slate-50 border border-brand-border rounded-lg px-2 py-1">
+<button class="text-brand-secondary hover:text-brand-navy disabled:opacity-30 disabled:pointer-events-none p-0.5" disabled="" id="doc-prev-page">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<span class="font-medium text-brand-navy text-xs px-1" id="doc-page-indicator">Page 1 of 2</span>
+<button class="text-brand-secondary hover:text-brand-navy p-0.5" id="doc-next-page">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<!-- Zoom & View Tools -->
+<div class="flex items-center gap-1">
+<div class="flex items-center bg-slate-50 border border-brand-border rounded-lg px-1.5 py-0.5">
+<button class="p-1 text-brand-secondary hover:text-brand-navy" id="doc-zoom-out" title="Zoom Out">
+<span class="material-symbols-outlined text-[16px]">zoom_out</span>
+</button>
+<span class="font-mono text-xs px-2 text-brand-navy font-medium" id="doc-zoom-display">100%</span>
+<button class="p-1 text-brand-secondary hover:text-brand-navy" id="doc-zoom-in" title="Zoom In">
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+</button>
+<button class="px-1.5 py-0.5 text-[11px] font-medium text-brand-secondary hover:text-brand-navy border-l border-brand-border ml-1" id="doc-zoom-reset" title="Reset Fit">
+                  Fit
+                </button>
+</div>
+<button class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" id="doc-rotate-btn" title="Rotate 90°">
+<span class="material-symbols-outlined text-[16px]">rotate_right</span>
+</button>
+<a class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" href="#" title="Download Document">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</a>
+<button class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" id="doc-fullscreen-btn" title="Toggle Fullscreen">
+<span class="material-symbols-outlined text-[16px]">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Document Canvas / Viewer Container -->
+<div class="bg-slate-200/80 p-6 min-h-[580px] flex items-center justify-center overflow-auto relative" id="viewer-container">
+<!-- PAGE 1: FIXED DEPOSIT RECEIPT -->
+<div class="w-full max-w-[560px] bg-[#FFFDF9] border border-amber-900/20 shadow-lg rounded-sm p-6 text-slate-800 transition-transform duration-200 relative select-none" id="page-1">
+<!-- Watermark -->
+<div class="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none">
+<span class="text-6xl font-black rotate-[-30deg] tracking-widest text-[#142B49]">AICTE CUSTODY</span>
+</div>
+<!-- Top Security Bar -->
+<div class="border-b-2 border-[#142B49] pb-3 mb-4 flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-[#142B49] text-white flex flex-col items-center justify-center font-bold leading-tight rounded">
+<span class="text-[9px] tracking-widest text-[#D7B978]">SBI</span>
+<span class="text-[14px]">बैंक</span>
+</div>
+<div>
+<h2 class="text-sm font-extrabold text-[#142B49] tracking-wider uppercase">State Bank of India</h2>
+<p class="text-[11px] text-slate-600">Connaught Place Branch, New Delhi - 110001</p>
+<p class="text-[10px] text-slate-500 font-mono">IFSC: SBIN0000691 • Branch Code: 0691</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300">
+                    Statutory Custody
+                  </span>
+<p class="text-[10px] font-mono text-slate-600 mt-1">Receipt No: <strong>DEL/2021/FDR-9810</strong></p>
+</div>
+</div>
+<!-- Certificate Title -->
+<div class="text-center my-3 pb-2 border-b border-dashed border-slate-300">
+<h3 class="text-sm font-bold uppercase tracking-wider text-[#142B49]">Fixed Deposit Receipt</h3>
+<p class="text-[10px] text-slate-600 italic">(Issued in favor of Member Secretary, AICTE Joint Custody)</p>
+</div>
+<!-- Main Metadata Grid -->
+<div class="grid grid-cols-2 gap-3 text-xs my-4 bg-white/70 p-3 rounded border border-slate-200">
+<div>
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Certificate / FDR No.</span>
+<span class="font-mono font-bold text-sm text-[#142B49]">FDR123456</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Date of Issue</span>
+<span class="font-mono font-bold text-slate-800">15 November 2021</span>
+</div>
+<div class="col-span-2 pt-1 border-t border-slate-100">
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Account Holder &amp; Pledged Joint Custody</span>
+<span class="font-semibold text-xs text-slate-900 block">Principal, ABC Engineering College</span>
+<span class="text-[11px] font-medium text-brand-teal">Joint Custody with Member Secretary, AICTE New Delhi</span>
+</div>
+<div class="pt-2 border-t border-slate-100">
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Principal Sum</span>
+<span class="font-mono font-extrabold text-base text-[#142B49]">₹ 5,00,000.00</span>
+<span class="text-[10px] text-slate-600 block">(Rupees Five Lakhs Only)</span>
+</div>
+<div class="text-right pt-2 border-t border-slate-100">
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Maturity Date</span>
+<span class="font-mono font-extrabold text-sm text-[#142B49]">15 November 2026</span>
+<span class="text-[10px] text-brand-teal font-semibold block">Tenor: 5 Years (60 Mos)</span>
+</div>
+<div>
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Interest Rate</span>
+<span class="font-semibold text-xs text-slate-800">7.10% p.a. (Cumulative)</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] uppercase font-bold text-slate-500 block">Maturity Value</span>
+<span class="font-mono font-semibold text-xs text-slate-800">₹ 7,09,850.00</span>
+</div>
+</div>
+<!-- Lien Endorsement Clause -->
+<div class="p-2.5 bg-amber-50/80 rounded border border-amber-200 text-[10px] text-amber-900 leading-tight mb-4">
+<strong>LIEN MARKING CLAUSE:</strong> This Term Deposit is pledged to the Member Secretary, All India Council for Technical Education (AICTE), New Delhi. No pre-mature withdrawal, encashment, or loan against this deposit is allowed without the formal written discharge signed by AICTE.
+              </div>
+<!-- Seal and Signature -->
+<div class="flex items-end justify-between pt-2 border-t border-slate-200">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full border-2 border-brand-teal/50 text-brand-teal flex items-center justify-center text-center p-1 text-[8px] font-bold uppercase rotate-[-6deg]">
+                    SBI NEW DELHI<br/>C.P. BRANCH<br/>★ SEAL ★
+                  </div>
+<span class="text-[9px] text-slate-500 mt-0.5">Issuing Branch Seal</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="font-serif italic font-bold text-slate-800 text-sm">R. K. Verma</div>
+<div class="w-28 h-px bg-slate-400 my-0.5"></div>
+<span class="text-[10px] font-semibold text-slate-700">Authorized Signatory</span>
+<span class="text-[9px] text-slate-500 font-mono">Branch Manager • Code: 49102</span>
+</div>
+</div>
+</div>
+<!-- PAGE 2: LIEN ENDORSEMENT ANNEXURE (Hidden by default) -->
+<div class="w-full max-w-[560px] bg-[#FFFDF9] border border-amber-900/20 shadow-lg rounded-sm p-6 text-slate-800 transition-transform duration-200 relative select-none hidden" id="page-2">
+<div class="border-b-2 border-[#142B49] pb-3 mb-4 flex items-center justify-between">
+<div>
+<h2 class="text-sm font-bold text-[#142B49] uppercase">Annexure 1: Statutory Lien Endorsement</h2>
+<p class="text-[11px] text-slate-600">Reference Deposit Certificate: FDR123456</p>
+</div>
+<span class="text-[11px] font-mono text-slate-500">Page 2 of 2</span>
+</div>
+<div class="space-y-3 text-xs leading-relaxed text-slate-700 bg-white/80 p-4 rounded border border-slate-200">
+<p><strong>TO WHOMSOEVER IT MAY CONCERN</strong></p>
+<p>
+                  This is to certify that the Fixed Deposit Receipt bearing No. <strong>FDR123456</strong> for an amount of <strong>₹5,00,000/- (Rupees Five Lakhs Only)</strong> issued on <strong>15-Nov-2021</strong> maturing on <strong>15-Nov-2026</strong> stands duly registered in the branch lien register under Reference No. <strong>LIEN/AICTE/2021/77</strong>.
+                </p>
+<p>
+                  The bank undertakes not to permit encashment or pre-closure of the deposit to <em>Principal, ABC Engineering College</em> without explicit written consent from the Member Secretary, All India Council for Technical Education (AICTE), New Delhi.
+                </p>
+<div class="p-2.5 bg-slate-50 rounded border border-slate-200 text-[11px]">
+<div><strong>Branch:</strong> Connaught Place (0691), New Delhi</div>
+<div><strong>Lien Created On:</strong> 15 November 2021</div>
+<div><strong>Officer In-Charge:</strong> S. Narayanan (Chief Manager, Commercial Banking)</div>
+</div>
+</div>
+<div class="flex items-end justify-between pt-6 mt-4 border-t border-slate-200">
+<div class="text-[10px] text-slate-500">
+<span>Document Hash Verified</span><br/>
+<span class="font-mono">REC-2021-IND-49120</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="font-serif italic font-bold text-slate-800 text-sm">S. Narayanan</div>
+<div class="w-28 h-px bg-slate-400 my-0.5"></div>
+<span class="text-[10px] font-semibold text-slate-700">Chief Manager (Operations)</span>
+<span class="text-[9px] text-slate-500">State Bank of India</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Footer Note -->
+<div class="px-4 py-2 bg-[#F8FAFC] border-t border-brand-border flex items-center justify-between text-xs text-brand-secondary">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-emerald-600">verified</span>
+<span>Scanned copy uploaded via College Portal on 24 Oct 2024</span>
+</span>
+<span class="text-[11px]">PDF Document • 300 DPI</span>
+</div>
+</section>
+<!-- ==================== SECTION 4: ORGANIZED VERIFICATION PANEL (4 TABS, ~40% WIDTH) ==================== -->
+<section class="lg:col-span-5 bg-white border border-brand-border rounded-xl shadow-sm flex flex-col overflow-hidden">
+<!-- 4 Tab Navigation -->
+<div class="border-b border-brand-border bg-[#F8FAFC] px-3 pt-2">
+<nav aria-label="Verification Tabs" class="flex space-x-1">
+<button class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-brand-navy text-brand-navy bg-white" data-target="tab-overview">
+                Overview
+              </button>
+<button class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-brand-secondary hover:text-brand-navy" data-target="tab-ai-review">
+                AI Review
+                <span class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-100 text-amber-800 font-bold">1</span>
+</button>
+<button class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-brand-secondary hover:text-brand-navy" data-target="tab-bank-verif">
+                Bank Verification
+              </button>
+<button class="tab-btn px-3 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 border-transparent text-brand-secondary hover:text-brand-navy" data-target="tab-history">
+                History
+              </button>
+</nav>
+</div>
+<!-- Tab Content Area -->
+<div class="p-5 flex-1 space-y-4">
+<!-- TAB 1: OVERVIEW -->
+<div class="tab-pane space-y-4" id="tab-overview">
+<div class="flex items-center justify-between pb-2 border-b border-brand-border">
+<h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">College-Submitted Record Details</h3>
+<span class="text-[11px] text-brand-secondary">Submitted 24 Oct 2024</span>
+</div>
+<!-- Summary Table -->
+<div class="rounded-lg border border-brand-border overflow-hidden text-xs">
+<table class="w-full text-left">
+<tbody class="divide-y divide-brand-border">
+<tr class="bg-slate-50/50">
+<td class="px-3 py-2 text-brand-secondary font-medium w-1/3">College Name</td>
+<td class="px-3 py-2 font-semibold text-brand-navy">ABC Engineering College</td>
+</tr>
+<tr>
+<td class="px-3 py-2 text-brand-secondary font-medium">Institution ID</td>
+<td class="px-3 py-2 font-mono font-medium text-brand-primary">12345</td>
+</tr>
+<tr class="bg-slate-50/50">
+<td class="px-3 py-2 text-brand-secondary font-medium">Bank Name</td>
+<td class="px-3 py-2 text-brand-primary">State Bank of India</td>
+</tr>
+<tr>
+<td class="px-3 py-2 text-brand-secondary font-medium">FDR Number</td>
+<td class="px-3 py-2 font-mono font-semibold text-brand-navy">FDR123456</td>
+</tr>
+<tr class="bg-slate-50/50">
+<td class="px-3 py-2 text-brand-secondary font-medium">Principal Sum</td>
+<td class="px-3 py-2 font-bold text-brand-navy">₹ 5,00,000</td>
+</tr>
+<tr>
+<td class="px-3 py-2 text-brand-secondary font-medium">Maturity Date</td>
+<td class="px-3 py-2 text-brand-primary">15 November 2026</td>
+</tr>
+<tr class="bg-slate-50/50">
+<td class="px-3 py-2 text-brand-secondary font-medium">Regional Bureau</td>
+<td class="px-3 py-2 text-brand-primary">AICTE Northern Region (New Delhi)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Current Review Status Card -->
+<div class="p-3 bg-slate-50 border border-brand-border rounded-lg text-xs space-y-1.5">
+<div class="flex items-center justify-between">
+<span class="text-[11px] uppercase font-bold text-brand-secondary">Current Stage</span>
+<span class="font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Under Review</span>
+</div>
+<p class="text-brand-secondary text-[11px]">Assigned to: <strong>Dr. V. K. Sharma</strong> (Bureau of Technical Approvals)</p>
+</div>
+<!-- Key Observation Warning Box -->
+<div class="p-3 bg-amber-50/80 border border-amber-200 rounded-lg text-xs space-y-1">
+<div class="flex items-center gap-1.5 text-amber-900 font-semibold">
+<span class="material-symbols-outlined text-[16px] text-amber-600">warning</span>
+<span>Key Observation</span>
+</div>
+<p class="text-amber-800 text-[11px] leading-relaxed">
+                  1 discrepancy identified in automated pre-check: Document maturity date differs from submission date entry. Officer review required prior to statutory clearance.
+                </p>
+</div>
+<div class="text-[11px] text-brand-secondary flex items-center gap-1.5 pt-1">
+<span class="material-symbols-outlined text-[15px] text-brand-teal">info</span>
+<span>Next pending step: Verification officer manual review and approval.</span>
+</div>
+</div>
+<!-- TAB 2: AI REVIEW (Expandable / Collapsible findings) -->
+<div class="tab-pane hidden space-y-3" id="tab-ai-review">
+<div class="flex items-start justify-between pb-2 border-b border-brand-border">
+<div>
+<h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">AI-Assisted Document Check</h3>
+<p class="text-[11px] text-brand-secondary mt-0.5">Automated OCR extraction aids review. Final verification requires human officer authorization.</p>
+</div>
+</div>
+<!-- Automated Checks List with Progressive Disclosure -->
+<div class="space-y-2 text-xs">
+<!-- Item 1: FDR Number (Matched) -->
+<div class="border border-brand-border rounded-lg p-2.5 bg-slate-50/50">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-1')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+<span class="font-semibold text-brand-navy">FDR Number</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Matched</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</div>
+</div>
+<div class="hidden mt-2 pt-2 border-t border-brand-border text-[11px] text-brand-secondary grid grid-cols-2 gap-2" id="acc-1">
+<div>Entered: <strong class="text-brand-navy font-mono">FDR123456</strong></div>
+<div>OCR Extracted: <strong class="text-brand-navy font-mono">FDR123456</strong></div>
+</div>
+</div>
+<!-- Item 2: Bank Name (Matched) -->
+<div class="border border-brand-border rounded-lg p-2.5 bg-slate-50/50">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-2')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+<span class="font-semibold text-brand-navy">Bank Name</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Matched</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</div>
+</div>
+<div class="hidden mt-2 pt-2 border-t border-brand-border text-[11px] text-brand-secondary grid grid-cols-2 gap-2" id="acc-2">
+<div>Entered: <strong class="text-brand-navy">State Bank of India</strong></div>
+<div>OCR Extracted: <strong class="text-brand-navy">State Bank of India (CP Branch)</strong></div>
+</div>
+</div>
+<!-- Item 3: FDR Amount (Matched) -->
+<div class="border border-brand-border rounded-lg p-2.5 bg-slate-50/50">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-3')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+<span class="font-semibold text-brand-navy">FDR Amount</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Matched</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</div>
+</div>
+<div class="hidden mt-2 pt-2 border-t border-brand-border text-[11px] text-brand-secondary grid grid-cols-2 gap-2" id="acc-3">
+<div>Entered: <strong class="text-brand-navy">₹ 5,00,000.00</strong></div>
+<div>OCR Extracted: <strong class="text-brand-navy">₹ 5,00,000.00</strong></div>
+</div>
+</div>
+<!-- Item 4: Issue Date (Matched) -->
+<div class="border border-brand-border rounded-lg p-2.5 bg-slate-50/50">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-4')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+<span class="font-semibold text-brand-navy">Issue Date</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Matched</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</div>
+</div>
+<div class="hidden mt-2 pt-2 border-t border-brand-border text-[11px] text-brand-secondary grid grid-cols-2 gap-2" id="acc-4">
+<div>Entered: <strong class="text-brand-navy">15 Nov 2021</strong></div>
+<div>OCR Extracted: <strong class="text-brand-navy">15 November 2021</strong></div>
+</div>
+</div>
+<!-- Item 5: Maturity Date (MISMATCH - OPEN & EXPANDABLE) -->
+<div class="border-2 border-amber-300 rounded-lg p-3 bg-amber-50/40">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-5')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-600 text-[20px]">warning</span>
+<div>
+<span class="font-bold text-brand-navy block">Maturity Date</span>
+<span class="text-[10px] text-amber-800">30-day date discrepancy detected</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">Mismatch</span>
+<span class="material-symbols-outlined text-amber-700 text-[18px]" id="acc-5-icon">expand_less</span>
+</div>
+</div>
+<!-- Expandable detailed drawer -->
+<div class="mt-3 pt-2.5 border-t border-amber-200/80 text-[11px] space-y-2" id="acc-5">
+<div class="grid grid-cols-2 gap-2 bg-white p-2.5 rounded border border-amber-200">
+<div>
+<span class="text-slate-500 block text-[10px]">APPLICATION FORM VALUE:</span>
+<span class="font-semibold text-rose-700">15 December 2026</span>
+</div>
+<div>
+<span class="text-slate-500 block text-[10px]">SCANNED FDR VALUE:</span>
+<span class="font-semibold text-emerald-700">15 November 2026</span>
+</div>
+</div>
+<p class="text-amber-900 leading-tight">
+<strong>Analysis:</strong> The document certificate states a 5-year tenor ending 15 Nov 2026, whereas the college application form recorded 15 Dec 2026. This requires either college clarification or officer manual adjustment.
+                    </p>
+</div>
+</div>
+<!-- Item 6: Beneficiary Name (Matched) -->
+<div class="border border-brand-border rounded-lg p-2.5 bg-slate-50/50">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleAccordion('acc-6')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">check_circle</span>
+<span class="font-semibold text-brand-navy">Beneficiary Name &amp; Custody</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Matched</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</div>
+</div>
+<div class="hidden mt-2 pt-2 border-t border-brand-border text-[11px] text-brand-secondary grid grid-cols-2 gap-2" id="acc-6">
+<div>Entered: <strong class="text-brand-navy">Joint Custody AICTE &amp; ABC Engg</strong></div>
+<div>OCR Extracted: <strong class="text-brand-navy">Joint Custody with Member Secretary, AICTE</strong></div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 3: BANK VERIFICATION -->
+<div class="tab-pane hidden space-y-3.5" id="tab-bank-verif">
+<div class="flex items-center justify-between pb-2 border-b border-brand-border">
+<h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Scheduled Bank Verification</h3>
+<span class="text-[11px] font-mono text-slate-500">Ref #SBI-CBD-99214</span>
+</div>
+<!-- Bank Connection Status -->
+<div class="p-3.5 rounded-lg border border-brand-border bg-slate-50 space-y-3 text-xs">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-[11px] text-brand-secondary block">Authorized Bank</span>
+<span class="font-bold text-sm text-brand-navy">State Bank of India</span>
+<span class="text-[11px] text-brand-teal block">Connaught Place Branch (IFSC: SBIN0000691)</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                    Pending Direct API Confirmation
+                  </span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-brand-border text-[11px]">
+<div>
+<span class="text-slate-500">Last Synced:</span>
+<p class="font-medium text-brand-primary">24 Oct 2024, 11:20 AM</p>
+</div>
+<div>
+<span class="text-slate-500">Bank Ref Code:</span>
+<p class="font-mono font-medium text-brand-primary">SBI-LIAISON-8841</p>
+</div>
+</div>
+</div>
+<!-- Advisory Note -->
+<div class="p-3 bg-blue-50/60 border border-blue-200 rounded-lg text-xs space-y-1">
+<div class="flex items-center gap-1.5 text-brand-navy font-semibold">
+<span class="material-symbols-outlined text-[16px] text-brand-teal">info</span>
+<span>Branch Confirmation Note</span>
+</div>
+<p class="text-slate-700 text-[11px] leading-relaxed">
+                  Direct API confirmation is pending branch authorization. Manual verification of physical instrument seal and branch manager signature is recommended.
+                </p>
+</div>
+<div class="pt-2">
+<button class="w-full py-2 px-3 border border-brand-border rounded-lg text-xs font-semibold text-brand-teal hover:bg-slate-50 transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Re-check Bank Gateway</span>
+</button>
+</div>
+</div>
+<!-- TAB 4: HISTORY -->
+<div class="tab-pane hidden space-y-3" id="tab-history">
+<div class="flex items-center justify-between pb-2 border-b border-brand-border">
+<h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Chronological Audit Timeline</h3>
+<span class="text-[11px] text-brand-secondary">All actions recorded</span>
+</div>
+<div class="space-y-4 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-slate-200 text-xs" id="history-timeline-list">
+<!-- Event 1 -->
+<div class="flex gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-slate-100 border-2 border-white shadow-sm flex items-center justify-center text-slate-500 shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px]">upload_file</span>
+</div>
+<div class="flex-1 bg-slate-50 p-2.5 rounded-lg border border-brand-border">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-brand-navy">FDR Submitted by College</span>
+<span class="text-[10px] text-slate-400">09:30 AM</span>
+</div>
+<p class="text-[11px] text-brand-secondary mt-0.5">Submitted by ABC Engineering College (Registrar Office)</p>
+<span class="text-[10px] text-slate-400 mt-1 block">24 Oct 2024</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="flex gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-amber-100 border-2 border-white shadow-sm flex items-center justify-center text-amber-700 shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px]">smart_toy</span>
+</div>
+<div class="flex-1 bg-amber-50/50 p-2.5 rounded-lg border border-amber-200">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-amber-900">Automated AI Review Completed</span>
+<span class="text-[10px] text-slate-400">09:32 AM</span>
+</div>
+<p class="text-[11px] text-amber-800 mt-0.5">OCR processed 6 key parameters. Maturity date mismatch flagged.</p>
+<span class="text-[10px] text-slate-400 mt-1 block">24 Oct 2024</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="flex gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-brand-navy/10 border-2 border-white shadow-sm flex items-center justify-center text-brand-navy shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px]">assignment_ind</span>
+</div>
+<div class="flex-1 bg-slate-50 p-2.5 rounded-lg border border-brand-border">
+<div class="flex items-center justify-between">
+<span class="font-semibold text-brand-navy">Assigned for Verification</span>
+<span class="text-[10px] text-slate-400">11:00 AM</span>
+</div>
+<p class="text-[11px] text-brand-secondary mt-0.5">Assigned to Dr. V. K. Sharma (Senior Verification Officer)</p>
+<span class="text-[10px] text-slate-400 mt-1 block">24 Oct 2024</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== SECTION 5: HUMAN VERIFICATION ACTION BAR ==================== -->
+<div class="p-4 border-t border-brand-border bg-[#F8FAFC] space-y-2.5">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2.5 px-3 rounded-lg border border-rose-300 text-rose-700 bg-white hover:bg-rose-50 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm" id="btn-report-problem" type="button">
+<span class="material-symbols-outlined text-[17px]">report_problem</span>
+<span>Report Problem</span>
+</button>
+<button class="flex-1 py-2.5 px-3 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm" id="btn-verify-fdr" type="button">
+<span class="material-symbols-outlined text-[17px]">check_circle</span>
+<span>Verify FDR</span>
+</button>
+</div>
+<p class="text-[11px] text-center text-brand-secondary">
+              Decision will be permanently logged in official compliance records.
+            </p>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- ==================== MODAL 1: VERIFY FDR CONFIRMATION MODAL ==================== -->
+<div class="fixed inset-0 z-50 bg-[#142B49]/50 backdrop-blur-sm hidden items-center justify-center p-4" id="modal-verify">
+<div class="bg-white rounded-xl shadow-2xl border border-brand-border max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<div class="px-5 py-4 bg-brand-navy text-white flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-emerald-400">verified</span>
+<h3 class="font-bold text-sm">Confirm FDR Statutory Verification</h3>
+</div>
+<button class="text-white/70 hover:text-white" id="close-modal-verify">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-5 space-y-4 text-xs">
+<!-- Summary Box -->
+<div class="p-3 bg-slate-50 border border-brand-border rounded-lg space-y-1">
+<div class="grid grid-cols-3 gap-2">
+<div>
+<span class="text-[10px] text-slate-500 uppercase font-semibold block">FDR Number</span>
+<strong class="text-brand-navy font-mono">FDR123456</strong>
+</div>
+<div>
+<span class="text-[10px] text-slate-500 uppercase font-semibold block">College</span>
+<strong class="text-brand-navy">ABC Engg College</strong>
+</div>
+<div>
+<span class="text-[10px] text-slate-500 uppercase font-semibold block">Amount</span>
+<strong class="text-emerald-700">₹ 5,00,000</strong>
+</div>
+</div>
+</div>
+<p class="text-brand-secondary">Please confirm that you have conducted the following regulatory verification checks:</p>
+<!-- Officer Checklist -->
+<div class="space-y-2 border border-brand-border rounded-lg p-3 bg-white">
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-brand-navy focus:ring-0 accent-[#142B49]" type="checkbox"/>
+<span class="text-brand-primary">I have visually examined the original FDR certificate copy.</span>
+</label>
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-brand-navy focus:ring-0 accent-[#142B49]" type="checkbox"/>
+<span class="text-brand-primary">Bank seal and authorized signatory have been verified against issuing branch details.</span>
+</label>
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-brand-navy focus:ring-0 accent-[#142B49]" type="checkbox"/>
+<span class="text-brand-primary">Joint custody clause with Member Secretary, AICTE is legally confirmed.</span>
+</label>
+</div>
+<!-- Optional Remarks -->
+<div class="space-y-1">
+<label class="block font-semibold text-brand-navy" for="verify-remarks">Optional Verification Remarks</label>
+<textarea class="w-full text-xs p-2.5 border border-brand-border rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-navy text-brand-primary" id="verify-remarks" placeholder="e.g. Scanned certificate matches regulatory requirements under Approval Process Handbook." rows="2"></textarea>
+</div>
+</div>
+<div class="px-5 py-3.5 bg-slate-50 border-t border-brand-border flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-brand-border rounded-lg text-xs font-medium text-brand-secondary hover:bg-slate-100 transition-colors" id="cancel-verify-btn">
+          Cancel
+        </button>
+<button class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm" id="confirm-verify-btn">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Confirm &amp; Approve FDR</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== MODAL 2: REPORT PROBLEM TO COLLEGE MODAL ==================== -->
+<div class="fixed inset-0 z-50 bg-[#142B49]/50 backdrop-blur-sm hidden items-center justify-center p-4" id="modal-report-problem">
+<div class="bg-white rounded-xl shadow-2xl border border-brand-border max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<div class="px-5 py-4 bg-rose-700 text-white flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">report_problem</span>
+<h3 class="font-bold text-sm">Report FDR Discrepancy to College</h3>
+</div>
+<button class="text-white/70 hover:text-white" id="close-modal-problem">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-5 space-y-4 text-xs">
+<!-- Target Info -->
+<div class="p-2.5 bg-rose-50 border border-rose-200 rounded-lg text-rose-900 flex items-center justify-between">
+<span><strong>Record:</strong> FDR123456</span>
+<span><strong>Target:</strong> ABC Engineering College</span>
+</div>
+<!-- Problem Category -->
+<div class="space-y-1">
+<label class="block font-semibold text-brand-navy">Discrepancy Category</label>
+<select class="w-full text-xs p-2 border border-brand-border rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-rose-500" id="problem-category">
+<option selected="">Maturity Date Mismatch</option>
+<option>Incorrect FDR Number</option>
+<option>Amount Mismatch</option>
+<option>Bank Details Incorrect</option>
+<option>Missing Joint Custody Clause</option>
+<option>Unclear / Illegible Document</option>
+<option>Other Statutory Deficiency</option>
+</select>
+</div>
+<!-- Problem Description Area -->
+<div class="space-y-1">
+<label class="block font-semibold text-brand-navy" for="problem-description">Official Clarification Notice</label>
+<textarea class="w-full text-xs p-2.5 border border-brand-border rounded-lg focus:outline-none focus:ring-1 focus:ring-rose-500 text-brand-primary" id="problem-description" rows="4">The maturity date stated on the uploaded FDR slip (15 Nov 2026) differs from the date entered in the application form (15 Dec 2026). Please verify with your issuing bank and resubmit with correct details.</textarea>
+<span class="text-[10px] text-slate-400">Notice will be immediately dispatched to the College Principal &amp; Registrar via portal notification.</span>
+</div>
+<!-- Optional Supporting Attachment -->
+<div class="p-3 border border-dashed border-brand-border rounded-lg flex items-center justify-between bg-slate-50">
+<div class="flex items-center gap-2 text-brand-secondary">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+<span>Attach annotated document excerpt (Optional)</span>
+</div>
+<button class="px-2.5 py-1 bg-white border border-brand-border rounded text-[11px] font-medium text-brand-navy hover:bg-slate-100" type="button">Browse</button>
+</div>
+</div>
+<div class="px-5 py-3.5 bg-slate-50 border-t border-brand-border flex items-center justify-end gap-2">
+<button class="px-4 py-2 border border-brand-border rounded-lg text-xs font-medium text-brand-secondary hover:bg-slate-100 transition-colors" id="cancel-problem-btn">
+          Cancel
+        </button>
+<button class="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm" id="send-problem-btn">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send Problem Report to College</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== TOAST NOTIFICATION BANNER ==================== -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-brand-navy text-white shadow-xl max-w-md border border-brand-border" id="toast">
+<span class="material-symbols-outlined text-emerald-400 text-[22px]" id="toast-icon">check_circle</span>
+<div class="text-xs font-medium" id="toast-message">Action processed successfully.</div>
+</div>
+<!-- ==================== JAVASCRIPT LOGIC ==================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- 1. TAB SWITCHING ---
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabButtons.forEach(b => {
+            b.classList.remove('border-brand-navy', 'text-brand-navy', 'bg-white');
+            b.classList.add('border-transparent', 'text-brand-secondary');
+          });
+          btn.classList.add('border-brand-navy', 'text-brand-navy', 'bg-white');
+          btn.classList.remove('border-transparent', 'text-brand-secondary');
+
+          const targetId = btn.getAttribute('data-target');
+          tabPanes.forEach(pane => {
+            pane.classList.add('hidden');
+          });
+          document.getElementById(targetId)?.classList.remove('hidden');
+        });
+      });
+
+      // --- 2. ACCORDION / EXPANDABLE AI FINDINGS ---
+      window.toggleAccordion = function (id) {
+        const item = document.getElementById(id);
+        if (!item) return;
+        const isHidden = item.classList.contains('hidden');
+        if (isHidden) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      };
+
+      // --- 3. DOCUMENT VIEWER CONTROLS (ZOOM, ROTATE, PAGES) ---
+      let zoomLevel = 100;
+      let rotationAngle = 0;
+      let currentPage = 1;
+
+      const p1 = document.getElementById('page-1');
+      const p2 = document.getElementById('page-2');
+      const zoomDisplay = document.getElementById('doc-zoom-display');
+      const pageIndicator = document.getElementById('doc-page-indicator');
+      const prevPageBtn = document.getElementById('doc-prev-page');
+      const nextPageBtn = document.getElementById('doc-next-page');
+
+      function updateDocumentView() {
+        const activePage = currentPage === 1 ? p1 : p2;
+        if (activePage) {
+          activePage.style.transform = `scale(${zoomLevel / 100}) rotate(${rotationAngle}deg)`;
+        }
+        if (zoomDisplay) zoomDisplay.textContent = `${zoomLevel}%`;
+      }
+
+      function setPage(pageNum) {
+        currentPage = pageNum;
+        if (currentPage === 1) {
+          p1.classList.remove('hidden');
+          p2.classList.add('hidden');
+          prevPageBtn.disabled = true;
+          nextPageBtn.disabled = false;
+        } else {
+          p1.classList.add('hidden');
+          p2.classList.remove('hidden');
+          prevPageBtn.disabled = false;
+          nextPageBtn.disabled = true;
+        }
+        pageIndicator.textContent = `Page ${currentPage} of 2`;
+        updateDocumentView();
+      }
+
+      prevPageBtn?.addEventListener('click', () => setPage(1));
+      nextPageBtn?.addEventListener('click', () => setPage(2));
+
+      document.getElementById('doc-zoom-in')?.addEventListener('click', () => {
+        if (zoomLevel < 150) {
+          zoomLevel += 10;
+          updateDocumentView();
+        }
+      });
+
+      document.getElementById('doc-zoom-out')?.addEventListener('click', () => {
+        if (zoomLevel > 70) {
+          zoomLevel -= 10;
+          updateDocumentView();
+        }
+      });
+
+      document.getElementById('doc-zoom-reset')?.addEventListener('click', () => {
+        zoomLevel = 100;
+        rotationAngle = 0;
+        updateDocumentView();
+      });
+
+      document.getElementById('doc-rotate-btn')?.addEventListener('click', () => {
+        rotationAngle = (rotationAngle + 90) % 360;
+        updateDocumentView();
+      });
+
+      // Fullscreen toggle
+      document.getElementById('doc-fullscreen-btn')?.addEventListener('click', () => {
+        const container = document.getElementById('viewer-container');
+        if (!document.fullscreenElement) {
+          container.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.();
+        }
+      });
+
+      // Sidebar collapse toggle
+      const sidebar = document.getElementById('sidebar');
+      document.getElementById('sidebar-toggle-btn')?.addEventListener('click', () => {
+        sidebar.classList.toggle('w-64');
+        sidebar.classList.toggle('w-20');
+      });
+
+      // --- 4. TOAST HELPER ---
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      function triggerToast(message, isSuccess = true) {
+        if (!toast || !toastMsg) return;
+        toastMsg.textContent = message;
+        if (isSuccess) {
+          toastIcon.textContent = 'check_circle';
+          toastIcon.className = 'material-symbols-outlined text-emerald-400 text-[22px]';
+        } else {
+          toastIcon.textContent = 'error';
+          toastIcon.className = 'material-symbols-outlined text-rose-400 text-[22px]';
+        }
+
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-24', 'opacity-0');
+        }, 3600);
+      }
+
+      // --- 5. MODAL 1: VERIFY FDR ---
+      const modalVerify = document.getElementById('modal-verify');
+      const btnOpenVerify = document.getElementById('btn-verify-fdr');
+      const btnCloseVerify = document.getElementById('close-modal-verify');
+      const btnCancelVerify = document.getElementById('cancel-verify-btn');
+      const btnConfirmVerify = document.getElementById('confirm-verify-btn');
+      const statusBadge = document.getElementById('verification-status-badge');
+
+      function openVerifyModal() {
+        modalVerify?.classList.remove('hidden');
+        modalVerify?.classList.add('flex');
+      }
+      function closeVerifyModal() {
+        modalVerify?.classList.remove('flex');
+        modalVerify?.classList.add('hidden');
+      }
+
+      btnOpenVerify?.addEventListener('click', openVerifyModal);
+      btnCloseVerify?.addEventListener('click', closeVerifyModal);
+      btnCancelVerify?.addEventListener('click', closeVerifyModal);
+
+      btnConfirmVerify?.addEventListener('click', () => {
+        closeVerifyModal();
+
+        // Update status badge to Verified
+        if (statusBadge) {
+          statusBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-300 w-fit';
+          statusBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span><span>Verified</span>';
+        }
+
+        // Add history item
+        addHistoryEvent('FDR Officially Verified', 'Authorized by Dr. V. K. Sharma. Recorded in statutory ledger.', 'check_circle', 'text-emerald-700 bg-emerald-100');
+
+        // Toast feedback
+        triggerToast('FDR Verified Successfully. Record permanently approved in compliance portal.');
+
+        // Disable button to reflect state
+        btnOpenVerify.disabled = true;
+        btnOpenVerify.classList.add('opacity-50', 'pointer-events-none');
+        btnOpenVerify.innerHTML = '<span class="material-symbols-outlined text-[17px]">verified</span><span>Verified & Locked</span>';
+      });
+
+      // --- 6. MODAL 2: REPORT PROBLEM TO COLLEGE ---
+      const modalProblem = document.getElementById('modal-report-problem');
+      const btnOpenProblem = document.getElementById('btn-report-problem');
+      const btnCloseProblem = document.getElementById('close-modal-problem');
+      const btnCancelProblem = document.getElementById('cancel-problem-btn');
+      const btnSendProblem = document.getElementById('send-problem-btn');
+      const problemCategory = document.getElementById('problem-category');
+
+      function openProblemModal() {
+        modalProblem?.classList.remove('hidden');
+        modalProblem?.classList.add('flex');
+      }
+      function closeProblemModal() {
+        modalProblem?.classList.remove('flex');
+        modalProblem?.classList.add('hidden');
+      }
+
+      btnOpenProblem?.addEventListener('click', openProblemModal);
+      btnCloseProblem?.addEventListener('click', closeProblemModal);
+      btnCancelProblem?.addEventListener('click', closeProblemModal);
+
+      btnSendProblem?.addEventListener('click', () => {
+        const cat = problemCategory ? problemCategory.value : 'Maturity Date Mismatch';
+        closeProblemModal();
+
+        // Update status badge to Action Required
+        if (statusBadge) {
+          statusBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-800 border border-rose-300 w-fit';
+          statusBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span><span>Action Required</span>';
+        }
+
+        // Add history timeline event
+        addHistoryEvent('Discrepancy Reported to College', `Category: ${cat}. Notice dispatched to ABC Engineering College.`, 'report_problem', 'text-rose-700 bg-rose-100');
+
+        triggerToast(`Problem reported to ABC Engineering College (${cat}). Status set to Action Required.`, false);
+      });
+
+      // Helper function to append chronological event in History tab
+      function addHistoryEvent(title, description, icon, badgeClasses) {
+        const timeline = document.getElementById('history-timeline-list');
+        if (!timeline) return;
+
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const eventDiv = document.createElement('div');
+        eventDiv.className = 'flex gap-3 relative animate-in fade-in duration-300';
+        eventDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-full ${badgeClasses} border-2 border-white shadow-sm flex items-center justify-center shrink-0 z-10">
+            <span class="material-symbols-outlined text-[14px]">${icon}</span>
+          </div>
+          <div class="flex-1 bg-white p-2.5 rounded-lg border border-brand-border shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-brand-navy">${title}</span>
+              <span class="text-[10px] text-slate-400">${timeStr}</span>
+            </div>
+            <p class="text-[11px] text-brand-secondary mt-0.5">${description}</p>
+            <span class="text-[10px] text-slate-400 mt-1 block">Today</span>
+          </div>
+        `;
+
+        timeline.insertBefore(eventDiv, timeline.firstChild);
+      }
+
+    });
+  </script>
+</body></html>

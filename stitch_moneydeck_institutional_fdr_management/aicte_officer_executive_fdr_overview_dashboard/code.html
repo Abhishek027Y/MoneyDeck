@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"outline":"#74777e","on-primary":"#ffffff","tertiary":"#001045","surface-container-lowest":"#ffffff","error-container":"#ffdad6","secondary-fixed":"#bce9ff","surface-variant":"#d8e3f5","on-primary-fixed":"#021c39","on-secondary-fixed-variant":"#104d61","on-secondary-fixed":"#001f2a","on-tertiary":"#ffffff","on-error-container":"#93000a","secondary":"#2f657a","on-secondary":"#ffffff","error":"#ba1a1a","on-error":"#ffffff","surface-container-high":"#dee9fb","on-surface-variant":"#44474e","primary-container":"#142b49","tertiary-container":"#002174","on-background":"#111c29","tertiary-fixed":"#dce1ff","surface-container":"#e4efff","surface":"#f8f9ff","inverse-on-surface":"#e9f1ff","tertiary-fixed-dim":"#b7c4ff","on-primary-fixed-variant":"#324867","secondary-container":"#b0e4fd","on-secondary-container":"#32677d","surface-container-highest":"#d8e3f5","on-tertiary-container":"#6b8aff","secondary-fixed-dim":"#9acee6","surface-tint":"#4a5f80","on-surface":"#111c29","inverse-surface":"#26313e","surface-container-low":"#eef4ff","surface-bright":"#f8f9ff","primary-fixed":"#d5e3ff","on-tertiary-fixed":"#001551","on-tertiary-fixed-variant":"#0039b5","primary-fixed-dim":"#b2c8ed","surface-dim":"#cfdbec","background":"#f8f9ff","outline-variant":"#c4c6ce","on-primary-container":"#7d93b6","inverse-primary":"#b2c8ed","primary":"#001631"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-sm":"0.5rem","margin-desktop":"2rem","space-md":"0.75rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xl":"2rem","margin":"1rem","space-xs":"0.25rem","space-lg":"1.25rem"},fontFamily:{"headline-xl":["Inter"],"headline-sm":["Inter"],"label-sm":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"body-md":["Inter"],"headline-md":["Inter"],"tabular-num":["Inter"],"body-sm":["Inter"],"label-md":["Inter"]},fontSize:{"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"tabular-num":["14px",{"lineHeight":"20px","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["13px",{"lineHeight":"18px","fontWeight":"500"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[250px] bg-surface-container-lowest border-r border-[#E2E7ED] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-14 px-space-md border-b border-[#E2E7ED] flex items-center gap-space-sm bg-surface-container-lowest"><img alt="MoneyDeck Official Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ubk8loF0W7bhjMXGEbBKWUn2JQ1iK4VRjYw_e-eQyCAeAU66nkJTgyAgrlaapVWrc7GoLj1obu3FT8x81uQxNIW5e4AtS460wblA_x8CFALlryNY2E08UR923F4jDcsUuBn87aDgFRqAyI5QrdrirxhLGEeD7Mwl4dtTVq2TNIKFA7rWAUlq7O3sexdlsS96EodWJ7xUi2NEyzSJRea3I4PbCDvy60DjL4S0LmKyVy"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">MoneyDeck</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Institutional FDR</span></div></div><div class="px-space-md pt-space-md pb-space-xs"><div class="flex items-center justify-between px-space-xs py-space-xs mb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">AICTE Officer Portal</span><span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">REGULATOR</span></div><nav class="flex flex-col gap-0.5" data-active-classes="bg-primary-container text-on-primary font-label-md rounded"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 transition-colors bg-primary-container text-on-primary font-label-md rounded" data-path="officer-overview-dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span>Overview Dashboard</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="colleges-and-fdrs" href="#" onclick="showComingSoon('Colleges & FDRs');return false;"><span class="material-symbols-outlined text-[18px]">account_balance</span>Colleges & FDRs</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="verification-workspace" href="../aicte_officer_fdr_verification_workspace_ai_engine/code.html"><span class="material-symbols-outlined text-[18px]">fact_check</span>Verification Workspace</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="officer-problem-reports" href="#" onclick="showComingSoon('Problem Reports');return false;"><span class="material-symbols-outlined text-[18px]">report_problem</span>Problem Reports</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="officer-release-requests" href="#" onclick="showComingSoon('Release Requests');return false;"><span class="material-symbols-outlined text-[18px]">lock_open</span>Release Requests</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="officer-audit-log-security" href="#" onclick="showComingSoon('Audit Log & Security');return false;"><span class="material-symbols-outlined text-[18px]">shield</span>Audit Log & Security</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="officer-settings" href="#" onclick="showComingSoon('Officer Settings');return false;"><span class="material-symbols-outlined text-[18px]">settings</span>Officer Settings</a></nav></div><div class="px-space-md pt-space-xs pb-space-md border-t border-[#E2E7ED] mt-space-xs"><div class="flex items-center justify-between px-space-xs py-space-xs mb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">College Portal</span><span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">INSTITUTE</span></div><nav class="flex flex-col gap-0.5" data-active-classes="bg-primary-container text-on-primary font-label-md rounded"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="college-dashboard" href="../college_portal_institutional_fdr_management_dashboard/code.html"><span class="material-symbols-outlined text-[18px]">grid_view</span>College Dashboard</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="submit-new-fdr" href="#" onclick="showComingSoon('Submit New FDR');return false;"><span class="material-symbols-outlined text-[18px]">upload_file</span>Submit New FDR</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="my-fdr-records" href="#" onclick="showComingSoon('My FDR Records');return false;"><span class="material-symbols-outlined text-[18px]">receipt_long</span>My FDR Records</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="renew-fdr" href="#" onclick="showComingSoon('Renew FDR');return false;"><span class="material-symbols-outlined text-[18px]">autorenew</span>Renew FDR</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="college-release-requests" href="#" onclick="showComingSoon('Release Requests');return false;"><span class="material-symbols-outlined text-[18px]">outbox</span>Release Requests</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="multilingual-notices" href="#" onclick="showComingSoon('Multilingual Notices');return false;"><span class="material-symbols-outlined text-[18px]">campaign</span>Multilingual Notices</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="college-settings" href="#" onclick="showComingSoon('College Settings');return false;"><span class="material-symbols-outlined text-[18px]">tune</span>College Settings</a></nav></div></div><div class="p-space-md border-t border-[#E2E7ED] bg-surface-container-low"><div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-1"><span>Statutory Server</span><span class="inline-flex items-center gap-1 text-[#2f657a] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-[#2f657a]"></span>Connected</span></div><div class="font-label-sm text-label-sm text-outline">Public Ledger v4.2 • Sec-AES256</div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-14 bg-surface-container-lowest border-b border-[#E2E7ED] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><img alt="MoneyDeck Official Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Ubk8loF0W7bhjMXGEbBKWUn2JQ1iK4VRjYw_e-eQyCAeAU66nkJTgyAgrlaapVWrc7GoLj1obu3FT8x81uQxNIW5e4AtS460wblA_x8CFALlryNY2E08UR923F4jDcsUuBn87aDgFRqAyI5QrdrirxhLGEeD7Mwl4dtTVq2TNIKFA7rWAUlq7O3sexdlsS96EodWJ7xUi2NEyzSJRea3I4PbCDvy60DjL4S0LmKyVy"/><span class="px-2 py-0.5 rounded border border-[#142B49]/30 bg-[#142B49]/10 font-label-sm text-label-sm text-primary uppercase tracking-wide">Statutory FDR Custody</span><div class="hidden md:flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant"><span class="hover:text-primary cursor-pointer">AICTE Apex</span><span>/</span><span class="hover:text-primary cursor-pointer">Northern Region</span><span>/</span><span class="font-semibold text-primary">FDR Directorate</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5 px-2 py-1 rounded border border-[#E2E7ED] bg-surface-bright"><span class="material-symbols-outlined text-[16px] text-secondary">translate</span><label class="sr-only" for="lang-select">Language Select</label><select class="bg-transparent font-label-sm text-label-sm text-on-surface focus:outline-none cursor-pointer pr-1" id="lang-select"><option value="en">English (EN)</option><option value="hi">हिन्दी (HI)</option><option value="mr">मराठी (MR)</option><option value="ta">தமிழ் (TA)</option><option value="te">తెలుగు (TE)</option></select><span class="px-1 py-0.2 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm text-[10px]">AI</span></div><button class="relative p-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-0.5 right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-error text-on-error font-label-sm text-label-sm text-[10px] flex items-center justify-center leading-none">7</span></button><div class="h-6 w-px bg-[#E2E7ED]"></div><div class="flex items-center gap-space-sm pl-1"><div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-primary font-semibold leading-tight">Dr. V. K. Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Sr. Verification Officer</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6uI6Tf_kO4OnxnWetc9JOp8HA211b9DV9GfAgVhAsVsU__C0RsQi_K7sJwJK0F3aOluW423yM_bYVSf_MH8pqJrlkZVl37VKYsAFouCIn6-vOCi1qFGe-Cyr7sgAJMsQN0hNxXcJYzFob2VNEQGYWOVy1YXgsVD00ycHWflV0hT4DRGkuB_S8kXUWp0AQTivURXSAzKR3ZLiU2mPIoSIHK2BfCU9CaZpHN7IyvK4"/></div></div></header><div class="fixed top-14 left-[250px] right-0 h-6 bg-surface-container-low border-b border-[#E2E7ED] z-30 px-space-lg flex items-center justify-between font-label-sm text-label-sm"><div class="flex items-center gap-space-md text-on-surface-variant"><span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-[#2f657a]">lock</span>Institutional End-to-End Encrypted Session</span><span class="text-outline">•</span><span>NPCI / Core Banking Verification Gateway Active</span></div><div class="flex items-center gap-space-sm text-on-surface-variant"><span class="font-tabular-num text-tabular-num">Audit Ref: FDR-2025-IND-88219</span></div></div><main class="w-full pt-20 bg-surface min-h-[calc(100vh-3.5rem)] px-space-lg py-space-md"><div class="flex flex-col w-full gap-space-lg">
+<!-- TOP CONTEXT BAR & QUICK COMMAND -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+        Statutory Compliance Ledger • FY 2024-25 Q4
+      </div>
+<div class="font-headline-lg text-headline-lg text-primary tracking-tight">AICTE Apex FDR Governance Console</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-secondary">cloud_sync</span>
+        Core Banking API Sync: <span class="font-tabular-num text-tabular-num text-on-surface font-semibold">T-02m ago</span>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container rounded hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors" id="openFilterBtn">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Filter Jurisdiction</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Statutory Digest (PDF)</span>
+</button>
+</div>
+</div>
+<!-- TOP KPI METRIC STRIP -->
+<div class="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-space-sm">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Colleges</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">domain</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">4,812</div>
+<div class="font-label-sm text-label-sm text-secondary mt-0.5">Across 28 States</div>
+</div>
+</div>
+<!-- Metric 2 (Emphasized Valuation) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform xl:col-span-1">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">FDR Ledger</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">account_balance_wallet</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">19,420</div>
+<div class="font-label-sm text-label-sm text-secondary mt-0.5 font-tabular-num font-semibold">₹1,420 Cr Val</div>
+</div>
+</div>
+<!-- Metric 3 (Pending Officer Verification) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Queue</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">hourglass_top</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">48</div>
+<div class="font-label-sm text-label-sm text-error mt-0.5">14 High Priority</div>
+</div>
+</div>
+<!-- Metric 4 (Verified & Secure) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Verified</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">18,912</div>
+<div class="font-label-sm text-label-sm text-secondary mt-0.5">97.4% Compliant</div>
+</div>
+</div>
+<!-- Metric 5 (Discrepancies) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Discrepancy</span>
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-error font-tabular-num">64</div>
+<div class="font-label-sm text-label-sm text-error mt-0.5">OCR / IFSC Mismatch</div>
+</div>
+</div>
+<!-- Metric 6 (Maturing 7d) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Maturity <7d</span>
+<span class="material-symbols-outlined text-[16px] text-error">alarm_on</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-error font-tabular-num">18</div>
+<div class="font-label-sm text-label-sm text-error mt-0.5">Auto Notice Sent</div>
+</div>
+</div>
+<!-- Metric 7 (Maturing 30d) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Maturity <30d</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">event</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">82</div>
+<div class="font-label-sm text-label-sm text-secondary mt-0.5">₹61.4 Cr Value</div>
+</div>
+</div>
+<!-- Metric 8 (Release Requests) -->
+<div class="bg-surface-container-lowest p-space-md rounded flex flex-col justify-between shadow-sm hover:translate-y-[-1px] transition-transform">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Release Req</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">lock_open</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md text-primary font-tabular-num">27</div>
+<div class="font-label-sm text-label-sm text-secondary mt-0.5">Pending Sign-off</div>
+</div>
+</div>
+</div>
+<!-- URGENT REGULATORY ALERTS (CRITICAL 7-DAY MATURITY NOTICES) -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded shadow-sm gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-error text-[20px]">notification_important</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Urgent Regulatory Maturity Alerts (Immediate Action Mandatory)</h2>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container rounded font-label-sm text-label-sm">3 Critical Notices</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant hidden md:block">
+        Statutory Clause 11.4: Renewal proof must be logged within 48h of maturity to prevent seat intake hold.
+      </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Card 1 -->
+<div class="p-space-md rounded bg-surface-container-low flex flex-col justify-between gap-space-sm shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="px-1.5 py-0.5 bg-error-container text-on-error-container rounded font-label-sm text-label-sm">Matures in 3 Days</span>
+<span class="font-tabular-num text-tabular-num font-semibold text-primary">₹35,00,000</span>
+</div>
+<div class="font-label-md text-label-md text-primary font-semibold truncate">Dr. APJ Abdul Kalam Tech Inst.</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-tabular-num">AKTU-UP-9182 • FDR-SBI-993201</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">translate</span> Primary Institute Lang: <strong>हिन्दी (Hindi)</strong>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-1.5 px-2 bg-primary text-on-primary rounded font-label-sm text-label-sm flex items-center justify-center gap-1 hover:bg-primary-container transition-colors" onclick="dispatchNotice('AKTU-UP-9182', 'Hindi')">
+<span class="material-symbols-outlined text-[14px]">send</span> Send Notice (हिन्दी)
+          </button>
+<button class="p-1.5 bg-surface-container text-on-surface rounded hover:bg-surface-container-high transition-colors" title="View Instrument File">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-space-md rounded bg-surface-container-low flex flex-col justify-between gap-space-sm shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="px-1.5 py-0.5 bg-error-container text-on-error-container rounded font-label-sm text-label-sm">Matures in 4 Days</span>
+<span class="font-tabular-num text-tabular-num font-semibold text-primary">₹50,00,000</span>
+</div>
+<div class="font-label-md text-label-md text-primary font-semibold truncate">PSG Institute of Polytech & Tech</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-tabular-num">TN-CBE-1049 • FDR-CANARA-88410</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">translate</span> Primary Institute Lang: <strong>தமிழ் (Tamil)</strong>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-1.5 px-2 bg-primary text-on-primary rounded font-label-sm text-label-sm flex items-center justify-center gap-1 hover:bg-primary-container transition-colors" onclick="dispatchNotice('TN-CBE-1049', 'Tamil')">
+<span class="material-symbols-outlined text-[14px]">send</span> Send Notice (தமிழ்)
+          </button>
+<button class="p-1.5 bg-surface-container text-on-surface rounded hover:bg-surface-container-high transition-colors" title="View Instrument File">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-space-md rounded bg-surface-container-low flex flex-col justify-between gap-space-sm shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="px-1.5 py-0.5 bg-error-container text-on-error-container rounded font-label-sm text-label-sm">Matures in 5 Days</span>
+<span class="font-tabular-num text-tabular-num font-semibold text-primary">₹1,20,00,000</span>
+</div>
+<div class="font-label-md text-label-md text-primary font-semibold truncate">Government Engineering College Karad</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant font-tabular-num">MAH-SAT-0044 • FDR-BOI-449102</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">translate</span> Primary Institute Lang: <strong>मराठी (Marathi)</strong>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-1.5 px-2 bg-primary text-on-primary rounded font-label-sm text-label-sm flex items-center justify-center gap-1 hover:bg-primary-container transition-colors" onclick="dispatchNotice('MAH-SAT-0044', 'Marathi')">
+<span class="material-symbols-outlined text-[14px]">send</span> Send Notice (मराठी)
+          </button>
+<button class="p-1.5 bg-surface-container text-on-surface rounded hover:bg-surface-container-high transition-colors" title="View Instrument File">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN WORKSPACE: PRIMARY DATA TABLE & SECONDARY AUDIT PANEL -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-md">
+<!-- PRIMARY TABLE: VERIFICATION QUEUE (8 COLS) -->
+<div class="xl:col-span-8 flex flex-col bg-surface-container-lowest rounded shadow-sm overflow-hidden">
+<!-- Table Header Bar -->
+<div class="p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-container-lowest">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">assignment_turned_in</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Pending Verification & High Priority Queue</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">48 FDR certificates awaiting statutory clearance from AICTE apex officers</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-2 text-[16px] text-outline">search</span>
+<input class="h-9 pl-7 pr-3 bg-surface-container-low text-on-surface rounded font-body-sm text-body-sm focus:outline-none focus:bg-surface-bright placeholder:text-outline" placeholder="Search FDR / Code..." type="text"/>
+</div>
+<button class="h-9 px-3 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sort</span> Batch Mode
+          </button>
+</div>
+</div>
+<!-- Structured Financial Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low h-[38px] text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="px-space-md py-2 text-left">College & Code</th>
+<th class="px-space-md py-2 text-left">FDR Number</th>
+<th class="px-space-md py-2 text-left">Bank & Branch</th>
+<th class="px-space-md py-2 text-right">Value (₹)</th>
+<th class="px-space-md py-2 text-center">Maturity Date</th>
+<th class="px-space-md py-2 text-center">AI Confidence</th>
+<th class="px-space-md py-2 text-center">Bank Status</th>
+<th class="px-space-md py-2 text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-transparent font-body-sm text-body-sm text-on-surface">
+<!-- Row 1 -->
+<tr class="h-12 hover:bg-surface-container-low transition-colors group">
+<td class="px-space-md py-2">
+<div class="font-label-md text-label-md text-primary font-semibold truncate max-w-[200px]">Delhi Engineering College</div>
+<div class="font-tabular-num text-tabular-num text-on-surface-variant text-[11px]">DEL/0491 • New Delhi</div>
+</td>
+<td class="px-space-md py-2 font-tabular-num text-tabular-num font-medium text-primary">
+                FDR-2024-SBI-89211
+              </td>
+<td class="px-space-md py-2">
+<div class="truncate max-w-[140px]">State Bank of India</div>
+<div class="text-outline text-[11px] font-tabular-num">SBIN0001021 (Connaught)</div>
+</td>
+<td class="px-space-md py-2 text-right font-tabular-num text-tabular-num font-semibold text-primary">
+                ₹85,00,000
+              </td>
+<td class="px-space-md py-2 text-center font-tabular-num text-tabular-num">
+                18-Apr-2025
+              </td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>99.2%
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container-high text-primary font-semibold">
+                  API Matched
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<button class="h-8 px-2.5 bg-primary hover:bg-primary-container text-on-primary rounded font-label-sm text-label-sm transition-colors shadow-sm" onclick="openVerificationModal('DEL/0491', 'FDR-2024-SBI-89211')">
+                  Review
+                </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="h-12 hover:bg-surface-container-low transition-colors bg-surface-container-low/30 group">
+<td class="px-space-md py-2">
+<div class="font-label-md text-label-md text-primary font-semibold truncate max-w-[200px]">Thapar Inst. of Eng. & Tech.</div>
+<div class="font-tabular-num text-tabular-num text-on-surface-variant text-[11px]">PB-PAT-0012 • Punjab</div>
+</td>
+<td class="px-space-md py-2 font-tabular-num text-tabular-num font-medium text-primary">
+                FDR-2024-HDFC-99120
+              </td>
+<td class="px-space-md py-2">
+<div class="truncate max-w-[140px]">HDFC Bank Ltd</div>
+<div class="text-outline text-[11px] font-tabular-num">HDFC0000182 (Civil Lines)</div>
+</td>
+<td class="px-space-md py-2 text-right font-tabular-num text-tabular-num font-semibold text-primary">
+                ₹1,50,00,000
+              </td>
+<td class="px-space-md py-2 text-center font-tabular-num text-tabular-num">
+                22-May-2025
+              </td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>98.4%
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container-high text-primary font-semibold">
+                  API Matched
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<button class="h-8 px-2.5 bg-primary hover:bg-primary-container text-on-primary rounded font-label-sm text-label-sm transition-colors shadow-sm" onclick="openVerificationModal('PB-PAT-0012', 'FDR-2024-HDFC-99120')">
+                  Review
+                </button>
+</td>
+</tr>
+<!-- Row 3 (Flagged for Discrepancy) -->
+<tr class="h-12 hover:bg-surface-container-low transition-colors group">
+<td class="px-space-md py-2">
+<div class="font-label-md text-label-md text-primary font-semibold truncate max-w-[200px]">Malnad College of Engineering</div>
+<div class="font-tabular-num text-tabular-num text-on-surface-variant text-[11px]">KA-HAS-0331 • Karnataka</div>
+</td>
+<td class="px-space-md py-2 font-tabular-num text-tabular-num font-medium text-error flex items-center gap-1 pt-3.5">
+<span class="material-symbols-outlined text-[14px]">error</span> FDR-2023-CAN-3108
+              </td>
+<td class="px-space-md py-2">
+<div class="truncate max-w-[140px]">Canara Bank</div>
+<div class="text-outline text-[11px] font-tabular-num">CNRB0000412 (Hassan Central)</div>
+</td>
+<td class="px-space-md py-2 text-right font-tabular-num text-tabular-num font-semibold text-primary">
+                ₹40,00,000
+              </td>
+<td class="px-space-md py-2 text-center font-tabular-num text-tabular-num text-error font-semibold">
+                30-Mar-2025
+              </td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>72.1%
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-error-container text-on-error-container font-semibold">
+                  Maturity Drift
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<button class="h-8 px-2.5 bg-error hover:bg-on-error-container text-on-error rounded font-label-sm text-label-sm transition-colors shadow-sm" onclick="openVerificationModal('KA-HAS-0331', 'FDR-2023-CAN-3108')">
+                  Investigate
+                </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="h-12 hover:bg-surface-container-low transition-colors bg-surface-container-low/30 group">
+<td class="px-space-md py-2">
+<div class="font-label-md text-label-md text-primary font-semibold truncate max-w-[200px]">Kakinada Institute of Tech.</div>
+<div class="font-tabular-num text-tabular-num text-on-surface-variant text-[11px]">AP-EG-0812 • Andhra Pradesh</div>
+</td>
+<td class="px-space-md py-2 font-tabular-num text-tabular-num font-medium text-primary">
+                FDR-2024-UBI-01992
+              </td>
+<td class="px-space-md py-2">
+<div class="truncate max-w-[140px]">Union Bank of India</div>
+<div class="text-outline text-[11px] font-tabular-num">UBIN0531201 (Main Rd)</div>
+</td>
+<td class="px-space-md py-2 text-right font-tabular-num text-tabular-num font-semibold text-primary">
+                ₹60,00,000
+              </td>
+<td class="px-space-md py-2 text-center font-tabular-num text-tabular-num">
+                14-Jun-2025
+              </td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>96.0%
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-outline font-semibold">
+                  Pending Bank
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<button class="h-8 px-2.5 bg-primary hover:bg-primary-container text-on-primary rounded font-label-sm text-label-sm transition-colors shadow-sm" onclick="openVerificationModal('AP-EG-0812', 'FDR-2024-UBI-01992')">
+                  Review
+                </button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="h-12 hover:bg-surface-container-low transition-colors group">
+<td class="px-space-md py-2">
+<div class="font-label-md text-label-md text-primary font-semibold truncate max-w-[200px]">Veermata Jijabai Technological (VJTI)</div>
+<div class="font-tabular-num text-tabular-num text-on-surface-variant text-[11px]">MH-MUM-0004 • Mumbai</div>
+</td>
+<td class="px-space-md py-2 font-tabular-num text-tabular-num font-medium text-primary">
+                FDR-2024-BOB-67210
+              </td>
+<td class="px-space-md py-2">
+<div class="truncate max-w-[140px]">Bank of Baroda</div>
+<div class="text-outline text-[11px] font-tabular-num">BARB0MATUNG (Matunga)</div>
+</td>
+<td class="px-space-md py-2 text-right font-tabular-num text-tabular-num font-semibold text-primary">
+                ₹2,10,00,000
+              </td>
+<td class="px-space-md py-2 text-center font-tabular-num text-tabular-num">
+                12-Aug-2025
+              </td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>99.8%
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container-high text-primary font-semibold">
+                  API Matched
+                </span>
+</td>
+<td class="px-space-md py-2 text-center">
+<button class="h-8 px-2.5 bg-primary hover:bg-primary-container text-on-primary rounded font-label-sm text-label-sm transition-colors shadow-sm" onclick="openVerificationModal('MH-MUM-0004', 'FDR-2024-BOB-67210')">
+                  Review
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Bar -->
+<div class="p-space-sm px-space-md bg-surface-container-low flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mt-auto">
+<div class="flex items-center gap-1">
+<span>Showing <strong>1-5</strong> of <strong>48</strong> pending submissions</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high disabled:opacity-50" disabled="">Previous</button>
+<button class="px-2 py-1 rounded bg-primary text-on-primary font-semibold">1</button>
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high">2</button>
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high">3</button>
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high">Next</button>
+</div>
+</div>
+</div>
+<!-- SECONDARY PANEL: DISCREPANCIES & REAL-TIME AUDIT FEED (4 COLS) -->
+<div class="xl:col-span-4 flex flex-col gap-space-md">
+<!-- Discrepancy Detection Feed -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">troubleshoot</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Discrepancy Alerts</h3>
+</div>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container font-label-sm text-label-sm rounded font-semibold font-tabular-num">64 Flagged</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">difference</span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">Maturity Date Mismatch</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular-num">10m ago</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Malnad College (KA-HAS-0331): Physical slip reads 30-Apr-25, Bank API returns 30-Mar-25.</div>
+<div class="flex items-center gap-2 mt-1">
+<a class="font-label-sm text-label-sm text-secondary font-semibold hover:underline" href="#">Re-run OCR Extractor</a>
+<span class="text-outline">•</span>
+<a class="font-label-sm text-label-sm text-error font-semibold hover:underline" href="#">Notify Institute</a>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">domain_disabled</span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">Lien AICTE Clause Missing</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular-num">42m ago</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Sagar Inst. (MP-BPL-0209): FDR cert lacks explicit "Pledged in favor of Member Secretary, AICTE" lien note.</div>
+<div class="flex items-center gap-2 mt-1">
+<a class="font-label-sm text-label-sm text-secondary font-semibold hover:underline" href="#">Download Scanned PDF</a>
+<span class="text-outline">•</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline" href="#">Reject Submission</a>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">account_circle_off</span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-primary">Joint Holder Nomenclature</span>
+<span class="font-label-sm text-label-sm text-outline font-tabular-num">1h 14m ago</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Rajiv Gandhi Polytech (RJ-JAI-1981): Account title lists Trust Secretary instead of Director.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Officer Audit Activity Stream -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-space-sm flex-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">security_update_good</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Live Security Audit Log</h3>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline cursor-pointer hover:text-primary">refresh</span>
+</div>
+<div class="flex flex-col gap-2 pt-1 font-body-sm text-body-sm">
+<div class="flex items-start gap-2 p-2 rounded bg-surface-container-low/40">
+<span class="w-2 h-2 rounded-full bg-secondary mt-1.5"></span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Dr. V. K. Sharma (OFFICER-DEL-04)</span>
+<span class="text-[11px] font-tabular-num text-outline">14:28:11</span>
+</div>
+<span class="text-on-surface-variant">Statutory Approval verified for IITM Janakpuri (FDR-PNB-0982) ₹1.2 Cr</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-2 rounded bg-surface-container-low/40">
+<span class="w-2 h-2 rounded-full bg-secondary mt-1.5"></span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Gateway Sentinel Daemon</span>
+<span class="text-[11px] font-tabular-num text-outline">14:15:02</span>
+</div>
+<span class="text-on-surface-variant">NPCI SFMS Confirmation received: 34 auto-renewals synchronized</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-2 rounded bg-surface-container-low/40">
+<span class="w-2 h-2 rounded-full bg-error mt-1.5"></span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-error">Anomalous Request Intercept</span>
+<span class="text-[11px] font-tabular-num text-outline">13:58:44</span>
+</div>
+<span class="text-on-surface-variant">Premature release attempt blocked: Insufficient college trustee quorum</span>
+</div>
+</div>
+<div class="flex items-start gap-2 p-2 rounded bg-surface-container-low/40">
+<span class="w-2 h-2 rounded-full bg-secondary mt-1.5"></span>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary">S. Ramanathan (OFFICER-SRO-01)</span>
+<span class="text-[11px] font-tabular-num text-outline">13:42:19</span>
+</div>
+<span class="text-on-surface-variant">Endorsement certificate issued for Anna Univ Affiliated Units</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ADVANCED FILTER SLIDE-OVER DRAWER (HIDDEN BY DEFAULT, TOGGLED VIA JS) -->
+<div class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0" id="filterDrawer">
+<!-- Backdrop Scrim -->
+<div class="absolute inset-0 bg-[#142B49] bg-opacity-40 transition-opacity" id="filterScrim"></div>
+<!-- Drawer Panel -->
+<div class="absolute right-0 top-0 h-full w-[420px] max-w-full bg-surface-container-lowest shadow-xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 p-space-lg pointer-events-auto" id="drawerContent">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-[#E2E7ED]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+<span class="font-headline-sm text-headline-sm text-primary">Jurisdiction & FDR Filter</span>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant" id="closeFilterBtn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Filter Controls -->
+<div class="flex flex-col gap-space-md">
+<!-- State / Region -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Regional Office / State</label>
+<select class="h-9 px-3 bg-surface-container-low text-on-surface rounded font-body-sm text-body-sm focus:outline-none">
+<option value="all">All Jurisdictions (Pan-India)</option>
+<option value="north">Northern Region (DEL, UP, PB, HR, J&K)</option>
+<option value="south">Southern Region (TN, KL, AP, TS)</option>
+<option value="west">Western Region (MH, GJ, GA)</option>
+<option value="east">Eastern Region (WB, OD, BH, JH)</option>
+</select>
+</div>
+<!-- Bank Institution -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Issuing Scheduled Bank</label>
+<select class="h-9 px-3 bg-surface-container-low text-on-surface rounded font-body-sm text-body-sm focus:outline-none">
+<option value="all">All Scheduled Commercial Banks</option>
+<option value="sbi">State Bank of India (SBI)</option>
+<option value="pnb">Punjab National Bank (PNB)</option>
+<option value="canara">Canara Bank</option>
+<option value="hdfc">HDFC Bank Ltd</option>
+<option value="icici">ICICI Bank Ltd</option>
+<option value="bob">Bank of Baroda</option>
+</select>
+</div>
+<!-- Tenor Range -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline">FDR Tenor / Lock-in Period</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-1.5 px-2 bg-primary-container text-on-primary rounded font-label-sm text-label-sm font-semibold text-center" type="button">3 Years</button>
+<button class="py-1.5 px-2 bg-surface-container text-on-surface rounded font-label-sm text-label-sm text-center hover:bg-surface-container-high" type="button">5 Years</button>
+<button class="py-1.5 px-2 bg-surface-container text-on-surface rounded font-label-sm text-label-sm text-center hover:bg-surface-container-high" type="button">10 Years</button>
+</div>
+</div>
+<!-- Amount Range -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline">FDR Principal Range</label>
+<div class="flex items-center gap-2">
+<input class="w-1/2 h-9 px-3 bg-surface-container-low text-on-surface font-tabular-num text-body-sm rounded" placeholder="Min ₹" type="text" value="₹10,00,000"/>
+<span class="text-outline">–</span>
+<input class="w-1/2 h-9 px-3 bg-surface-container-low text-on-surface font-tabular-num text-body-sm rounded" placeholder="Max ₹" type="text" value="₹5,00,00,000"/>
+</div>
+</div>
+<!-- Discrepancy Only Toggle -->
+<div class="flex items-center justify-between p-3 rounded bg-surface-container-low">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-semibold">Flagged Discrepancies Only</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Filter records failing OCR or Bank API match</span>
+</div>
+<input checked="" class="w-4 h-4 accent-primary cursor-pointer" type="checkbox"/>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-space-md border-t border-[#E2E7ED]">
+<button class="flex-1 h-9 bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-md text-label-md" id="resetFilterBtn">
+          Reset Filter
+        </button>
+<button class="flex-1 h-9 bg-primary hover:bg-primary-container text-on-primary rounded font-label-md text-label-md font-semibold" id="applyFilterBtn">
+          Apply Filter (48)
+        </button>
+</div>
+</div>
+</div>
+<!-- TOAST NOTIFICATION STACK -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" id="toastContainer"></div>
+<!-- JAVASCRIPT FOR QUICK ACTIONS & MODAL SIMULATION -->
+<script>
+    // Drawer Management
+    const filterBtn = document.getElementById('openFilterBtn');
+    const closeFilterBtn = document.getElementById('closeFilterBtn');
+    const applyFilterBtn = document.getElementById('applyFilterBtn');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+    const drawer = document.getElementById('filterDrawer');
+    const drawerContent = document.getElementById('drawerContent');
+    const scrim = document.getElementById('filterScrim');
+
+    function openDrawer() {
+      drawer.classList.remove('pointer-events-none');
+      drawer.classList.add('opacity-100');
+      drawerContent.classList.remove('translate-x-full');
+      drawerContent.classList.add('translate-x-0');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('opacity-100');
+      drawerContent.classList.remove('translate-x-0');
+      drawerContent.classList.add('translate-x-full');
+      setTimeout(() => {
+        drawer.classList.add('pointer-events-none');
+      }, 300);
+    }
+
+    filterBtn.addEventListener('click', openDrawer);
+    closeFilterBtn.addEventListener('click', closeDrawer);
+    scrim.addEventListener('click', closeDrawer);
+    applyFilterBtn.addEventListener('click', () => {
+      showToast('Filters applied. Queue updated: 48 records matched.', 'success');
+      closeDrawer();
+    });
+    resetFilterBtn.addEventListener('click', () => {
+      showToast('Filters reset to default national view.', 'info');
+      closeDrawer();
+    });
+
+    // Quick Notice Dispatch Action
+    function dispatchNotice(collegeCode, lang) {
+      showToast(`Multilingual Notice dispatched in ${lang} to ${collegeCode} via AICTE Mail & SMS Gateway.`, 'success');
+    }
+
+    // Quick Verification Review Dialog
+    function openVerificationModal(collegeCode, fdrNo) {
+      window.location.href = '../aicte_officer_fdr_verification_workspace_ai_engine/code.html';
+    }
+
+    // Phase 1: Coming Soon helper
+    function showComingSoon(feature) {
+      showToast((feature || 'This feature') + ' will be available in a future phase.', 'info');
+    }
+
+    // Dynamic Toast System
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `p-3 px-4 rounded shadow-lg flex items-center gap-2 pointer-events-auto text-body-sm font-body-sm transition-all duration-300 transform translate-y-4 opacity-0 ${
+        type === 'success' ? 'bg-primary text-on-primary' : 'bg-surface-container-highest text-on-surface'
+      }`;
+      
+      const icon = type === 'success' ? 'check_circle' : 'info';
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-[18px]">${icon}</span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      
+      // Animate in
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      });
+
+      // Auto dismiss
+      setTimeout(() => {
+        toast.classList.add('opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+  </script>
+</div></main></div></body></html>

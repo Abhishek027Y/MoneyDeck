@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoneyDeck — Institutional FDR Management Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  .md-demo-banner {
+    background: #FFFBEB;
+    border-bottom: 1px solid #F59E0B;
+    padding: 5px 16px;
+    text-align: center;
+    font-size: 11px;
+    color: #78350F;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+  body { padding-top: 28px !important; }
+</style>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#142B49',
+              'navy-dark': '#0E1F35',
+              'navy-light': '#1C3B63',
+              secondary: '#315B69',
+              gold: '#D7B978',
+              'gold-light': '#E9D6AA',
+            },
+            neutral: {
+              bg: '#F4F6F8',
+              surface: '#FFFFFF',
+              border: '#E2E7ED',
+              'border-subtle': '#EEF2F6',
+              text: '#273444',
+              muted: '#64748B',
+              light: '#8F9CAE',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #F4F6F8;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-neutral-text flex flex-col justify-between selection:bg-brand-navy selection:text-white">
+<div class="md-demo-banner">
+  ⚠️ <strong>Demo Mode</strong> — This is a non-functional prototype. No real data is transmitted or stored. Enter any credentials to proceed.
+</div>
+<!-- Main Container -->
+<main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10">
+<div class="w-full max-w-5xl bg-neutral-surface border border-neutral-border rounded-xl shadow-sm overflow-hidden flex flex-col lg:flex-row">
+<!-- Left Column: Institutional Brand & Context (~45%) -->
+<section class="lg:w-[45%] bg-brand-navy text-white p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle Institutional Background Accents -->
+<div class="absolute -right-20 -top-20 w-72 h-72 rounded-full border border-white/5 pointer-events-none"></div>
+<div class="absolute right-10 top-40 w-96 h-96 rounded-full border border-white/[0.03] pointer-events-none"></div>
+<div>
+<!-- Brand Wordmark & Security Shield Logo -->
+<div class="flex items-center gap-3.5 mb-8">
+<div class="w-11 h-11 rounded-lg bg-gradient-to-br from-brand-navy-light to-brand-navy border border-white/15 flex items-center justify-center text-brand-gold shadow-inner">
+<span class="material-symbols-outlined text-[26px]">account_balance</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-bold text-xl tracking-tight text-white leading-none">MoneyDeck</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold tracking-wider bg-brand-gold/15 text-brand-gold border border-brand-gold/30">Portal</span>
+</div>
+<p class="text-xs text-slate-300 font-medium tracking-normal mt-1">Institutional FDR Management Portal</p>
+</div>
+</div>
+<!-- Mission Statement -->
+<div class="mb-9">
+<h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white leading-snug mb-3">
+              A central platform for managing, reviewing and monitoring institutional Fixed Deposit Receipts.
+            </h1>
+<p class="text-sm text-slate-300 leading-relaxed">
+              Standardized compliance ledger connecting academic institutions with statutory regulatory verification bodies.
+            </p>
+</div>
+<!-- Feature Highlights -->
+<div class="space-y-4">
+<div class="flex items-start gap-3.5">
+<div class="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center text-brand-gold-light shrink-0 mt-0.5 border border-white/10">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</div>
+<div>
+<h2 class="text-sm font-semibold text-white">FDR Submission &amp; Management</h2>
+<p class="text-xs text-slate-300 leading-relaxed mt-0.5">Track and submit fixed deposit certificates seamlessly.</p>
+</div>
+</div>
+<div class="flex items-start gap-3.5">
+<div class="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center text-brand-gold-light shrink-0 mt-0.5 border border-white/10">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+</div>
+<div>
+<h2 class="text-sm font-semibold text-white">Document Review &amp; Verification</h2>
+<p class="text-xs text-slate-300 leading-relaxed mt-0.5">Two-way administrative verification and discrepancy resolution.</p>
+</div>
+</div>
+<div class="flex items-start gap-3.5">
+<div class="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center text-brand-gold-light shrink-0 mt-0.5 border border-white/10">
+<span class="material-symbols-outlined text-[18px]">event_repeat</span>
+</div>
+<div>
+<h2 class="text-sm font-semibold text-white">Maturity &amp; Renewal Tracking</h2>
+<p class="text-xs text-slate-300 leading-relaxed mt-0.5">Automated notifications and timeline monitoring for statutory compliance.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Left Column Footer Notes -->
+<div class="mt-10 pt-6 border-t border-white/10 text-xs space-y-3">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-slate-400 text-[16px]">lock</span>
+<span>Access is restricted to registered institutions and authorized AICTE officers.</span>
+</div>
+<div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Portal Status: Operational (v2.4)
+            </span>
+<span class="text-slate-400">Support: nodal-help@aicte.gov.in</span>
+</div>
+</div>
+</section>
+<!-- Right Column: Institutional Login Card (~55%) -->
+<section class="lg:w-[55%] bg-neutral-surface p-8 lg:p-10 flex flex-col justify-center">
+<div class="w-full max-w-md mx-auto">
+<!-- Card Header -->
+<div class="mb-6">
+<h2 class="text-2xl font-bold text-brand-navy tracking-tight">Sign in to MoneyDeck</h2>
+<p class="text-sm text-neutral-muted mt-1">Access your institutional account.</p>
+</div>
+<!-- Role Switcher Tabs -->
+<div class="p-1 bg-[#EEF2F6] rounded-lg flex gap-1 mb-6 border border-neutral-border">
+<button class="flex-1 py-2 text-xs font-semibold rounded-md transition-all duration-150 flex items-center justify-center gap-2 bg-neutral-surface text-brand-navy shadow-sm border border-neutral-border/60" id="tab-btn-college" onclick="setTab('college')" type="button">
+<span class="material-symbols-outlined text-[17px]">apartment</span>
+<span>College / Institution</span>
+</button>
+<button class="flex-1 py-2 text-xs font-medium rounded-md transition-all duration-150 flex items-center justify-center gap-2 text-neutral-muted hover:text-brand-navy" id="tab-btn-officer" onclick="setTab('officer')" type="button">
+<span class="material-symbols-outlined text-[17px]">shield_person</span>
+<span>AICTE Officer</span>
+</button>
+</div>
+<!-- TAB 1: College / Institution Form -->
+<form class="space-y-4" id="form-college" onsubmit="handleCollegeLogin(event);">
+<div>
+<label class="block text-xs font-semibold text-neutral-text mb-1.5" for="college-id">
+                Institution ID / AICTE Code
+              </label>
+<div class="relative">
+<input class="w-full h-10 px-3.5 pr-10 text-sm text-neutral-text placeholder:text-neutral-light bg-neutral-surface border border-neutral-border rounded-md focus:border-brand-navy focus:ring-1 focus:ring-brand-navy outline-none transition-colors" id="college-id" name="institution_code" placeholder="Enter your registered institution ID" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-neutral-light text-[18px] pointer-events-none">pin</span>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block text-xs font-semibold text-neutral-text" for="college-password">
+                  Password
+                </label>
+<a class="text-xs text-brand-secondary font-medium hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-3.5 pr-10 text-sm text-neutral-text placeholder:text-neutral-light bg-neutral-surface border border-neutral-border rounded-md focus:border-brand-navy focus:ring-1 focus:ring-brand-navy outline-none transition-colors" id="college-password" name="password" placeholder="Enter your password" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-2.5 top-2 text-neutral-light hover:text-neutral-text p-0.5 rounded focus:outline-none" onclick="togglePassword('college-password', 'college-pass-icon')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="college-pass-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Captcha Section -->
+<div>
+<label class="block text-xs font-semibold text-neutral-text mb-1.5" for="college-captcha">
+                Security Verification
+              </label>
+<div class="flex items-center gap-2.5">
+<div class="flex items-center justify-between h-10 px-3 bg-neutral-bg border border-neutral-border rounded-md select-none w-36">
+<span class="font-mono text-sm tracking-widest font-bold text-brand-navy italic line-through decoration-slate-400" id="captcha-display">
+                    7Q9LM
+                  </span>
+<button class="text-neutral-muted hover:text-brand-navy transition-colors focus:outline-none" onclick="refreshCaptcha()" title="Refresh Captcha" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+</button>
+</div>
+<input class="flex-1 h-10 px-3.5 text-sm uppercase placeholder:normal-case text-neutral-text placeholder:text-neutral-light bg-neutral-surface border border-neutral-border rounded-md focus:border-brand-navy focus:ring-1 focus:ring-brand-navy outline-none transition-colors" id="college-captcha" maxlength="6" name="captcha" placeholder="Enter verification code" required="" type="text"/>
+</div>
+</div>
+<!-- Remember Device -->
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input class="w-4 h-4 rounded border-neutral-border text-brand-navy focus:ring-brand-navy focus:ring-offset-0" type="checkbox"/>
+<span class="text-xs text-neutral-muted">Remember this device for 30 days</span>
+</label>
+</div>
+<!-- Submit CTA -->
+<button class="w-full h-10 bg-brand-navy hover:bg-brand-navy-light text-white font-medium text-sm rounded-md transition-colors shadow-sm flex items-center justify-center gap-2" type="submit">
+<span>Sign In as Institution</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<!-- Institution Onboarding Note -->
+<div class="pt-2 text-center">
+<p class="text-xs text-neutral-muted">
+                First time onboarding? <a class="text-brand-secondary font-medium hover:underline" href="#">Contact your nodal AICTE regional bureau.</a>
+</p>
+</div>
+</form>
+<!-- TAB 2: AICTE Officer Form -->
+<form class="space-y-4 hidden" id="form-officer" onsubmit="handleOfficerLogin(event);">
+<div>
+<label class="block text-xs font-semibold text-neutral-text mb-1.5" for="officer-email">
+                Official Email / Officer ID
+              </label>
+<div class="relative">
+<input class="w-full h-10 px-3.5 pr-10 text-sm text-neutral-text placeholder:text-neutral-light bg-neutral-surface border border-neutral-border rounded-md focus:border-brand-navy focus:ring-1 focus:ring-brand-navy outline-none transition-colors" id="officer-email" name="officer_id" placeholder="Enter your registered official credentials" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-neutral-light text-[18px] pointer-events-none">badge</span>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block text-xs font-semibold text-neutral-text" for="officer-password">
+                  Password
+                </label>
+<a class="text-xs text-brand-secondary font-medium hover:underline" href="#">Reset credential?</a>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-3.5 pr-10 text-sm text-neutral-text placeholder:text-neutral-light bg-neutral-surface border border-neutral-border rounded-md focus:border-brand-navy focus:ring-1 focus:ring-brand-navy outline-none transition-colors" id="officer-password" name="officer_password" placeholder="Enter your password" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-2.5 top-2 text-neutral-light hover:text-neutral-text p-0.5 rounded focus:outline-none" onclick="togglePassword('officer-password', 'officer-pass-icon')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="officer-pass-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- MFA Prompt Banner -->
+<div class="p-3 rounded-md bg-[#F0F5F9] border border-[#D5E2EC] flex items-start gap-2.5">
+<span class="material-symbols-outlined text-brand-secondary text-[18px] mt-0.5 shrink-0">vibration</span>
+<div class="text-xs text-neutral-text leading-tight">
+<span class="font-semibold text-brand-navy">Registered 2FA Security Token / Mobile OTP</span>
+<p class="text-neutral-muted mt-0.5">Verification challenge will be prompted on the next step following credential authentication.</p>
+</div>
+</div>
+<!-- Officer CTA -->
+<button class="w-full h-10 bg-brand-navy hover:bg-brand-navy-light text-white font-medium text-sm rounded-md transition-colors shadow-sm flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+<span>Sign In as Officer</span>
+</button>
+<!-- Officer Notice -->
+<div class="pt-2">
+<p class="text-xs text-neutral-muted leading-relaxed text-center">
+                Officer access requires pre-authorized administrative credentials. Public registration is not permitted.
+              </p>
+</div>
+</form>
+<!-- Security Badge Below Form -->
+<div class="mt-6 pt-5 border-t border-neutral-border/80 flex items-center justify-center gap-2 text-xs text-neutral-muted">
+<span class="material-symbols-outlined text-brand-secondary text-[17px]">verified_user</span>
+<span>Secure access for registered institutions and authorized personnel.</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Global Clean Institutional Footer -->
+<footer class="w-full py-4 px-6 border-t border-neutral-border bg-neutral-surface">
+<div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-muted gap-3">
+<div class="font-medium text-neutral-text">
+        MoneyDeck <span class="text-neutral-border mx-1.5">|</span> Institutional FDR Management
+      </div>
+<nav class="flex items-center gap-4 text-xs">
+<a class="hover:text-brand-navy transition-colors" href="#">Help &amp; Support</a>
+<span class="text-neutral-border">•</span>
+<a class="hover:text-brand-navy transition-colors" href="#">Privacy Policy</a>
+<span class="text-neutral-border">•</span>
+<a class="hover:text-brand-navy transition-colors" href="#">Terms of Use</a>
+</nav>
+<div>
+        © MoneyDeck. All rights reserved.
+      </div>
+</div>
+</footer>
+<script>
+    function setTab(tab) {
+      const btnCollege = document.getElementById('tab-btn-college');
+      const btnOfficer = document.getElementById('tab-btn-officer');
+      const formCollege = document.getElementById('form-college');
+      const formOfficer = document.getElementById('form-officer');
+
+      if (tab === 'college') {
+        btnCollege.className = 'flex-1 py-2 text-xs font-semibold rounded-md transition-all duration-150 flex items-center justify-center gap-2 bg-neutral-surface text-brand-navy shadow-sm border border-neutral-border/60';
+        btnOfficer.className = 'flex-1 py-2 text-xs font-medium rounded-md transition-all duration-150 flex items-center justify-center gap-2 text-neutral-muted hover:text-brand-navy';
+        formCollege.classList.remove('hidden');
+        formOfficer.classList.add('hidden');
+      } else {
+        btnOfficer.className = 'flex-1 py-2 text-xs font-semibold rounded-md transition-all duration-150 flex items-center justify-center gap-2 bg-neutral-surface text-brand-navy shadow-sm border border-neutral-border/60';
+        btnCollege.className = 'flex-1 py-2 text-xs font-medium rounded-md transition-all duration-150 flex items-center justify-center gap-2 text-neutral-muted hover:text-brand-navy';
+        formOfficer.classList.remove('hidden');
+        formCollege.classList.add('hidden');
+      }
+    }
+
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerText = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.innerText = 'visibility';
+      }
+    }
+
+    function refreshCaptcha() {
+      const charset = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+      let code = '';
+      for (let i = 0; i < 5; i++) {
+        code += charset.charAt(Math.floor(Math.random() * charset.length));
+      }
+      document.getElementById('captcha-display').innerText = code;
+    }
+
+    function handleCollegeLogin(event) {
+      event.preventDefault();
+      const btn = event.target.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Signing in...</span>';
+      }
+      setTimeout(function () {
+        window.location.href = '../college_portal_institutional_fdr_management_dashboard/code.html';
+      }, 700);
+    }
+
+    function handleOfficerLogin(event) {
+      event.preventDefault();
+      const btn = event.target.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span><span>Signing in...</span>';
+      }
+      setTimeout(function () {
+        window.location.href = '../aicte_officer_executive_fdr_overview_dashboard/code.html';
+      }, 700);
+    }
+  </script>
+</body></html>
