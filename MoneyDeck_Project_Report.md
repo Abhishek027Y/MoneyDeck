@@ -4,7 +4,7 @@
 
 - **Report date:** 30 Oct 2026
 - **Origin:** UI designed in Google Stitch; inspected via Google Antigravity (5 pages exported as `code.html` + `screen.png`).
-- **Status:** Front-end prototype (Phase 1-A wiring completed). No backend, database, authentication, AI/OCR, or bank API integration yet.
+- **Status:** Front-end prototype (Phase 1-A wiring ✅, Phase 1-A.5 logo fix ✅, Phase 1-B front-end interactivity ✅). No backend, database, authentication, AI/OCR, or bank API integration — all interactivity is client-side/browser-state only.
 
 ---
 
@@ -43,7 +43,7 @@ MoneyDeck\
 | `index.html` | JS redirect (`location.replace`) to login; manual fallback link for no-JS. |
 | **Login** | Role tabs (College / Officer), password toggle, captcha generator (display-only), "Remember device" checkbox, MFA banner. Submitting (any credentials — validation not implemented) redirects after ~700 ms: College → College Dashboard, Officer → AICTE Dashboard. |
 | **College Dashboard** | KPI cards (Total / Verified / Pending / Upcoming maturities), statutory renewal alert banner, FDR register table (3 static rows: HDFC, SBI, PNB), officer correspondence feed, recent statutory events. Toast helper `showComingSoon()` for unbuilt features. Hero "+ Submit New FDR" navigates to Batch Submission Gateway. |
-| **Batch Submission Gateway** | Static render of Step 2 of 4 ("FDR Parameters"): Group A bank info, Group B FDR financials, tenor calc, batch docket sidebar, statutory norms. Wizard navigation is **not** implemented (Phase 1-B). |
+| **Batch Submission Gateway** | **Functional 4-step wizard (Phase 1-B):** Previous/Continue navigation with step badges (`✓`/active/pending), required-field validation with per-field error highlighting + friendly toasts, values preserved across steps. **Save Draft** stores form values + staged batch + document *metadata* in `localStorage` (prototype only — not a secure or official record store) and auto-resumes on reload. **Batch docket:** real entries staged from the form ("Active in Form" live card + "Staged" cards with Remove), duplicate & incomplete-entry prevention, live totals + ₹35L statutory-threshold chip, View Batch scroll. **Step 3:** real PDF file picker (type & 15 MB size validation, SHA-256 preview, prototype disclosure that no file is uploaded to any server). **Step 4:** live review values, statutory declaration gate, confirmation modal, prototype submission with wizard reset. |
 | **AICTE Officer Dashboard** | Urgent maturity alerts, verification queue, working filter drawer (open/apply/reset toasts), `dispatchNotice()` toast, `openVerificationModal()` → Verification Workspace. |
 | **Verification Workspace** | Best-built page: split 60% document viewer (FDR receipt, annexures, security elements) / 40% 4-tab extracted-data verification panel, Verify & Report-Problem modals, toast system. |
 
@@ -73,8 +73,9 @@ MoneyDeck\
 | Phase | Scope | Status |
 |-------|-------|--------|
 | Baseline | Git initialized; original unmodified Stitch export committed (`37fe807`). | ✅ Done (Phase 1-A) |
-| 1-A | Safety & wiring: navigation fixes, Sign Out, Portal Home link, single redirect. | ✅ Done (this phase) |
-| 1-B | Front-end interactivity: wizard steps/`localStorage` drafts, register "Details", batch docket accumulation. | ⏸ Awaiting approval |
+| 1-A | Safety & wiring: navigation fixes, Sign Out, Portal Home link, single redirect. | ✅ Done (commit `fde09c9`) |
+| 1-A.5 | AICTE dashboard dead logo → CSS "MD" monogram. | ✅ Done (commit `b413b3c`) |
+| 1-B | Front-end interactivity: 4-step wizard, localStorage drafts, batch docket state, real PDF selection (local check only), register "Details". | ✅ Done (this phase) |
 | 1-C | Missing pages (My FDR Records, Alerts & Notices, Problem Reports, Audit Log, …). | ⏸ Awaiting approval |
 | 2+ | Backend, database, real auth/sessions, AI/OCR extraction, bank/scheduled-bank APIs. | ❌ Explicitly out of scope (client instruction) |
 
@@ -89,7 +90,21 @@ MoneyDeck\
 | `moneydeck_institutional_access_secure_login/code.html` | Added subtle **"Portal Home"** link in brand section → `index.html`. |
 | `MoneyDeck_Project_Report.md` | Created (this file). |
 
-**Not modified (by design):** all `screen.png` files, `DESIGN.md`, layout/colors/typography/components of any page, Batch Submission Gateway page (wizard interactivity deferred to Phase 1-B).
+## 5-B. Phase 1-B Change Log (files modified)
+
+| File | Change |
+|------|--------|
+| `college_portal_submit_new_fdr_batch_submission_gateway/code.html` | **[M]** The only Phase 1-B code change. Minimal markup edits: (1) both "Save Draft" buttons → `saveFdrDraft()`; (2) upload card & "Replace" → real hidden `<input type="file" accept="application/pdf">` via `pickFdrDocument()`; (3) added id `uploaded-file-meta`; (4) added id `modal-bank-ref`; (5) inserted one honest **prototype disclosure** note in Step 3 (amber note in the existing design tokens) + hidden file input. Appended one readable `<script>` block at `</body>` overriding the generated stubs (`goToStep`, `validateAndGoToStep3`, `updateReviewValues`, `recalcTenor`, `formatPrincipalAmount`, `handleIfscLookup`, `updateBankDetails`, `addCurrentFdrToBatch`, `updateBatchUI`, `openFinalConfirmModal`, `processFinalSubmission`, `showToast`, plus new `saveFdrDraft`, `pickFdrDocument`, `handleFdrFileSelect`, `removeBatchEntry`, `renderBatch`) with complete client-side logic. All visual classes copied from the original UI. **No `alert()` remains** (replaced by the in-page styled toast + per-field error styling `.md-field-error`). |
+| `MoneyDeck_Project_Report.md` | Status & change log updated. |
+
+**Byte-integrity proof:** reverting the eight Phase 1-B insertions/replacements from the gateway file reproduces the Phase 1-A.5 commit content **byte-for-byte** (verified). No other page was touched in Phase 1-B.
+
+### Phase 1-B behavior notes
+- Draft key: `moneydeck_fdr_draft_v1` (plain JSON: form values, staged entries, document *name/size only*, current step). Document **files are never persisted** — browsers cannot keep file handles, so the restored badge asks the user to re-select the PDF and Step-3 remains gated until they do.
+- localStorage disclaimer shown verbatim in the Save Draft toast: *"...Prototype only — not a secure or official record store."*
+- After a prototype submission the wizard resets (empty form, cleared docket, draft removed) and the toast states that nothing was sent to any server.
+
+**Not modified (by design):** all `screen.png` files, `DESIGN.md`, layout/colors/typography/components of any page. (The Batch Submission Gateway logic was deferred to Phase 1-B and implemented there without touching any visual design.)
 
 ## 6. Fit-Gap Notes for Future Phases (reference only)
 
