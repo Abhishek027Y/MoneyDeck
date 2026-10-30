@@ -56,9 +56,7 @@ MoneyDeck\
 - Hidden legacy markup: `#new-fdr-modal` "Submit New FDR Modal" remains in College Dashboard HTML but is now unreachable from the sidebar (sidebar navigates to the Gateway instead). Kept intentionally (no deletions in Phase 1-A).
 
 ### Broken / expiring assets 🔴 (approved fix pending)
-- `aicte_officer_executive_fdr_overview_dashboard/code.html` header uses a Stitch-hosted logo:
-  `https://lh3.googleusercontent.com/aida/AEtjO1Ub...` — **verified dead** (responds with HTML redirect to Google sign-in, not an image). The AICTE header logo renders broken, and the failed image appears as a network error in console.
-  *Recommendation (needs approval, Phase 1-A.5):* replace `<img>` with the same CSS "MD" monogram used by every other page, or download a permanent asset — this is the only structural deviation between AICTE headers and the other shells.
+- ~~`aicte_officer_executive_fdr_overview_dashboard/code.html` header uses a Stitch-hosted logo~~ → **Fixed in Phase 1-A.5 (commit `ddca946`):** both dead Stitch-hosted `aida` logo images (header + sidebar brand) were replaced with the same CSS "MD" monogram used on the other pages (32×32, navy `primary-container` #142B49, white bold, `rounded-lg`, `shadow-sm`, `shrink-0`). The officer profile photo (`aida-public` URL) still loads and was left untouched.
 
 ### Design-system / environment
 - Tailwind dev-mode CDN + two different Material Symbols stylesheet variants across pages (visual parity acceptable, duplicate requests).
