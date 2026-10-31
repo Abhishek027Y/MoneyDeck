@@ -2,8 +2,8 @@
 node_modules/
 server/node_modules/
 uploads/
-*.db
-*.db-shm
-*.db-wal
+# *.db
+# *.db-shm
+# *.db-wal
 .env
 test-tmp/
