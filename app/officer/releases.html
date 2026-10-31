@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Release Requests (Officer) — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+let curStatus = '';
+
+async function boot() {
+  await MDShell.init({
+    role: 'officer', page: 'Release Requests', icon: 'outbox',
+    heading: 'Lien Release Requests — Officer Review',
+    subheading: 'Approve or reject a college’s release request with a recorded reason, then mark the request completed once funds are actually freed. Funds submission is never presumed.',
+  });
+  await load('pending');
+}
+
+async function load(status) {
+  curStatus = status;
+  const { data } = await MD.api('GET', `/officer/releases${status ? `?status=${status}` : ''}`);
+  render(data.releases, status);
+}
+
+function badge(s) {
+  const map = { pending: ['bg-[#FEF7EC]', 'text-[#D97706]', 'border-[#D9770655]'], approved: ['bg-[#EAF6ED]', 'text-[#1E7E34]', 'border-[#1E7E3455]'], completed: ['bg-[#F3F4F6]', 'text-[#4B5563]', 'border-[#4B556355]'], rejected: ['bg-[#FEF2F2]', 'text-[#DC2626]', 'border-[#DC262655]'] };
+  const m = map[s] || map.pending;
+  return `<span class="px-1.5 py-0.5 text-[10px] font-semibold rounded border uppercase tracking-wide ${m.join(' ')}">${MD.escapeHtml(s)}</span>`;
+}
+
+function render(rows, cur) {
+  document.querySelectorAll('#mdshell-content > :not(:first-child)').forEach((el) => el.remove());
+  const cards = rows.map((r) => `
+    <div class="p-4 border-b border-[#E2E7ED]">
+      <div class="flex items-start justify-between gap-3 flex-wrap">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-[13px] font-semibold text-[#142D4E] font-tabular-num">${MD.escapeHtml(r.request_ref)}</span>
+            ${badge(r.status)}
+            <span class="text-[11px] text-slate-500">${MD.escapeHtml(r.institution_name)}</span>
+          </div>
+          <p class="text-[12px] text-slate-600 mt-1">${MD.escapeHtml(r.cert_no)} — ${MD.escapeHtml(r.bank_name)} • <span class="font-tabular-num font-semibold">${MD.fmtMoney(r.principal_amount)}</span></p>
+          <p class="text-[12px] text-slate-600 mt-1.5 whitespace-pre-wrap">${MD.escapeHtml(r.reason || '')}</p>
+          <p class="text-[10px] text-slate-400 mt-1.5 font-tabular-num">requested by ${MD.escapeHtml(r.requested_by_name || '')} on ${MD.fmtDate(r.requested_at)}${r.decided_by_name ? ` • decided by ${MD.escapeHtml(r.decided_by_name)} on ${MD.fmtDate(r.decided_at)}` : ''}${r.officer_comment ? ` • note: ${MD.escapeHtml(r.officer_comment)}` : ''}</p>
+        </div>
+        <div class="flex items-center gap-1.5">
+          ${r.status === 'pending' ? `
+            <button class="px-3 py-1.5 bg-[#1E7E34] text-white rounded text-[11px] font-semibold hover:brightness-110" onclick="pageDecide(${r.id}, 'approved')">Approve</button>
+            <button class="px-3 py-1.5 bg-[#DC2626] text-white rounded text-[11px] font-semibold hover:brightness-110" onclick="pageDecide(${r.id}, 'rejected')">Reject</button>` : ''}
+          ${r.status === 'approved' ? `<button class="px-3 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" onclick="pageComplete(${r.id})">Mark completed</button>` : ''}
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] p-4 shadow-sm flex flex-wrap items-center gap-2">
+      ${['pending', '', 'approved', 'completed', 'rejected'].map((s) => `
+        <button class="px-3 py-1.5 rounded text-[11px] font-semibold border ${cur === s ? 'bg-[#142D4E] text-white border-[#142D4E]' : 'bg-white text-slate-600 border-[#E2E7ED] hover:bg-slate-50'}" onclick="pageFilter('${s}')">${s === '' ? 'All' : MD.escapeHtml(s)}</button>`).join('')}
+      <span class="flex-1"></span><span class="text-[11px] font-tabular-num text-slate-500">${rows.length} request(s)</span>
+    </div>
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden">
+      ${cards || '<div class="p-8 text-center text-[13px] text-slate-500">No release requests in this view.</div>'}
+    </div>`);
+}
+
+async function pageFilter(s) { await load(s).catch((e) => MD.toast(e.message, true)); }
+async function pageDecide(id, decision) {
+  const comment = window.prompt(decision === 'approved'
+    ? 'Approval comment (what settlement evidence you verified):'
+    : 'Rejection reason (why this release cannot be approved now):');
+  if (!comment || comment.trim().length < 10) { MD.toast('A comment of at least 10 characters is required.', true); return; }
+  try {
+    await MD.api('POST', `/officer/releases/${id}/decision`, { decision, comment: comment.trim() });
+    MD.toast(`Release request ${decision}. The college is notified.`, false);
+    load(curStatus);
+  } catch (e) { MD.toast(e.message, true); }
+}
+async function pageComplete(id) {
+  const note = window.prompt('Completion note (bank confirmation of funds actually released):');
+  if (!note || note.trim().length < 3) { MD.toast('A completion note is required.', true); return; }
+  try {
+    await MD.api('POST', `/officer/releases/${id}/complete`, { note: note.trim() });
+    MD.toast('Release completed — FDR marked as released.', false);
+    load(curStatus);
+  } catch (e) { MD.toast(e.message, true); }
+}
+window.pageFilter = pageFilter; window.pageDecide = pageDecide; window.pageComplete = pageComplete;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

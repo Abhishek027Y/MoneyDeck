@@ -18,6 +18,36 @@ app.use(rateLimit('api'));
 
 // Static frontend (project root: index.html + stitch pages + app pages)
 const ROOT = path.join(__dirname, '..', '..');
+const LOGIN_PAGE = '/moneydeck_institutional_access_secure_login/code.html';
+
+app.get('/', (_req, res) => res.redirect(302, '/login'));
+app.get('/login', (req, res) => {
+  const returnTo = typeof req.query.returnTo === 'string' &&
+    req.query.returnTo.startsWith('/') &&
+    !req.query.returnTo.startsWith('//') &&
+    !req.query.returnTo.startsWith('/login')
+    ? `?returnTo=${encodeURIComponent(req.query.returnTo)}`
+    : '';
+  res.redirect(302, `${LOGIN_PAGE}${returnTo}`);
+});
+
+function protectAppPages(req, res, next) {
+  if (!/\.html?$/i.test(req.path)) return next();
+  const requiredRole = req.path.startsWith('/college/') ? 'college'
+    : req.path.startsWith('/officer/') ? 'officer'
+      : null;
+  if (!req.user) {
+    return res.redirect(302, `/login?returnTo=${encodeURIComponent(req.originalUrl)}`);
+  }
+  if (requiredRole && req.user.role_code !== requiredRole) {
+    const destination = req.user.role_code === 'officer'
+      ? '/aicte_officer_executive_fdr_overview_dashboard/code.html'
+      : '/college_portal_institutional_fdr_management_dashboard/code.html';
+    return res.redirect(302, destination);
+  }
+  next();
+}
+
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads'), { index: false, dotfiles: 'ignore' }));
 // NOTE: /uploads is intentionally *not* a direct file portal — authorized document
 // access flows through /api/documents/:id/content (auth + access control there).
@@ -29,7 +59,22 @@ app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'moneydeck-a
 
 if (process.env.MD_SERVE_FRONTEND !== '0') {
   // Serve existing pages at their natural paths.
-  app.use('/app', express.static(path.join(ROOT, 'app'), { index: false }));
+  app.use('/app', protectAppPages, express.static(path.join(ROOT, 'app'), { index: false }));
+  // Stitch prototype pages live under one folder; expose each page URL both as
+  // /stitch/<page>/code.html and /<page>/code.html (links used inside the pages).
+  const STITCH = path.join(ROOT, 'stitch_moneydeck_institutional_fdr_management');
+  const fs = require('node:fs');
+  app.use('/stitch', express.static(STITCH, { index: false }));
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    const m = /^\/([A-Za-z0-9_-]+)(\/code\.html)$/.exec(req.path);
+    if (!m) return next();
+    const dir = path.resolve(STITCH, m[1]);
+    if (dir !== STITCH && !dir.startsWith(STITCH + path.sep)) return next();
+    const file = path.join(dir, 'code.html');
+    if (fs.existsSync(file)) return res.sendFile(file);
+    next();
+  });
   app.use(express.static(ROOT, { index: 'index.html' }));
 }
 

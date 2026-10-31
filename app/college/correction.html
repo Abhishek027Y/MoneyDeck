@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Correction Resubmission — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+const FDR_ID = MD.qs('id');
+let corr = null;
+
+const FIELDS = [
+  ['bank_name', 'Bank name'], ['cert_no', 'Certificate number'], ['principal_amount', 'Principal amount (₹, whole)'],
+  ['issue_date', 'Issue date (YYYY-MM-DD)'], ['maturity_date', 'Maturity date (YYYY-MM-DD)'],
+  ['interest_rate', 'Interest rate (%)'], ['beneficiary', 'Beneficiary'], ['ifsc', 'IFSC'],
+  ['branch_address', 'Branch address'], ['account_ref', 'Account reference'],
+];
+
+async function boot() {
+  await MDShell.init({
+    role: 'college', page: 'Correction Resubmission', icon: 'edit_note',
+    heading: 'Correction Resubmission',
+    subheading: 'Two correction attempts are allowed per verification cycle. If the discrepancy persists after the second attempt, the case escalates to the AICTE Officer automatically.',
+  });
+  const { data } = await MD.api('GET', `/college/fdrs/${FDR_ID}`);
+  corr = data.correction;
+  const f = data.fdr;
+
+  if (!corr || corr.status !== 'open') {
+    document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+      <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-6">
+        <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-500">info</span>
+        <h2 class="text-[15px] font-semibold text-[#142D4E]">No open correction request</h2></div>
+        <p class="text-[13px] text-slate-600">There is no open correction request for ${MD.escapeHtml(f.submission_ref)}. Corrections can only be submitted while an officer request is open.</p>
+        <a class="inline-flex items-center gap-1.5 mt-4 px-3 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" href="/app/college/fdr-details.html?id=${FDR_ID}">Back to record</a>
+      </div>`);
+    return;
+  }
+
+  const esc = corr.attempt_no >= 2;
+  const fields = FIELDS.map(([key, label]) => `
+    <label class="flex flex-col gap-1">
+      <span class="text-[12px] font-semibold text-slate-600 uppercase tracking-wide">${label}</span>
+      <input id="f-${key}" value="${MD.escapeHtml(String(f[key] ?? ''))}" class="h-9 px-3 text-[13px] border border-[#E2E7ED] rounded focus:outline-none focus:border-[#142D4E] ${esc ? 'bg-slate-50' : 'bg-white'}" ${esc ? 'disabled' : ''} />
+    </label>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-[#FEF7EC] border border-[#D9770655] rounded-lg p-5">
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-amber-700">warning</span>
+      <p class="text-[13px] font-semibold text-amber-800">Correction request attempt ${corr.attempt_no} of 2 is open for ${MD.escapeHtml(f.submission_ref)}</p></div>
+      <p class="text-[12px] text-amber-800 mt-1">Requested by ${MD.escapeHtml(corr.requested_by_name)} on ${MD.fmtDate(corr.requested_at)}: ${MD.escapeHtml(corr.reason)}</p>
+      ${esc ? `<p class="text-[12px] font-semibold text-[#991B1B] mt-2">This is the final attempt. Once you resubmit, the record is reviewed one last time; the two-attempt limit is then enforced automatically.</p>`
+            : `<p class="text-[12px] text-amber-800 mt-2">Carefully correct only the fields the officer flagged — each resubmission consumes one of the two allowed correction attempts.</p>`}
+    </div>
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+      <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Corrected record data (version ${f.version_no} → ${Number(f.version_no) + 1})</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">${fields}</div>
+      <label class="flex items-start gap-2 mt-4 text-[12px] text-slate-700">
+        <input id="f-note" class="flex-1 h-16 px-3 text-[13px] border border-[#E2E7ED] rounded align-top" placeholder="Optional note to the verifying officer explaining the correction…" />
+      </label>
+      <div class="flex items-center gap-2 mt-4">
+        <button class="px-4 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F] ${esc ? 'opacity-70' : ''}" onclick="pageSubmit()">Submit corrected data</button>
+        <a class="px-4 py-2 bg-white border border-[#E2E7ED] rounded text-xs font-semibold hover:bg-slate-50" href="/app/college/fdr-details.html?id=${FDR_ID}">Cancel</a>
+        <span id="page-status" class="text-[12px] text-slate-500"></span>
+      </div>
+      <p class="text-[11px] text-slate-500 mt-3">Every change is stored as a new version — before/after values and who changed them are preserved permanently.</p>
+    </div>`);
+}
+
+async function pageSubmit() {
+  const st = document.getElementById('page-status');
+  st.textContent = 'Submitting…';
+  const body = {};
+  for (const [key] of FIELDS) {
+    const el = document.getElementById(`f-${key}`);
+    if (!el || el.disabled) continue;
+    let v = el.value.trim();
+    if (key === 'principal_amount') { if (v !== '') v = Number(v); }
+    else if (key === 'interest_rate') { if (v !== '') v = Number(v); }
+    if (v !== '') body[key] = v;
+  }
+  try {
+    const { data } = await MD.api('POST', `/college/fdrs/${FDR_ID}/resubmit`, body);
+    MD.toast(data.message || 'Correction submitted.', false);
+    window.location.href = `/app/college/fdr-details.html?id=${FDR_ID}`;
+  } catch (e) {
+    st.textContent = '';
+    MD.toast(e.message, true);
+  }
+}
+window.pageSubmit = pageSubmit;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

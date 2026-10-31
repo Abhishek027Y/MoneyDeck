@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FDR Details — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased" onload="init()">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+const FDR_ID = MD.qs('id');
+
+async function init() {
+  await MDShell.init({ role: 'college', page: 'FDR Details', icon: 'receipt_long', heading: 'FDR Record Details', subheading: 'Submitted data, document, OCR comparison, bank confirmation, corrections and audit timeline.' });
+  const actions = document.getElementById('mdshell-title-actions');
+  actions.innerHTML = `
+    <a class="inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-[#E2E7ED] rounded text-xs font-semibold hover:bg-slate-50" href="/app/college/fdr-records.html"><span class="material-symbols-outlined text-[15px]">arrow_back</span>Back to register</a>
+    <button class="inline-flex items-center gap-1.5 px-3 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" onclick="window.open(document.getElementById('doc-frame').src,'_blank')" id="preview-btn" disabled><span class="material-symbols-outlined text-[15px]">open_in_new</span>Open document</button>`;
+  await load();
+}
+
+async function load() {
+  let d;
+  try {
+    d = (await MD.api('GET', `/college/fdrs/${FDR_ID}`)).data;
+  } catch (e) {
+    document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `<div class="bg-white border border-[#E2E7ED] rounded-lg p-6 text-sm text-red-700">${MD.escapeHtml(e.message)}</div>`);
+    return;
+  }
+  const f = d.fdr;
+  const doc = d.currentDocument;
+  const docBtn = document.getElementById('preview-btn');
+  if (doc) { docBtn.disabled = false; docFrame.src = doc.content_url; } else { docBtn.disabled = true; }
+
+  const byKey = Object.fromEntries((d.comparison || []).map((c) => [c.field_key, c]));
+  const OMIT = new Set(['id', 'institution_id', 'batch_id', 'created_by', 'updated_at', 'created_at', 'internal_id', 'lien_clause']);
+  const recordRows = Object.entries(f).filter(([k]) => !OMIT.has(k)).map(([k, v]) => `
+    <tr class="border-b border-slate-100"><td class="py-2 pr-4 text-[12px] font-semibold text-slate-500 uppercase tracking-wide">${k.replace(/_/g, ' ')}</td>
+    <td class="py-2 text-[13px] font-tabular-num">${MD.escapeHtml(String(v ?? '—'))}</td></tr>`).join('');
+
+  const cmpRows = (d.comparison || []).map((c) => `
+    <tr class="border-b border-slate-100">
+      <td class="py-2 px-3 text-[12px] font-semibold text-slate-600">${MD.escapeHtml(c.field_key.replace(/_/g, ' '))}</td>
+      <td class="py-2 px-3 text-[13px] font-tabular-num">${MD.escapeHtml(c.record_value ?? '—')}</td>
+      <td class="py-2 px-3 text-[13px] font-tabular-num">${MD.escapeHtml(c.ocr_value ?? '—')}</td>
+      <td class="py-2 px-3 text-[12px] font-tabular-num">${c.confidence != null ? (c.confidence * 100).toFixed(0) + '%' : '—'}</td>
+      <td class="py-2 px-3">${cmpBadge(c.status)}</td>
+    </tr>`).join('');
+
+  const verRows = (d.verifications || []).map((v) => `
+    <div class="p-3 border border-[#E2E7ED] rounded-lg bg-slate-50">
+      <div class="flex items-center justify-between"><span class="text-[12px] font-semibold text-slate-700">Attempt ${v.attempt_no} — ${MD.STATUS_TEXT[v.decision] || v.decision}</span><span class="text-[11px] text-slate-500 font-tabular-num">${MD.fmtDate(v.decided_at)}</span></div>
+      <p class="text-[12px] text-slate-600 mt-1">${MD.escapeHtml(v.officer_comment)}</p>
+      <p class="text-[11px] text-slate-400 mt-1">${MD.escapeHtml(v.officer_name)}${v.field_discrepancies && v.field_discrepancies !== '[]' ? ' • Fields: ' + MD.escapeHtml(v.field_discrepancies) : ''}</p>
+    </div>`).join('');
+
+  const corr = d.correction;
+  const parseIfJson = (v) => { if (typeof v === 'string') { try { return JSON.parse(v); } catch { return v; } } return v; };
+  const corrRows = (d.correctionVersions || []).map((v) => {
+    const before = parseIfJson(v.data_before), after = parseIfJson(v.data_after);
+    return `
+    <div class="p-3 border border-[#E2E7ED] rounded-lg">
+      <div class="flex items-center justify-between"><span class="text-[12px] font-semibold text-[#142D4E]">Version ${v.version_no}</span><span class="text-[11px] text-slate-500">${MD.escapeHtml(v.changed_by_name || '')} • ${MD.fmtDate(v.changed_at)}</span></div>
+      <div class="grid grid-cols-2 gap-2 mt-2 text-[11px]">
+        <div class="bg-slate-50 border border-slate-100 rounded p-2"><div class="font-semibold text-slate-500 mb-1 uppercase tracking-wide">Before</div><pre class="whitespace-pre-wrap font-tabular-num text-slate-700">${MD.escapeHtml(JSON.stringify(before, null, 1))}</pre></div>
+        <div class="bg-blue-50 border border-blue-100 rounded p-2"><div class="font-semibold text-blue-700 mb-1 uppercase tracking-wide">After</div><pre class="whitespace-pre-wrap font-tabular-num text-slate-700">${MD.escapeHtml(JSON.stringify(after, null, 1))}</pre></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const commRows = (d.comments || []).map((c) => `
+    <div class="p-3 border-b border-slate-100">
+      <div class="flex items-center justify-between"><span class="text-[12px] font-semibold text-slate-700">${MD.escapeHtml(c.officer_name)}</span><span class="text-[11px] text-slate-500">${MD.fmtDate(c.created_at)}</span></div>
+      <p class="text-[12px] text-slate-600 mt-1">${MD.escapeHtml(c.message)}</p>
+      ${c.reply ? `<div class="mt-2 ml-4 p-2 bg-blue-50 border border-blue-100 rounded text-[12px]"><span class="font-semibold text-blue-800">Institution reply:</span> ${MD.escapeHtml(c.reply)}</div>` : ''}
+    </div>`).join('');
+
+  const auditRows = (d.auditTrail || []).map((a) => `
+    <div class="flex items-start gap-3 py-2 border-b border-slate-100">
+      <span class="material-symbols-outlined text-[16px] text-slate-400 mt-0.5">${auditIcon(a.action)}</span>
+      <div class="flex-1"><p class="text-[12px] text-slate-700"><span class="font-semibold">${MD.escapeHtml(a.action)}</span>${a.actor ? ' by ' + MD.escapeHtml(a.actor) : ''}</p>
+      <p class="text-[10px] text-slate-400 font-tabular-num">${MD.fmtDate(a.created_at)}</p></div>
+    </div>`).join('');
+
+  const renewals = (d.renewals || []).map((r) => {
+    const label = r.previous_fdr_id === Number(FDR_ID)
+      ? `This FDR was renewed into <b>${MD.escapeHtml(r.new_cert || r.new_ref || ('record #' + r.new_fdr_id))}</b>`
+      : `This FDR is the renewal of record <b>#${r.previous_fdr_id}</b>`;
+    return `<div class="p-3 border-b border-slate-100 text-[12px] flex items-center justify-between flex-wrap gap-2">
+      <span>${label}</span><span class="text-[11px] text-slate-500">${MD.fmtDate(r.submitted_at || r.created_at)}</span></div>`;
+  }).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-6">
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <div class="flex items-center justify-between">
+            <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Submitted Information</h2>
+            <div class="flex gap-2">${MD.badge(f.verification_status)}${MD.badge(f.bank_confirmation_status)}</div>
+          </div>
+          <div class="text-[11px] text-slate-500 font-tabular-num mt-1">${MD.escapeHtml(f.submission_ref)}</div>
+          <table class="w-full mt-3">${recordRows}</table>
+        </div>
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Uploaded Document (v${doc ? doc.version_no : '—'})</h2>
+          ${doc ? `<div class="mt-2 text-[12px] text-slate-600">${MD.escapeHtml(doc.file_name)} • ${(doc.size_bytes / 1024).toFixed(0)} KB • uploaded by ${MD.escapeHtml(doc.uploaded_by_name)} on ${MD.fmtDate(doc.uploaded_at)}</div>
+          <iframe id="doc-frame" class="mt-2 w-full h-72 border border-[#E2E7ED] rounded"></iframe>` : '<p class="text-[12px] text-slate-500 mt-2">No document uploaded. Upload the original receipt PDF for OCR review.</p>'}
+          <label class="mt-3 flex items-center gap-2 text-[12px]">
+            <input type="file" id="page-doc-file" accept="application/pdf,.pdf" class="text-[11px]" />
+            <button class="px-3 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" onclick="pageUploadDoc()">Upload new version</button>
+          </label>
+          <p class="text-[11px] text-slate-400 mt-1">PDF only, max 10 MB. A new upload becomes the current document version and triggers a fresh OCR comparison; the previous versions stay on record.</p>
+          ${d.ocrRun ? `<div class="mt-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2">OCR engine ${MD.escapeHtml(d.ocrRun.engine_version)} — status <b>${MD.escapeHtml(d.ocrRun.status)}</b>${d.ocrRun.message ? ' — ' + MD.escapeHtml(d.ocrRun.message) : ''}</div>` : ''}
+        </div>
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Bank Confirmation</h2>
+          <div class="mt-2">${MD.badge(d.bank_confirmation.status)}</div>
+          <div class="mt-2 text-[12px] text-slate-600">
+            ${d.bank_confirmation.status === 'confirmed' ? `
+              <p>Confirmed with evidence — <b>${MD.escapeHtml(d.bank_confirmation.confirmed_by_name || '')}</b></p>
+              <p class="text-[11px] text-slate-500 mt-1">Source: ${MD.escapeHtml(d.bank_confirmation.source_reference || '')} • ${MD.fmtDate(d.bank_confirmation.confirmed_at)}</p>
+              <p class="text-[11px] text-slate-500">Evidence: ${MD.escapeHtml(d.bank_confirmation.evidence_note || '')}</p>` :
+            `<p class="text-amber-800">Pending bank confirmation. OCR comparison is informational only and <b>not</b> proof of authenticity. An authorized AICTE officer must confirm against bank evidence.</p>`}
+          </div>
+        </div>
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Officer Comments</h2>
+          <div class="mt-2">${commRows || '<p class="text-[12px] text-slate-500">No comments.</p>'}</div>
+        </div>
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Audit Timeline</h2>
+          <div class="mt-2">${auditRows || '<p class="text-[12px] text-slate-500">No events recorded.</p>'}</div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <div class="flex items-center justify-between"><h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">OCR Field Comparison</h2>
+          ${(d.discrepancies || []).length ? `<span class="px-2 py-0.5 text-[11px] font-semibold rounded bg-[#FEF2F2] border border-[#DC262655] text-[#DC2626] uppercase tracking-wide">${d.discrepancies.length} discrepancy(ies)</span>` : `<span class="px-2 py-0.5 text-[11px] font-semibold rounded bg-[#EAF6ED] border border-[#1E7E3455] text-[#1E7E34] uppercase tracking-wide">No discrepancies</span>`}</div>
+          <p class="text-[11px] text-slate-500 mt-1">Text-layer extraction vs college-entered data. Mismatch flags are review aids, never proof of fraud or authenticity.</p>
+          <div class="overflow-x-auto mt-2"><table class="w-full">
+            <thead><tr class="bg-[#F8FAFC] border-b border-[#E2E7ED] text-[11px] font-semibold uppercase text-slate-500"><th class="py-2 px-3 text-left">Field</th><th class="py-2 px-3 text-left">Record</th><th class="py-2 px-3 text-left">Extracted</th><th class="py-2 px-3 text-left">Conf.</th><th class="py-2 px-3 text-left">Status</th></tr></thead>
+            <tbody>${cmpRows || '<tr><td colspan="5" class="py-4 text-center text-[12px] text-slate-500">No OCR run available.</td></tr>'}</tbody></table></div>
+        </div>
+        <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Verification History</h2>
+          <div class="mt-2 flex flex-col gap-2">${verRows || '<p class="text-[12px] text-slate-500">No verification attempts yet.</p>'}</div>
+        </div>
+        ${corr ? `<div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+          <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Correction Request (attempt ${corr.attempt_no} of 2)</h2>
+          <p class="text-[12px] text-amber-800 mt-1">${MD.escapeHtml(corr.reason)}</p>
+          <div class="mt-2 flex flex-col gap-2">${corrRows}</div>
+          ${corr.status === 'open' ? `<a class="mt-3 inline-flex items-center gap-1.5 px-3 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" href="javascript:void 0" onclick="startResubmit()">Prepare correction resubmission (attempt ${Math.min(corr.attempt_no + 1, 2)})</a>` : `<p class="text-[11px] text-slate-500">Correction request status: ${MD.escapeHtml(corr.status)}</p>`}
+        </div>` : ''}
+        ${(d.renewals || []).length ? `<div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5"><h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Renewal Chain</h2><div>${renewals}</div></div>` : ''}
+      </div>
+    </div>`);
+}
+
+function cmpBadge(status) {
+  const map = {
+    matched: ['bg-[#EAF6ED]', 'text-[#1E7E34]', 'border-[#1E7E3455]'],
+    bank_confirmed: ['bg-[#EAF6ED]', 'text-[#1E7E34]', 'border-[#1E7E3455]'],
+    mismatch: ['bg-[#FEF2F2]', 'text-[#DC2626]', 'border-[#DC262655]'],
+    low_confidence: ['bg-[#FEF7EC]', 'text-[#D97706]', 'border-[#D9770655]'],
+    missing: ['bg-[#F3F4F6]', 'text-[#4B5563]', 'border-[#4B556355]'],
+    manual_review_required: ['bg-[#FEF2F2]', 'text-[#DC2626]', 'border-[#DC262655]'],
+  };
+  const c = map[status] || map.missing;
+  return `<span class="px-1.5 py-0.5 text-[10px] font-semibold rounded border uppercase tracking-wide ${c.join(' ')}">${MD.escapeHtml((MD.STATUS_TEXT[status] || status || '').replace(/_/g, ' '))}</span>`;
+}
+
+function auditIcon(action) {
+  if (action.includes('login')) return 'login';
+  if (action.includes('logout')) return 'logout';
+  if (action.includes('document')) return 'attach_file';
+  if (action.includes('bank')) return 'account_balance';
+  if (action.includes('verification')) return 'fact_check';
+  if (action.includes('release')) return 'outbox';
+  if (action.includes('renewal')) return 'autorenew';
+  if (action.includes('correction')) return 'edit';
+  return 'history';
+}
+
+function startResubmit() {
+  const promptUrl = `/app/college/correction.html?id=${FDR_ID}`;
+  window.location.href = promptUrl;
+}
+
+async function pageUploadDoc() {
+  const input = document.getElementById('page-doc-file');
+  const file = input.files[0];
+  if (!file) { MD.toast('Choose a receipt PDF first.', true); return; }
+  if (!/^application\/pdf/.test(file.type || '') && !/\.pdf$/i.test(file.name || '')) { MD.toast('Only PDF receipt scans are accepted.', true); return; }
+  if (file.size > 10 * 1024 * 1024) { MD.toast('The file is larger than the 10 MB limit.', true); return; }
+  const fd = new FormData();
+  fd.append('fdrId', FDR_ID);
+  fd.append('file', file);
+  try {
+    await MD.api('POST', '/documents/upload', fd);
+    MD.toast('Receipt uploaded — OCR comparison refreshed with this version.', false);
+    boot();
+  } catch (e) { MD.toast(e.message, true); }
+}
+window.pageUploadDoc = pageUploadDoc;
+</script>
+</body>
+</html>

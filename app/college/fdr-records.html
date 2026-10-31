@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My FDR Records — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}body{overscroll-behavior:none;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+const state = { q: '', status: '', bank: '', page: 1, perPage: 20 };
+
+async function boot() {
+  await MDShell.init({
+    role: 'college', page: 'My FDR Records', icon: 'receipt_long',
+    heading: 'My FDR Records',
+    subheading: 'Complete register of submitted fixed deposit receipts with verification status, bank information and document access.',
+  });
+  await load();
+}
+
+async function load() {
+  const p = new URLSearchParams();
+  if (state.q) p.set('q', state.q);
+  if (state.status) p.set('status', state.status);
+  if (state.bank) p.set('bank', state.bank);
+  p.set('page', state.page); p.set('perPage', state.perPage);
+  const { data } = await MD.api('GET', `/college/fdrs?${p.toString()}`);
+  render(data);
+}
+
+function render(d) {
+  // keep only the title card
+  document.querySelectorAll('#mdshell-content > :not(:first-child)').forEach((el) => el.remove());
+  const rows = d.fdrs.map((f) => `
+    <tr class="border-b border-[#E2E7ED] hover:bg-[#F8FAFC]">
+      <td class="py-3 px-4 text-[13px] font-medium text-[#142D4E] whitespace-nowrap">${MD.escapeHtml(f.submission_ref)}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num">${MD.escapeHtml(f.cert_no)}<div class="text-[11px] text-slate-500">${MD.escapeHtml(f.bank_name)}</div></td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right whitespace-nowrap">${MD.fmtMoney(f.principal_amount)}</td>
+      <td class="py-3 px-4 text-[12px] font-tabular-num whitespace-nowrap">${MD.fmtDate(f.issue_date)}<div class="text-[11px] text-slate-500">Matures ${MD.fmtDate(f.maturity_date)}</div></td>
+      <td class="py-3 px-4">${MD.badge(f.verification_status)}</td>
+      <td class="py-3 px-4">${MD.badge(f.bank_confirmation_status)}</td>
+      <td class="py-3 px-4 text-right"><a class="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" href="/app/college/fdr-details.html?id=${f.id}">Details<span class="material-symbols-outlined text-[14px]">chevron_right</span></a></td>
+    </tr>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] p-4 shadow-sm flex flex-wrap items-center gap-2">
+      <div class="relative flex-1 min-w-[220px]">
+        <span class="material-symbols-outlined text-[16px] text-slate-400 absolute left-2.5 top-2.5">search</span>
+        <input id="q-input" value="${MD.escapeHtml(state.q)}" class="w-full h-9 pl-8 pr-3 text-[13px] border border-[#E2E7ED] rounded focus:outline-none focus:border-[#142D4E]" placeholder="Search reference, certificate, bank, IFSC, beneficiary…" />
+      </div>
+      <select id="status-filter" class="h-9 px-2 text-[12px] border border-[#E2E7ED] rounded bg-white">
+        <option value="">Any status</option>
+        ${['pending_verification','in_review','verified','rejected','correction_requested','correction_escalated'].map(s => `<option value="${s}" ${state.status===s?'selected':''}>${MD.STATUS_TEXT[s]}</option>`).join('')}
+      </select>
+      <input id="bank-filter" value="${MD.escapeHtml(state.bank)}" class="h-9 px-3 text-[12px] border border-[#E2E7ED] rounded w-44" placeholder="Bank name contains…" />
+      <button class="h-9 px-3.5 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" onclick="pageApplyFilters()">Apply</button>
+      <button class="h-9 px-3.5 bg-white border border-[#E2E7ED] rounded text-xs font-semibold hover:bg-slate-50" onclick="pageResetFilters()">Reset</button>
+    </div>
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead><tr class="h-[38px] bg-[#F8FAFC] border-b border-[#E2E7ED] text-[11px] font-semibold uppercase text-slate-500 tracking-wider">
+            <th class="py-2 px-4 text-left">Reference</th><th class="py-2 px-4 text-left">Certificate / Bank</th>
+            <th class="py-2 px-4 text-right">Principal</th><th class="py-2 px-4 text-left">Dates</th>
+            <th class="py-2 px-4 text-left">Verification</th><th class="py-2 px-4 text-left">Bank Confirmation</th>
+            <th class="py-2 px-4 text-right">Record</th>
+          </tr></thead>
+          <tbody>${rows || `<tr><td colspan="7" class="py-8 text-center text-[13px] text-slate-500">No FDR records match these filters.</td></tr>`}</tbody>
+        </table>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-[#E2E7ED] text-xs">
+        <span class="text-slate-500 font-tabular-num">${d.total} FDR(s) • Page ${d.page} of ${d.totalPages}</span>
+        <div class="flex items-center gap-1.5">
+          <button class="px-2.5 py-1.5 bg-white border border-[#E2E7ED] rounded disabled:opacity-40" ${d.page<=1?'disabled':''} onclick="pageGo(${d.page-1})">Prev</button>
+          <button class="px-2.5 py-1.5 bg-white border border-[#E2E7ED] rounded disabled:opacity-40" ${d.page>=d.totalPages?'disabled':''} onclick="pageGo(${d.page+1})">Next</button>
+        </div>
+      </div>
+    </div>`);
+}
+
+window.pageApplyFilters = function () {
+  state.q = document.getElementById('q-input').value.trim();
+  state.status = document.getElementById('status-filter').value;
+  state.bank = document.getElementById('bank-filter').value.trim();
+  state.page = 1;
+  load().catch((e) => MD.toast(e.message, true));
+};
+window.pageResetFilters = function () {
+  state.q = ''; state.status = ''; state.bank = ''; state.page = 1;
+  load().catch((e) => MD.toast(e.message, true));
+};
+window.pageGo = function (p) {
+  state.page = Math.max(1, p);
+  load().catch((e) => MD.toast(e.message, true));
+};
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

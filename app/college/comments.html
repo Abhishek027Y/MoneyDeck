@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Officer Comments — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script src="/app/assets/content-language.js"></script>
+<script>
+'use strict';
+
+async function boot() {
+  await MDShell.init({
+    role: 'college', page: 'Officer Comments', icon: 'comment',
+    heading: 'Officer Comments & Clarifications',
+    subheading: 'Threads raised by AICTE officers during verification. Each thread accepts exactly one institutional reply — additional replies are rejected to keep the record closed.',
+  });
+  const { data } = await MD.api('GET', '/college/comments');
+  render(data.comments);
+}
+
+function render(rows) {
+  const cards = rows.map((c) => `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-[#142D4E] text-white flex items-center justify-center text-[11px] font-bold">${MD.escapeHtml((c.officer_name || '?').split(' ').map(w => w[0]).join('').slice(0,2))}</span>
+          <div class="flex flex-col"><span class="text-[13px] font-semibold text-[#142D4E]">${MD.escapeHtml(c.officer_name)}</span>
+          <span class="text-[11px] text-slate-500 font-tabular-num">${MD.fmtDate(c.created_at)} • FDR <a class="text-blue-700 hover:underline" href="/app/college/fdr-details.html?id=${c.fdr_id}">record #${c.fdr_id}</a></span></div>
+        </div>
+        ${c.status ? MD.badge(c.status) : ''}
+      </div>
+      <p data-content-translation="comments" class="text-[13px] text-slate-700 mt-3 whitespace-pre-wrap">${MD.escapeHtml(c.message)}</p>
+      ${c.reply ? `
+        <div class="mt-3 ml-4 p-3 bg-[#EEF4FF] border border-[#C7DAF5] rounded-lg">
+          <span data-content-translation="comments" class="text-[11px] font-semibold uppercase tracking-wide text-blue-800">Institution reply</span>
+          <p data-content-translation="comments" class="text-[12px] text-slate-700 mt-1 whitespace-pre-wrap">${MD.escapeHtml(c.reply)}</p>
+          <p class="text-[10px] text-slate-400 mt-1 font-tabular-num">${MD.fmtDate(c.replied_at ?? c.updated_at ?? '')}</p>
+        </div>`
+      : `<div class="mt-3 flex items-start gap-2">
+          <textarea id="reply-${c.id}" rows="2" class="flex-1 px-3 py-2 text-[13px] border border-[#E2E7ED] rounded focus:outline-none focus:border-[#142D4E]" placeholder="Your reply (this thread accepts only one reply)…"></textarea>
+          <button class="px-3 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" onclick="pageReply(${c.id})">Reply</button>
+        </div>`}
+    </div>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div id="comments-language-widget" class="flex items-center gap-2 mb-4">
+      <label for="contentLangSelect" class="text-xs font-semibold text-slate-500">Language / भाषा / भाषा:</label>
+      <select id="contentLangSelect" class="text-xs font-medium bg-white border border-slate-300 text-slate-800 rounded-lg px-2.5 py-1.5 shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer">
+        <option value="en">English (Original)</option>
+        <option value="hi">हिंदी (Hindi)</option>
+        <option value="mr">मराठी (Marathi)</option>
+      </select>
+    </div>
+    ${cards || '<div data-content-translation="comments" class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-6 text-[13px] text-slate-500">No officer comments yet.</div>'}`);
+  MDContentLanguage.bind(document.getElementById('contentLangSelect'), 'comments');
+  MD.notifications.markAllAsRead('comments');
+}
+
+async function pageReply(id) {
+  try {
+    await MD.api('POST', `/college/comments/${id}/reply`, { message: document.getElementById(`reply-${id}`).value.trim() });
+    MD.toast('Reply recorded. The AICTE officer is notified.', false);
+    boot();
+  } catch (e) { MD.toast(e.message, true); }
+}
+window.pageReply = pageReply;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

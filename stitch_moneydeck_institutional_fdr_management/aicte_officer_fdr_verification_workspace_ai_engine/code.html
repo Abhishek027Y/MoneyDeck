@@ -39,7 +39,7 @@
       ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
     }
   </style>
-</head>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
 <body class="bg-[#F4F6F8] font-sans text-brand-primary min-h-screen flex antialiased selection:bg-[#142B49]/10">
 <!-- ==================== SECTION 1: SIMPLIFIED NAVIGATION (AICTE OFFICER PORTAL ONLY) ==================== -->
 <aside class="w-64 bg-white border-r border-brand-border flex flex-col justify-between shrink-0 transition-all duration-300 z-30 h-screen sticky top-0" id="sidebar">
@@ -47,12 +47,10 @@
 <!-- Sidebar Header -->
 <div class="h-16 px-5 border-b border-brand-border flex items-center justify-between shrink-0">
 <div class="flex items-center gap-2.5">
-<div class="w-8 h-8 rounded-lg bg-brand-navy flex items-center justify-center text-white font-bold text-sm shadow-sm">
-            MD
-          </div>
+<img src="/app/assets/moneydeck-logo.png" alt="MoneyDeck Logo" class="brand-logo-img w-8 h-8 object-contain shrink-0 rounded-md" />
 <div class="flex flex-col">
-<span class="font-bold text-brand-navy text-[15px] tracking-tight leading-none">MoneyDeck</span>
-<span class="text-[11px] font-medium text-brand-teal tracking-wide mt-0.5">AICTE Officer Desk</span>
+<span class="font-bold text-slate-900 tracking-tight text-base leading-none">MoneyDeck</span>
+<span class="text-xs font-medium text-slate-500">AICTE Officer Desk</span>
 </div>
 </div>
 <button class="text-brand-secondary hover:text-brand-navy p-1 rounded hover:bg-slate-100 transition-colors" id="sidebar-toggle-btn" title="Toggle Sidebar">
@@ -61,58 +59,72 @@
 </div>
 <!-- Navigation Links -->
 <div class="p-3.5 flex-1 overflow-y-auto">
-<div class="px-2.5 mb-2">
-<span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase">Portal Navigation</span>
-</div>
-<nav class="space-y-1">
+<div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2 py-1">Overview</div>
+<nav class="space-y-1 mb-3">
 <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="../aicte_officer_executive_fdr_overview_dashboard/code.html">
 <span class="material-symbols-outlined text-[19px]">dashboard</span>
 <span>Overview Dashboard</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+</nav>
+<div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2 py-1">Verification</div>
+<nav class="space-y-1 mb-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/colleges.html">
 <span class="material-symbols-outlined text-[19px]">account_balance</span>
 <span>Colleges &amp; FDRs</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-brand-navy text-white shadow-sm font-semibold text-[13px]" href="#">
-<span class="material-symbols-outlined text-[19px]">fact_check</span>
-<span>Verification Workspace</span>
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-brand-navy text-white shadow-sm font-semibold text-[13px]" href="/aicte_officer_fdr_verification_workspace_ai_engine/code.html" style="background-color: #0F172A !important; color: #FFFFFF !important;">
+<span class="material-symbols-outlined text-[19px]" style="color: #FFFFFF !important; fill: #FFFFFF !important;">fact_check</span>
+<span style="color: #FFFFFF !important; fill: #FFFFFF !important;">Verification Workspace</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/problems.html">
 <span class="material-symbols-outlined text-[19px]">report_problem</span>
 <span>Problem Reports</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/releases.html">
 <span class="material-symbols-outlined text-[19px]">lock_open</span>
 <span>Release Requests</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+</nav>
+<div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2 py-1">Monitoring</div>
+<nav class="space-y-1 mb-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/renewals.html">
+<span class="material-symbols-outlined text-[19px]">event_repeat</span>
+<span>Renewal Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/audit.html">
 <span class="material-symbols-outlined text-[19px]">shield</span>
 <span>Audit Log</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="#">
+</nav>
+<div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2 py-1">Settings</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-brand-secondary hover:text-brand-navy hover:bg-slate-50 transition-colors text-[13px] font-medium" href="/app/officer/settings.html">
 <span class="material-symbols-outlined text-[19px]">settings</span>
 <span>Settings</span>
 </a>
 </nav>
 </div>
-<!-- Officer Profile Bottom Widget -->
-<div class="p-3.5 border-t border-brand-border bg-slate-50/70 shrink-0">
-<div class="flex items-center gap-3 p-2 rounded-lg bg-white border border-brand-border">
-<div class="w-8 h-8 rounded-full bg-brand-navy/10 text-brand-navy flex items-center justify-center font-bold text-xs shrink-0">
-            VS
-          </div>
-<div class="flex flex-col min-w-0 flex-1">
-<span class="text-xs font-semibold text-brand-navy truncate">Dr. V. K. Sharma</span>
-<span class="text-[11px] text-brand-secondary truncate">Sr. Verification Officer</span>
-</div>
-<button class="text-slate-400 hover:text-brand-navy p-0.5 rounded" title="Officer menu">
-<span class="material-symbols-outlined text-[18px]">more_vert</span>
-</button>
-</div>
-<a href="../moneydeck_institutional_access_secure_login/code.html" class="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[14px]">logout</span>
-Sign Out
-</a>
+<div class="pt-4 border-t border-slate-200 mt-auto">
+  <div class="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-slate-50 transition-colors">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">AO</div>
+      <div class="flex flex-col text-left">
+        <span class="text-xs font-semibold text-slate-900 tracking-tight leading-none">AICTE Officer</span>
+        <span class="text-[10px] text-slate-500 font-medium mt-0.5">Desk Clearance Officer</span>
+      </div>
+    </div>
+    <div class="text-slate-400 hover:text-slate-600 cursor-pointer">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+      </svg>
+    </div>
+  </div>
+  <a href="../moneydeck_institutional_access_secure_login/code.html" class="flex items-center gap-2 px-2 py-1.5 mt-1 text-xs text-slate-500 hover:text-red-600 transition-colors font-medium">
+    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+    </svg>
+    Sign Out
+  </a>
 </div>
 </div>
 </aside>
@@ -209,13 +221,13 @@ Sign Out
 <div class="p-3 bg-[#F8FAFC] border-b border-brand-border flex flex-wrap items-center justify-between gap-2 text-xs">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-rose-600 text-[20px]">picture_as_pdf</span>
-<span class="font-semibold text-brand-navy text-xs">ABC_Engg_FDR123456_Original.pdf</span>
-<span class="text-[11px] text-brand-secondary">(1.8 MB)</span>
+<span class="font-semibold text-brand-navy text-xs" id="md-document-name">Select an FDR record</span>
+<span class="text-[11px] text-brand-secondary" id="md-document-size"></span>
 </div>
 <!-- Version Selector -->
 <div class="flex items-center gap-1 text-xs">
 <span class="text-brand-secondary text-[11px] hidden sm:inline">Version:</span>
-<select class="text-xs bg-white border border-brand-border rounded px-2 py-1 text-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy cursor-pointer">
+<select id="md-document-version" class="text-xs bg-white border border-brand-border rounded px-2 py-1 text-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy cursor-pointer">
 <option>Version 1 (Initial Submission - 24 Oct 2024)</option>
 </select>
 </div>
@@ -249,7 +261,7 @@ Sign Out
 <button class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" id="doc-rotate-btn" title="Rotate 90°">
 <span class="material-symbols-outlined text-[16px]">rotate_right</span>
 </button>
-<a class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" href="#" title="Download Document">
+<a id="md-document-download" class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors hidden" href="#" title="Download Document">
 <span class="material-symbols-outlined text-[16px]">download</span>
 </a>
 <button class="p-1.5 rounded-lg border border-brand-border hover:bg-slate-50 text-brand-secondary hover:text-brand-navy transition-colors" id="doc-fullscreen-btn" title="Toggle Fullscreen">
@@ -1100,4 +1112,325 @@ Sign Out
 
     });
   </script>
+<script src="/app/assets/app.js"></script>
+<script>
+    // MoneyDeck integration override — the verification workspace reads the live
+    // verification queue and record detail; all decisions POST to the API and are
+    // audit-logged. The mock viewer/tabs of the original screen are preserved.
+    (async function () {
+      const me = await MD.guard('officer');
+      if (!me) return;
+
+      // Sidebar links -> real pages (by label).
+      const NAV = {
+        'Overview Dashboard': '/aicte_officer_executive_fdr_overview_dashboard/code.html',
+        'Colleges & FDRs': '/app/officer/colleges.html',
+        'Verification Workspace': '/aicte_officer_fdr_verification_workspace_ai_engine/code.html',
+        'Problem Reports': '/app/officer/problems.html',
+        'Release Requests': '/app/officer/releases.html',
+        'Audit Log': '/app/officer/audit.html',
+        'Settings': '/app/officer/settings.html',
+      };
+      document.querySelectorAll('#sidebar nav a').forEach((a) => {
+        const label = (a.querySelector('span:last-child') || a).textContent.trim();
+        if (NAV[label]) a.setAttribute('href', NAV[label]);
+      });
+      // Profile widget shows the signed-in officer.
+      const nameEl = document.querySelector('#sidebar .font-semibold.text-brand-navy.truncate');
+      const OFFICER_NAME = me.displayName || me.display_name || '';
+      if (nameEl && OFFICER_NAME) nameEl.textContent = OFFICER_NAME;
+
+      const QS = new URLSearchParams(window.location.search);
+      let OPEN_ID = QS.get('open') ? Number(QS.get('open')) : null;
+      const badge = document.getElementById('verification-status-badge');
+
+      // Inject the live workspace panel before the record summary bar.
+      const summarySection = document.querySelector('section:has(#verification-status-badge)') ||
+        (badge && badge.closest('section')) || document.getElementById('viewer-container');
+      const root = document.createElement('section');
+      root.id = 'md-live-root';
+      root.className = 'bg-white border border-brand-border rounded-xl shadow-sm overflow-hidden mb-6';
+      if (summarySection && summarySection.parentElement) summarySection.parentElement.insertBefore(root, summarySection);
+      else document.querySelector('main').prepend(root);
+
+      function setLoading(msg) { root.innerHTML = `<div class="p-4 text-xs text-brand-secondary flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">progress_activity</span>${msg}</div>`; }
+
+      function renderDocumentViewer(documents, selectedId) {
+        const viewer = document.getElementById('viewer-container');
+        const controls = viewer.previousElementSibling;
+        const fileName = document.getElementById('md-document-name');
+        const fileSize = document.getElementById('md-document-size');
+        const version = document.getElementById('md-document-version');
+        const download = document.getElementById('md-document-download');
+        const docs = documents || [];
+
+        if (controls) controls.classList.add('hidden');
+        viewer.classList.remove('bg-slate-200/80', 'p-6');
+        viewer.classList.add('bg-slate-100', 'p-0');
+        version.replaceChildren();
+
+        docs.forEach((doc) => {
+          const option = document.createElement('option');
+          option.value = String(doc.id);
+          option.textContent = `Version ${doc.version_no} — ${doc.file_name}`;
+          version.appendChild(option);
+        });
+        version.disabled = docs.length < 2;
+
+        function show(doc) {
+          viewer.replaceChildren();
+          if (!doc) {
+            fileName.textContent = 'No receipt PDF uploaded';
+            fileSize.textContent = '';
+            download.classList.add('hidden');
+            const empty = document.createElement('div');
+            empty.className = 'w-full max-w-[560px] bg-white border border-brand-border rounded-lg p-8 text-center text-sm text-brand-secondary';
+            empty.textContent = 'The selected FDR has no uploaded receipt PDF.';
+            viewer.appendChild(empty);
+            return;
+          }
+
+          fileName.textContent = doc.file_name;
+          fileSize.textContent = `(${(doc.size_bytes / 1024).toFixed(0)} KB)`;
+          download.href = `${doc.content_url}?download=1`;
+          download.classList.remove('hidden');
+          const frame = document.createElement('iframe');
+          frame.className = 'w-full h-[75vh] min-h-[580px] border-0 bg-white';
+          frame.title = `PDF preview: ${doc.file_name}`;
+          frame.src = doc.content_url;
+          viewer.appendChild(frame);
+        }
+
+        version.onchange = () => show(docs.find((doc) => String(doc.id) === version.value) || null);
+        const current = docs.find((doc) => String(doc.id) === String(selectedId)) || docs[0] || null;
+        version.value = current ? String(current.id) : '';
+        show(current);
+      }
+
+      function cmpBadge(status) {
+        const map = {
+          matched: ['bg-emerald-50', 'text-emerald-800', 'border-emerald-300'],
+          bank_confirmed: ['bg-emerald-50', 'text-emerald-800', 'border-emerald-300'],
+          mismatch: ['bg-rose-50', 'text-rose-800', 'border-rose-300'],
+          low_confidence: ['bg-amber-50', 'text-amber-800', 'border-amber-300'],
+          missing: ['bg-slate-100', 'text-slate-600', 'border-slate-300'],
+          pending: ['bg-amber-50', 'text-amber-800', 'border-amber-300'],
+          manual_review_required: ['bg-rose-50', 'text-rose-800', 'border-rose-300'],
+        };
+        const m = map[status] || map.missing;
+        return `<span class="px-1.5 py-0.5 text-[10px] font-semibold rounded border uppercase tracking-wide ${m.join(' ')}">${MD.escapeHtml(String(status || '').replace(/_/g, ' '))}</span>`;
+      }
+
+      async function renderQueue() {
+        OPEN_ID = null;
+        history.replaceState(null, '', window.location.pathname);
+        renderDocumentViewer([], null);
+        setLoading('Loading verification queue…');
+        const { data } = await MD.api('GET', '/officer/verification/queue');
+        const rows = data.queue || [];
+        root.innerHTML = `
+          <div class="px-5 py-4 border-b border-brand-border flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h3 class="font-bold text-brand-navy text-sm">Verification queue — live records awaiting a decision</h3>
+              <p class="text-[11px] text-brand-secondary mt-0.5">${data.total} record(s). Escalated corrections sort first. Decisions made here are permanent and audit-logged.</p>
+            </div>
+          </div>
+          <div class="divide-y divide-brand-border">
+            ${rows.map((f) => `
+              <div class="px-5 py-3 flex items-center justify-between gap-3 hover:bg-slate-50/70 flex-wrap">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-mono font-bold text-brand-navy text-xs">${MD.escapeHtml(f.submission_ref)}</span>
+                    ${f.status === 'correction_escalated' ? '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-rose-100 text-rose-800 border border-rose-300 uppercase">Escalated</span>' : ''}
+                    ${cmpBadge(f.verification_status)}
+                    ${cmpBadge(f.bank_confirmation_status)}
+                  </div>
+                  <p class="text-[11px] text-brand-secondary mt-0.5 truncate">${MD.escapeHtml(f.institution_name)} • ${MD.escapeHtml(f.cert_no)} — ${MD.escapeHtml(f.bank_name)} • ${MD.fmtMoney(f.principal_amount)} • matures ${MD.fmtDate(f.maturity_date)}</p>
+                </div>
+                <button class="px-3 py-1.5 rounded-lg bg-[#142B49] text-white text-[11px] font-semibold hover:bg-brand-navy/90" onclick="MDOpenRecord(${f.id})">Open workspace<span class="material-symbols-outlined text-[13px] ml-1">arrow_forward</span></button>
+              </div>`).join('') || '<div class="p-6 text-xs text-brand-secondary">Queue empty — every submitted record has a decision.</div>'}
+          </div>`;
+      }
+
+      window.MDOpenRecord = function (id) { window.location.href = `${window.location.pathname}?open=${id}`; };
+      window.MDBackToQueue = function () { renderQueue().catch((e) => MD.toast(e.message, true)); };
+
+      async function renderDetail(id) {
+        setLoading('Loading record ' + id + '…');
+        let d;
+        try { d = (await MD.api('GET', `/officer/verification/${id}`)).data; }
+        catch (e) { root.innerHTML = `<div class="p-4 text-xs text-rose-800">${MD.escapeHtml(e.message)} <button class="underline" onclick="MDBackToQueue()">Back to queue</button></div>`; return; }
+        const f = d.fdr;
+        const bc = d.bank_confirmation || {};
+        const corr = d.correction;
+        const canCorrect = !corr || corr.attempt_no < 2;
+        renderDocumentViewer(d.documents || [], d.currentDocument && d.currentDocument.id);
+
+        // summary bar of the original page shows live values
+        if (badge) {
+          const dot = f.verification_status.startsWith('approved') || f.verification_status === 'verified' ? 'bg-emerald-600' : 'bg-amber-500';
+          badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${dot}"></span><span>${MD.escapeHtml((MD.STATUS_TEXT[f.verification_status] || f.verification_status || '').replace(/_/g, ' '))}</span>`;
+        }
+
+        const cmpRows = (d.comparison || []).map((c) => `
+          <tr class="border-b border-slate-100"><td class="py-2 px-3 text-[11px] font-semibold text-slate-600">${MD.escapeHtml(c.field_key.replace(/_/g, ' '))}</td>
+          <td class="py-2 px-3 text-[12px] font-mono">${MD.escapeHtml(c.record_value ?? '—')}</td>
+          <td class="py-2 px-3 text-[12px] font-mono">${MD.escapeHtml(c.ocr_value ?? '—')}</td>
+          <td class="py-2 px-3 text-[11px] font-mono">${c.confidence != null ? (c.confidence * 100).toFixed(0) + '%' : '—'}</td>
+          <td class="py-2 px-3">${cmpBadge(c.status)}</td></tr>`).join('');
+
+        const verRows = (d.verifications || []).map((v) => `
+          <div class="px-3 py-2 border-b border-slate-100 text-[11px]">
+            <p><span class="font-semibold">${v.attempt_no}.</span> ${MD.escapeHtml((MD.STATUS_TEXT[v.decision] || v.decision || '').replace(/_/g, ' '))} — ${MD.escapeHtml(v.officer_name || '')} <span class="text-slate-400">${MD.fmtDate(v.decided_at)}</span></p>
+            <p class="text-brand-secondary mt-0.5">${MD.escapeHtml(v.officer_comment || '')}</p>
+          </div>`).join('');
+
+        const verBtn = (label, decision, cls) => `
+          <button class="px-3 py-1.5 rounded-lg text-white text-[11px] font-semibold ${cls}" onclick="MDDecide(${id}, '${decision}')">${label}</button>`;
+
+        root.innerHTML = `
+          <div class="px-5 py-4 border-b border-brand-border bg-[#F8FAFC] flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <button class="text-[11px] text-blue-800 hover:underline" onclick="MDBackToQueue()" id="md-back-queue">← Queue</button>
+              <span class="font-mono font-bold text-brand-navy text-sm">${MD.escapeHtml(f.submission_ref)}</span>
+              ${cmpBadge(f.verification_status)}${cmpBadge(f.bank_confirmation_status)}
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${verBtn('Approve', 'approved', 'bg-emerald-700 hover:bg-emerald-800')}
+              ${verBtn('Reject', 'rejected', 'bg-rose-700 hover:bg-rose-800')}
+              ${canCorrect ? verBtn('Request correction', 'correction_requested', 'bg-amber-600 hover:bg-amber-700') : ''}
+              ${verBtn('Request clarification', 'clarification_requested', 'bg-slate-600 hover:bg-slate-700')}
+              <button class="px-3 py-1.5 rounded-lg border border-rose-300 text-rose-700 text-[11px] font-semibold hover:bg-rose-50" onclick="document.getElementById('btn-report-problem').click()">Report problem</button>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-0 divide-x divide-brand-border max-h-none">
+            <div class="p-5">
+              <div class="text-[11px] text-brand-secondary">Institution</div>
+              <p class="text-sm font-semibold text-brand-navy">${MD.escapeHtml(f.institution_name || '')}<span class="text-[10px] text-slate-400 font-mono ml-2">${f.aicte_pid ? 'PID ' + MD.escapeHtml(f.aicte_pid) : 'inst #' + MD.escapeHtml(String(f.institution_id))}</span></p>
+              <div class="grid grid-cols-2 gap-3 mt-3 text-[12px]">
+                <div><div class="text-[10px] text-slate-500 uppercase font-semibold">Instrument</div><p class="font-mono text-brand-navy">${MD.escapeHtml(f.cert_no)}</p></div>
+                <div><div class="text-[10px] text-slate-500 uppercase font-semibold">Bank</div><p class="text-brand-navy">${MD.escapeHtml(f.bank_name)}<span class="block text-[10px] text-slate-400">${MD.escapeHtml(f.ifsc || '')}</span></p></div>
+                <div><div class="text-[10px] text-slate-500 uppercase font-semibold">Principal</div><p class="font-mono font-bold text-brand-navy">${MD.fmtMoney(f.principal_amount)}</p></div>
+                <div><div class="text-[10px] text-slate-500 uppercase font-semibold">Dates</div><p class="font-mono text-brand-navy text-[11px]">${MD.fmtDate(f.issue_date)} → ${MD.fmtDate(f.maturity_date)}</p></div>
+                <div class="col-span-2"><div class="text-[10px] text-slate-500 uppercase font-semibold">Beneficiary / lien</div><p class="text-slate-700">${MD.escapeHtml(f.beneficiary || '')}${f.lien_clause ? ' • ' + MD.escapeHtml(f.lien_clause) : ''}</p></div>
+              </div>
+              <div class="mt-4 p-3 bg-slate-50 border border-brand-border rounded-lg">
+                <div class="flex items-center justify-between"><span class="text-[11px] font-semibold text-brand-navy uppercase tracking-wide">Bank confirmation</span>${cmpBadge(bc.status || 'pending')}</div>
+                ${bc.status === 'confirmed' ? `
+                  <p class="text-[11px] text-slate-700 mt-1.5">Confirmed by <b>${MD.escapeHtml(bc.confirmed_by_name || '')}</b> — source: ${MD.escapeHtml(bc.source_reference || '')} (${MD.fmtDate(bc.confirmed_at)})</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Evidence: ${MD.escapeHtml(bc.evidence_note || '')}</p>` : bc.status === 'unconfirmed' ? `
+                  <p class="text-[11px] text-rose-800 mt-1.5">Marked <b>not confirmed</b> by <b>${MD.escapeHtml(bc.confirmed_by_name || '')}</b>: ${MD.escapeHtml(bc.evidence_note || '')}</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Pending genuine bank evidence — the record cannot be treated as verified by OCR alone.</p>` : `
+                  <p class="text-[11px] text-amber-800 mt-1.5">No bank confirmation yet. The direct bank API is not configured; confirmation is manual with recorded evidence.</p>
+                  <div class="mt-2 flex flex-col gap-2">
+                    <input id="md-bank-src" class="h-8 px-2.5 text-[11px] border border-brand-border rounded focus:outline-none" placeholder="Source reference (bank letter no., portal ticket…)" />
+                    <textarea id="md-bank-ev" rows="2" class="px-2.5 py-1.5 text-[11px] border border-brand-border rounded focus:outline-none" placeholder="Evidence you personally verified (branch ledger copy, portal record…)"></textarea>
+                    <div class="flex items-center gap-1.5">
+                      <button class="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-[11px] font-semibold hover:bg-emerald-800" onclick="MDBankConfirm(${id})">Confirm against evidence</button>
+                      <button class="px-3 py-1.5 rounded-lg bg-white border border-rose-300 text-rose-700 text-[11px] font-semibold hover:bg-rose-50" onclick="MDBankUnconfirm(${id})">Mark unconfirmed</button>
+                    </div>
+                  </div>`}
+              </div>
+              ${d.currentDocument ? `<div class="mt-3 text-[11px]"><span class="text-slate-500">Document:</span> <a class="text-blue-800 font-semibold hover:underline" href="${d.currentDocument.content_url}" target="_blank">${MD.escapeHtml(d.currentDocument.file_name)}</a> <span class="text-slate-400">(v${d.currentDocument.version_no}, ${((d.currentDocument.size_bytes || 0) / 1024).toFixed(0)} KB)</span></div>` : '<p class="mt-3 text-[11px] text-slate-500">No receipt document uploaded.</p>'}
+              ${d.ocrRun ? `<p class="text-[10px] text-slate-500 mt-1">OCR engine ${MD.escapeHtml(d.ocrRun.engine_version || '')} — status ${MD.escapeHtml(d.ocrRun.status || '')}. Extraction is informational; it is never proof of authenticity.</p>` : ''}
+            </div>
+            <div class="p-5 bg-slate-50/40">
+              <div class="flex items-center justify-between">
+                <h4 class="text-[12px] font-bold text-brand-navy uppercase tracking-wide">OCR field comparison</h4>
+                ${(d.discrepancies || []).length ? `<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-rose-100 text-rose-800 border border-rose-300">${d.discrepancies.length} mismatch(es)</span>`
+                  : (d.comparison || []).some((c) => c.status === 'missing' || c.status === 'low_confidence')
+                    ? '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-amber-50 text-amber-800 border border-amber-300">extraction incomplete — manual review</span>'
+                    : '<span class="text-[10px] text-emerald-700 font-semibold uppercase">no mismatch</span>'}
+              </div>
+              <div class="overflow-x-auto mt-2 bg-white border border-brand-border rounded-lg">
+                <table class="w-full"><thead><tr class="text-[10px] uppercase text-slate-500 border-b border-brand-border"><th class="py-2 px-3 text-left">Field</th><th class="py-2 px-3 text-left">Record</th><th class="py-2 px-3 text-left">Extracted</th><th class="py-2 px-3 text-left">Conf.</th><th class="py-2 px-3 text-left">Status</th></tr></thead>
+                <tbody>${cmpRows || '<tr><td colspan="5" class="py-4 px-3 text-[11px] text-slate-500">No OCR run — upload document missing or unreadable.</td></tr>'}</tbody></table>
+              </div>
+              <h4 class="text-[12px] font-bold text-brand-navy uppercase tracking-wide mt-4">Verification history</h4>
+              <div class="bg-white border border-brand-border rounded-lg mt-2 max-h-56 overflow-y-auto">${verRows || '<div class="p-3 text-[11px] text-slate-500">No attempts yet.</div>'}</div>
+              ${corr ? `<div class="mt-4 p-3 bg-amber-50 border border-amber-300 rounded-lg text-[11px] text-amber-900">
+                <b>Correction request</b> — attempt ${corr.attempt_no} of 2 (${MD.escapeHtml(corr.status)}). Reason: ${MD.escapeHtml(corr.reason || '')} (by ${MD.escapeHtml(corr.requested_by_name || '')}).
+                ${(d.correctionVersions || []).length ? `<details class="mt-1.5"><summary class="cursor-pointer font-semibold">Version history (${d.correctionVersions.length})</summary>
+                  <div class="mt-1 space-y-1">${d.correctionVersions.map((v) => `<p class="font-mono text-[10px]">v${v.version_no} by ${MD.escapeHtml(v.changed_by_name || '—')} — ${MD.escapeHtml(Object.keys(v.data_after || {}).filter((k) => v.data_before?.[k] !== v.data_after[k]).join(', ') || 'initial')}</p>`).join('')}</div></summary></details>` : ''}
+                ${!canCorrect ? '<p class="mt-1 font-semibold">Two attempts used — no further correction rounds can be opened. Use a problem report or reject/approve.</p>' : ''}
+              </div>` : ''}
+            </div>
+          </div>`;
+        document.getElementById('md-back-queue').onclick = window.MDBackToQueue;
+      }
+
+      // action handlers
+      window.MDDecide = async function (id, decision) {
+        const remarks = (document.getElementById('verify-remarks')?.value || '').trim();
+        const comment = remarks || (decision === 'approved'
+          ? 'Approved by authorized officer after review of the submitted record.'
+          : '');
+        if (comment.length < 5) { MD.toast('Enter a decision comment of at least 5 characters before recording this decision.', true); return; }
+        try {
+          await MD.api('POST', `/officer/verification/${id}/decision`, { decision, comment });
+          MD.toast('Decision recorded and audit-logged.', false);
+          if (typeof addHistoryEvent === 'function') addHistoryEvent(`Officer decision: ${decision.replace(/_/g, ' ')}`, comment.slice(0, 120), 'gavel', 'text-brand-navy bg-slate-100');
+          renderDetail(id);
+        } catch (e) { MD.toast(e.message, true); }
+      };
+      window.MDBankConfirm = async function (id) {
+        const src = document.getElementById('md-bank-src').value.trim();
+        const ev = document.getElementById('md-bank-ev').value.trim();
+        if (!src) { MD.toast('Record the bank source reference you verified.', true); return; }
+        if (ev.length < 10) { MD.toast('Describe the evidence you personally checked (min 10 chars).', true); return; }
+        try {
+          await MD.api('POST', `/officer/verification/${id}/bank-confirm`, { method: 'manual_officer', source_reference: src, evidence_note: ev });
+          MD.toast('Bank confirmation recorded with your evidence.', false);
+          if (typeof addHistoryEvent === 'function') addHistoryEvent('Bank confirmation recorded', src + ' — ' + ev.slice(0, 80), 'account_balance', 'text-emerald-700 bg-emerald-100');
+          renderDetail(id);
+        } catch (e) { MD.toast(e.message, true); }
+      };
+      window.MDBankUnconfirm = async function (id) {
+        const note = window.prompt('Why cannot the deposit be confirmed with the bank?');
+        if (!note || note.trim().length < 5) { MD.toast('A reason of at least 5 characters is required.', true); return; }
+        try {
+          await MD.api('POST', `/officer/verification/${id}/bank-unconfirmed`, { note: note.trim() });
+          MD.toast('Marked as not confirmed with the bank.', false);
+          renderDetail(id);
+        } catch (e) { MD.toast(e.message, true); }
+      };
+
+      // Rebind the original modal buttons to real API calls (their mock handlers cleared).
+      const rebind = (elId, fn) => {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.replaceWith(el.cloneNode(true));
+        document.getElementById(elId).addEventListener('click', fn);
+      };
+      rebind('confirm-verify-btn', async () => {
+        if (!OPEN_ID) return;
+        const remarks = (document.getElementById('verify-remarks')?.value || '').trim();
+        const comment = remarks || 'Approved by authorized officer after review of the submitted record.';
+        if (comment.length < 5) { MD.toast('Verification remarks of at least 5 characters are required.', true); return; }
+        try {
+          await MD.api('POST', `/officer/verification/${OPEN_ID}/decision`, { decision: 'approved', comment });
+          document.getElementById('modal-verify')?.classList.add('hidden');
+          MD.toast('Record approved — recorded in the statutory ledger.', false);
+          renderDetail(OPEN_ID);
+        } catch (e) { MD.toast(e.message, true); }
+      });
+      rebind('send-problem-btn', async () => {
+        const cat = (document.getElementById('problem-category')?.value || '').trim();
+        const desc = (document.getElementById('problem-description')?.value || '').trim();
+        if (!OPEN_ID) { MD.toast('Open a record from the queue first.', true); return; }
+        if (desc.length < 10) { MD.toast('Describe the problem in at least 10 characters.', true); return; }
+        try {
+          const { data } = await MD.api('POST', '/officer/problems', { fdrId: OPEN_ID, category: cat, details: desc });
+          document.getElementById('modal-report-problem')?.classList.add('hidden');
+          MD.toast(`Problem report ${data.report_ref || ''} filed.`, false);
+          renderQueue();
+        } catch (e) { MD.toast(e.message, true); }
+      });
+      rebind('close-modal-verify', () => document.getElementById('modal-verify')?.classList.add('hidden'));
+      rebind('close-modal-problem', () => document.getElementById('modal-report-problem')?.classList.add('hidden'));
+
+      // boot
+      OPEN_ID ? renderDetail(OPEN_ID).catch((e) => MD.toast(e.message, true)) : renderQueue().catch((e) => MD.toast(e.message, true));
+    })();
+</script>
 </body></html>

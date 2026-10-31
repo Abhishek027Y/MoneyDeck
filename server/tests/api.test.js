@@ -242,6 +242,20 @@ test('PDF upload stores document, runs OCR, and enforces type/size/access rules'
   const bad = await fetch(`${BASE}/api/documents/upload`, { method: 'POST', headers: { Cookie: college.cookie, 'X-MD-CSRF': college.csrf }, body: fd3 });
   assert.ok([400, 413].includes(bad.status));
 
+  const forgedPdf = new FormData();
+  forgedPdf.append('fdrId', String(fdrId));
+  forgedPdf.append('file', new Blob(['<html/>'], { type: 'application/pdf' }), 'fake.pdf');
+  const forged = await fetch(`${BASE}/api/documents/upload`, { method: 'POST', headers: { Cookie: college.cookie, 'X-MD-CSRF': college.csrf }, body: forgedPdf });
+  assert.equal(forged.status, 400);
+  assert.match((await forged.json()).error, /valid PDF/i);
+
+  const oversizedPdf = new FormData();
+  oversizedPdf.append('fdrId', String(fdrId));
+  oversizedPdf.append('file', new Blob([Buffer.alloc(10 * 1024 * 1024 + 1)], { type: 'application/pdf' }), 'oversized.pdf');
+  const oversized = await fetch(`${BASE}/api/documents/upload`, { method: 'POST', headers: { Cookie: college.cookie, 'X-MD-CSRF': college.csrf }, body: oversizedPdf });
+  assert.equal(oversized.status, 413);
+  assert.match((await oversized.json()).error, /10 MB/i);
+
   global.__uploadedDocId = doc.id;
 });
 

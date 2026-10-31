@@ -67,10 +67,10 @@
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
     }
   </style>
-</head>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
 <body class="min-h-screen text-neutral-text flex flex-col justify-between selection:bg-brand-navy selection:text-white">
 <div class="md-demo-banner">
-  ⚠️ <strong>Demo Mode</strong> — This is a non-functional prototype. No real data is transmitted or stored. Enter any credentials to proceed.
+  ℹ️ <strong>Live demo</strong> — Sign-ins are real and recorded: <span class="font-tabular-num">apex@demo.moneydeck</span> / College@2026 · <span class="font-tabular-num">registrar@snec-demo.moneydeck</span> / College@2026 · <span class="font-tabular-num">officer@demo.moneydeck</span> / Officer@2026. Actions are audit-logged.
 </div>
 <!-- Main Container -->
 <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10">
@@ -83,15 +83,13 @@
 <div>
 <!-- Brand Wordmark & Security Shield Logo -->
 <div class="flex items-center gap-3.5 mb-8">
-<div class="w-11 h-11 rounded-lg bg-gradient-to-br from-brand-navy-light to-brand-navy border border-white/15 flex items-center justify-center text-brand-gold shadow-inner">
-<span class="material-symbols-outlined text-[26px]">account_balance</span>
-</div>
+<img src="/app/assets/moneydeck-logo.png" alt="MoneyDeck Logo" class="brand-logo-img w-8 h-8 object-contain shrink-0 rounded-md" />
 <div>
 <div class="flex items-center gap-2">
-<span class="font-bold text-xl tracking-tight text-white leading-none">MoneyDeck</span>
+<span class="font-bold text-base tracking-tight text-white leading-none">MoneyDeck</span>
 <span class="px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold tracking-wider bg-brand-gold/15 text-brand-gold border border-brand-gold/30">Portal</span>
 </div>
-<p class="text-xs text-slate-300 font-medium tracking-normal mt-1">Institutional FDR Management Portal</p>
+<p class="text-xs text-slate-300 font-medium tracking-normal mt-1">Institutional FDR</p>
 <a href="../../index.html" class="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-white mt-1.5 transition-colors"><span class="material-symbols-outlined text-[13px]">arrow_back</span>Portal Home</a>
 </div>
 </div>
@@ -366,5 +364,93 @@
         window.location.href = '../aicte_officer_executive_fdr_overview_dashboard/code.html';
       }, 700);
     }
+  </script>
+<script src="/app/assets/app.js"></script>
+<script>
+    // MoneyDeck integration override: real session login against /api/auth/login.
+    // The captcha check from the original page is preserved; credentials go to the
+    // server, which sets an HttpOnly session cookie and returns the role to route by.
+    (function () {
+      const LOGIN_URL = '/moneydeck_institutional_access_secure_login/code.html';
+
+      function destinationAfterLogin(user) {
+        const fallback = user.role === 'officer'
+          ? '/aicte_officer_executive_fdr_overview_dashboard/code.html'
+          : '/college_portal_institutional_fdr_management_dashboard/code.html';
+        const returnTo = new URLSearchParams(window.location.search).get('returnTo');
+        if (!returnTo || !returnTo.startsWith('/') || returnTo.startsWith('//')) return fallback;
+        const roleMatches = user.role === 'officer'
+          ? returnTo.startsWith('/app/officer/') || returnTo.startsWith('/aicte_officer_')
+          : returnTo.startsWith('/app/college/') || returnTo.startsWith('/college_portal_');
+        if (!roleMatches) return fallback;
+        const target = new URL(returnTo, window.location.origin);
+        return target.origin === window.location.origin ? `${target.pathname}${target.search}${target.hash}` : fallback;
+      }
+
+      function captchaOk(prefix) {
+        const input = document.getElementById(`${prefix}-captcha`);
+        if (!input) return true; // officer tab does not render a captcha field
+        const shown = (document.getElementById('captcha-display').innerText || '').trim();
+        const typed = (input.value || '').trim().toUpperCase();
+        return shown.length > 0 && typed === shown.toUpperCase();
+      }
+
+      function setBusy(btn, busy, label) {
+        if (!btn) return;
+        if (!btn.dataset.mdOriginalLabel) btn.dataset.mdOriginalLabel = btn.innerHTML;
+        btn.disabled = busy;
+        btn.innerHTML = busy
+          ? '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Signing in...</span>'
+          : (label || btn.dataset.mdOriginalLabel);
+      }
+
+      window.handleCollegeLogin = async function (event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button[type="submit"]');
+        if (btn) setBusy(btn, true);
+        try {
+          const email = (document.getElementById('college-id').value || '').trim();
+          const password = (document.getElementById('college-password').value || '').trim();
+          const ok = captchaOk('college');
+          if (!ok) {
+            MD.toast('Verification input does not match the displayed code.', true);
+            refreshCaptcha();
+            return;
+          }
+          const user = await MD.login(email, password, ok);
+          window.location.href = destinationAfterLogin(user);
+        } catch (err) {
+          MD.toast(err.message || 'Sign-in failed. Check the linked demo credentials.', true);
+          refreshCaptcha();
+          if (btn) setBusy(btn, false);
+        }
+      };
+
+      window.handleOfficerLogin = async function (event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button[type="submit"]');
+        if (btn) setBusy(btn, true);
+        try {
+          const email = (document.getElementById('officer-email').value || '').trim();
+          const password = (document.getElementById('officer-password').value || '').trim();
+          const ok = captchaOk('officer');
+          if (!ok) {
+            MD.toast('Verification input does not match the displayed code.', true);
+            refreshCaptcha();
+            return;
+          }
+          const user = await MD.login(email, password, ok);
+          window.location.href = destinationAfterLogin(user);
+        } catch (err) {
+          MD.toast(err.message || 'Sign-in failed. Check your officer credentials.', true);
+          refreshCaptcha();
+          if (btn) setBusy(btn, false);
+        }
+      };
+
+      // Help text for the ID field: the backend authenticates by registered email.
+      const idField = document.getElementById('college-id');
+      if (idField) idField.placeholder = 'Registered email (e.g. apex@demo.moneydeck)';
+    })();
   </script>
 </body></html>

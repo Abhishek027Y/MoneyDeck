@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Colleges &amp; FDRs — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+
+async function boot() {
+  await MDShell.init({
+    role: 'officer', page: 'Colleges & FDRs', icon: 'school',
+    heading: 'Registered Institutions & FDR Registers',
+    subheading: 'Every enrolled institution with live counts drawn from the database. Open a register to inspect any record.',
+  });
+  const { data } = await MD.api('GET', '/officer/institutions');
+  render(data.institutions);
+}
+
+function render(insts) {
+  const cards = insts.map((i) => `
+    <tr class="border-b border-[#E2E7ED] hover:bg-[#F8FAFC]">
+      <td class="py-3 px-4">
+        <p class="text-[13px] font-semibold text-[#142D4E]">${MD.escapeHtml(i.name)}</p>
+        <p class="text-[11px] text-slate-500 font-tabular-num">PID ${MD.escapeHtml(i.aicte_pid || '—')} • ${MD.escapeHtml([i.city, i.state].filter(Boolean).join(', ') || '—')}</p>
+      </td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right">${i.fdr_count}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right text-[#1E7E34]">${i.verified_count}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right text-[#D97706]">${i.pending_count}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right text-[#DC2626]">${i.rejected_count}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right whitespace-nowrap">${MD.fmtMoney(i.total_amount)}</td>
+      <td class="py-3 px-4 text-right"><a class="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" href="javascript:void 0" onclick="pageOpenRegister(${i.id}, this)">Open register<span class="material-symbols-outlined text-[14px]">chevron_right</span></a></td>
+    </tr>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden">
+      <div class="overflow-x-auto"><table class="w-full">
+        <thead><tr class="h-[38px] bg-[#F8FAFC] border-b border-[#E2E7ED] text-[11px] font-semibold uppercase text-slate-500 tracking-wider">
+          <th class="py-2 px-4 text-left">Institution</th>
+          <th class="py-2 px-4 text-right">FDRs</th><th class="py-2 px-4 text-right">Verified</th>
+          <th class="py-2 px-4 text-right">Pending</th><th class="py-2 px-4 text-right">Rejected</th>
+          <th class="py-2 px-4 text-right">Total value</th><th class="py-2 px-4 text-right">Register</th>
+        </tr></thead>
+        <tbody>${cards}</tbody></table></div>
+    </div>
+    <div id="md-register" class="hidden bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden"></div>`);
+}
+
+async function pageOpenRegister(id) {
+  document.getElementById('md-register').classList.remove('hidden');
+  document.getElementById('md-register').innerHTML = '<div class="p-4 text-xs text-slate-500">Loading register…</div>';
+  const { data } = await MD.api('GET', `/officer/institutions/${id}/fdrs?perPage=50`);
+  const rows = data.fdrs.map((f) => `
+    <tr class="border-b border-slate-100 hover:bg-slate-50">
+      <td class="py-2.5 px-4 text-[12px] font-tabular-num whitespace-nowrap">${MD.escapeHtml(f.submission_ref)}</td>
+      <td class="py-2.5 px-4 text-[12px] font-tabular-num">${MD.escapeHtml(f.cert_no)}<div class="text-[10px] text-slate-500">${MD.escapeHtml(f.bank_name)}</div></td>
+      <td class="py-2.5 px-4 text-[12px] font-tabular-num text-right">${MD.fmtMoney(f.principal_amount)}</td>
+      <td class="py-2.5 px-4 text-[12px] font-tabular-num whitespace-nowrap">${MD.fmtDate(f.maturity_date)}</td>
+      <td class="py-2.5 px-4">${MD.badge(f.verification_status)}</td>
+      <td class="py-2.5 px-4">${MD.badge(f.bank_confirmation_status)}</td>
+      <td class="py-2.5 px-4 text-right"><a class="text-[11px] text-blue-700 hover:underline" href="/aicte_officer_fdr_verification_workspace_ai_engine/code.html?open=${f.id}">Workspace</a></td>
+    </tr>`).join('');
+  document.getElementById('md-register').innerHTML = `
+    <div class="px-4 py-3 border-b border-[#E2E7ED] flex items-center justify-between">
+      <h2 class="text-[15px] font-semibold text-[#142D4E]">${MD.escapeHtml(data.institution.name)} — register (${data.total} FDRs)</h2>
+      <span class="text-[11px] font-tabular-num text-slate-500">PID ${MD.escapeHtml(data.institution.aicte_pid || '—')}</span>
+    </div>
+    <div class="overflow-x-auto"><table class="w-full">
+      <thead><tr class="h-[34px] bg-[#F8FAFC] border-b border-[#E2E7ED] text-[10px] font-semibold uppercase text-slate-500 tracking-wider">
+        <th class="py-2 px-4 text-left">Reference</th><th class="py-2 px-4 text-left">Certificate / Bank</th>
+        <th class="py-2 px-4 text-right">Principal</th><th class="py-2 px-4 text-left">Maturity</th>
+        <th class="py-2 px-4 text-left">Verification</th><th class="py-2 px-4 text-left">Bank confirmation</th>
+        <th class="py-2 px-4 text-right">Workspace</th>
+      </tr></thead>
+      <tbody>${rows || '<tr><td colspan="7" class="py-6 text-center text-[12px] text-slate-500">No FDR records.</td></tr>'}</tbody></table></div>`;
+  document.getElementById('md-register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.pageOpenRegister = pageOpenRegister;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

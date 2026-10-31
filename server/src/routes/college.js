@@ -41,6 +41,9 @@ router.get('/dashboard', ...collegeOnly, (req, res) => {
     `SELECT COUNT(*) c FROM fdr_records
       WHERE institution_id = ? AND maturity_date < date('now') AND status NOT IN ('released')`, instId
   ).c;
+  counts.bankConfirmed = db.one(
+    "SELECT COUNT(*) c FROM fdr_records WHERE institution_id = ? AND bank_confirmation_status = 'bank_confirmed'", instId
+  ).c;
   counts.renewalAlerts = db.one(
     `SELECT COUNT(*) c FROM notifications
       WHERE user_id = ? AND category = 'renewal' AND read_at IS NULL

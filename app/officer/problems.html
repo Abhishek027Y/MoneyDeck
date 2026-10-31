@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Problem Reports — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+const CATS = ['suspicious_document', 'data_mismatch', 'bank_confirmation_failed', 'ocr_issue', 'duplicate_record', 'manual_investigation'];
+let curStatus = '';
+
+async function boot() {
+  await MDShell.init({
+    role: 'officer', page: 'Problem Reports', icon: 'report',
+    heading: 'Problem Reports',
+    subheading: 'Raised cases stay open until an explicit resolution note records who checked what. Reports are audit-logged.',
+  });
+  await load('');
+}
+
+async function load(status) {
+  const { data } = await MD.api('GET', `/officer/problems${status ? `?status=${status}` : ''}`);
+  curStatus = status;
+  render(data.problems, status);
+}
+
+function catBadge(c) {
+  const map = {
+    suspicious_document: ['bg-[#FBEAEA]', 'text-[#991B1B]', 'border-[#991B1B55]'],
+    data_mismatch: ['bg-[#FEF7EC]', 'text-[#D97706]', 'border-[#D9770655]'],
+    bank_confirmation_failed: ['bg-[#FEF2F2]', 'text-[#DC2626]', 'border-[#DC262655]'],
+    ocr_issue: ['bg-[#EEF4FF]', 'text-blue-800', 'border-[#1D4ED855]'],
+    duplicate_record: ['bg-[#F3F4F6]', 'text-[#4B5563]', 'border-[#4B556355]'],
+    manual_investigation: ['bg-[#FEF7EC]', 'text-[#D97706]', 'border-[#D9770655]'],
+  };
+  const m = map[c] || map.ocr_issue;
+  return `<span class="px-1.5 py-0.5 text-[10px] font-semibold rounded border uppercase tracking-wide ${m.join(' ')}">${MD.escapeHtml(c.replace(/_/g, ' '))}</span>`;
+}
+
+function stBadge(s) {
+  const map = { open: ['bg-[#FEF2F2]', 'text-[#DC2626]', 'border-[#DC262655]'], investigating: ['bg-[#FEF7EC]', 'text-[#D97706]', 'border-[#D9770655]'], resolved: ['bg-[#EAF6ED]', 'text-[#1E7E34]', 'border-[#1E7E3455]'], dismissed: ['bg-[#F3F4F6]', 'text-[#4B5563]', 'border-[#4B556355]'] };
+  const m = map[s] || map.open;
+  return `<span class="px-1.5 py-0.5 text-[10px] font-semibold rounded border uppercase tracking-wide ${m.join(' ')}">${MD.escapeHtml(s)}</span>`;
+}
+
+function render(rows, cur) {
+  document.querySelectorAll('#mdshell-content > :not(:first-child)').forEach((el) => el.remove());
+  const trs = rows.map((p) => `
+    <tr class="border-b border-[#E2E7ED] hover:bg-[#F8FAFC] align-top">
+      <td class="py-3 px-4 text-[12px] font-tabular-num whitespace-nowrap">${MD.escapeHtml(p.report_ref)}
+        <div class="text-[10px] text-slate-400">${MD.fmtDate(p.raised_at)}</div></td>
+      <td class="py-3 px-4 text-[12px]">${MD.escapeHtml(p.institution_name)}<div class="text-[10px] text-slate-500">${MD.escapeHtml(p.cert_no)} • ${MD.escapeHtml(p.bank_name)}</div></td>
+      <td class="py-3 px-4">${catBadge(p.category)}</td>
+      <td class="py-3 px-4 text-[12px] text-slate-600 max-w-[300px]">${MD.escapeHtml(p.details || '')}${p.resolution_note ? `<div class="text-[10px] text-slate-400 mt-1">Resolution: ${MD.escapeHtml(p.resolution_note)}</div>` : ''}</td>
+      <td class="py-3 px-4">${stBadge(p.status)}<div class="text-[10px] text-slate-400 mt-0.5">${MD.escapeHtml(p.raised_by_name || '')}</div></td>
+      <td class="py-3 px-4 text-right whitespace-nowrap">
+        ${['open', 'investigating'].includes(p.status) ? `
+          <select id="res-${p.id}" class="h-8 px-1.5 text-[11px] border border-[#E2E7ED] rounded mr-1">
+            <option value="investigating">Investigating</option><option value="resolved">Resolved</option><option value="dismissed">Dismissed</option>
+          </select>
+          <button class="px-2 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" onclick="pageResolve(${p.id})">Save</button>` : '—'}
+      </td>
+    </tr>`).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] p-4 shadow-sm flex flex-wrap items-center gap-2">
+      <span class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Status</span>
+      ${['', 'open', 'investigating', 'resolved', 'dismissed'].map((s) => `
+        <button class="px-3 py-1.5 rounded text-[11px] font-semibold border ${cur === s ? 'bg-[#142D4E] text-white border-[#142D4E]' : 'bg-white text-slate-600 border-[#E2E7ED] hover:bg-slate-50'}" onclick="pageFilter('${s}')">${s === '' ? 'All' : MD.escapeHtml(s)}</button>`).join('')}
+      <span class="flex-1"></span><span class="text-[11px] font-tabular-num text-slate-500">${rows.length} report(s)</span>
+    </div>
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden">
+      <div class="overflow-x-auto"><table class="w-full">
+        <thead><tr class="h-[38px] bg-[#F8FAFC] border-b border-[#E2E7ED] text-[11px] font-semibold uppercase text-slate-500 tracking-wider">
+          <th class="py-2 px-4 text-left">Report</th><th class="py-2 px-4 text-left">FDR</th>
+          <th class="py-2 px-4 text-left">Category</th><th class="py-2 px-4 text-left">Details</th>
+          <th class="py-2 px-4 text-left">Status</th><th class="py-2 px-4 text-right">Action</th>
+        </tr></thead>
+        <tbody>${trs || '<tr><td colspan="6" class="py-8 text-center text-[13px] text-slate-500">No problem reports in this view.</td></tr>'}</tbody></table></div>
+    </div>`);
+}
+
+async function pageFilter(s) { await load(s).catch((e) => MD.toast(e.message, true)); }
+async function pageResolve(id) {
+  const status = document.getElementById(`res-${id}`).value;
+  const note = window.prompt('Resolution note (what evidence you checked and the finding):');
+  if (!note || note.trim().length < 5) { MD.toast('A resolution note of at least 5 characters is required.', true); return; }
+  try {
+    await MD.api('POST', `/officer/problems/${id}/resolve`, { status, resolution_note: note.trim() });
+    MD.toast('Problem report updated.', false);
+    load(curStatus).catch(() => boot());
+  } catch (e) { MD.toast(e.message, true); }
+}
+window.pageFilter = pageFilter; window.pageResolve = pageResolve;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>

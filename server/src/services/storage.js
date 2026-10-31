@@ -67,6 +67,9 @@ function validatePdfFile(file) {
   if (file.mimetype && file.mimetype !== 'application/pdf') {
     throw Object.assign(new Error('Only PDF files are accepted.'), { status: 400 });
   }
+  if (!Buffer.isBuffer(file.buffer) || file.buffer.subarray(0, 5).toString('ascii') !== '%PDF-') {
+    throw Object.assign(new Error('The selected file is not a valid PDF document.'), { status: 400 });
+  }
 }
 
 module.exports = { UPLOAD_DIR, MAX_PDF_BYTES, storeDocument, readDocument, documentUrl, validatePdfFile };

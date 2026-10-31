@@ -93,7 +93,15 @@ router.get('/:id', auth.requireAuth, (req, res) => {
 });
 
 // POST /api/documents/upload — multipart: fdrId, versionNo?, file
-router.post('/upload', auth.requireAuth, auth.requireCsrf, upload.single('file'), (req, res) => {
+router.post('/upload', auth.requireAuth, auth.requireCsrf, (req, res, next) => {
+  upload.single('file')(req, res, (err) => {
+    if (!err) return next();
+    if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
+      return next(Object.assign(new Error('PDF exceeds the 10 MB limit.'), { status: 413 }));
+    }
+    return next(err);
+  });
+}, (req, res) => {
   try {
     storage.validatePdfFile(req.file);
     const fdrId = Number(req.body.fdrId);

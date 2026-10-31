@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FDR Renewals — MoneyDeck</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{"headline-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"tabular-num":["Inter"]}}}};</script>
+<style>html,body{margin:0;padding:0;}::-webkit-scrollbar{display:none;}</style>
+<link rel="stylesheet" href="/app/assets/stitch-harmonization.css"/></head>
+<body class="bg-[#F5F7FA] font-body-md text-[#202B38] antialiased">
+<script src="/app/assets/app.js"></script>
+<script src="/app/assets/shell.js"></script>
+<script>
+'use strict';
+let fdrs = [];
+
+async function boot() {
+  await MDShell.init({
+    role: 'college', page: 'Renew FDR', icon: 'autorenew',
+    heading: 'FDR Renewal Dossiers',
+    subheading: 'Maturity monitoring and renewal submission. The dashboard and AICTE alerts track 30/15/7/1-day and overdue thresholds; a released FDR cannot be renewed.',
+  });
+  const { data } = await MD.api('GET', '/college/fdrs?perPage=100');
+  fdrs = data.fdrs;
+  renderTable();
+}
+
+function severity(f) {
+  const d = f.matures_in_days;
+  if (f.status === 'released') return { label: 'Released — no renewal', cls: 'bg-[#F3F4F6] border-[#4B556355] text-[#4B5563]' };
+  if (d < 0) return { label: `Overdue by ${-d} day(s)`, cls: 'bg-[#FEF2F2] border-[#DC262655] text-[#DC2626]' };
+  if (d <= 30) return { label: `Matures in ${d} day(s)`, cls: d <= 7 ? 'bg-[#FEF7EC] border-[#D9770655] text-[#D97706]' : 'bg-[#EFF4FE] border-[#1D4ED855] text-blue-800' };
+  return { label: `Matures in ${d} day(s)`, cls: 'bg-[#EAF6ED] border-[#1E7E3455] text-[#1E7E34]' };
+}
+
+function renderTable() {
+  const rows = fdrs.map((f) => {
+    const sev = severity(f);
+    const renewed = !!f.renewal_of_id;
+    return `
+    <tr class="border-b border-[#E2E7ED] hover:bg-[#F8FAFC]">
+      <td class="py-3 px-4 text-[13px] font-medium text-[#142D4E] whitespace-nowrap">${MD.escapeHtml(f.submission_ref)}${renewed ? '<div class="text-[10px] text-slate-400">renewal record</div>' : ''}</td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num">${MD.escapeHtml(f.cert_no)}<div class="text-[11px] text-slate-500">${MD.escapeHtml(f.bank_name)}</div></td>
+      <td class="py-3 px-4 text-[13px] font-tabular-num text-right">${MD.fmtMoney(f.principal_amount)}</td>
+      <td class="py-3 px-4 text-[12px] font-tabular-num whitespace-nowrap">${MD.fmtDate(f.maturity_date)}</td>
+      <td class="py-3 px-4"><span class="px-2 py-0.5 text-[11px] font-semibold rounded border ${sev.cls}">${sev.label}</span></td>
+      <td class="py-3 px-4 text-right">${f.status !== 'released' ? `<button class="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#142D4E] text-white rounded text-[11px] font-semibold hover:bg-[#1E416F]" onclick="pageOpenForm(${f.id})"><span class="material-symbols-outlined text-[14px]">autorenew</span>Renew</button>` : '<span class="text-[11px] text-slate-400">—</span>'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mdshell-content').insertAdjacentHTML('beforeend', `
+    <div class="bg-white rounded-lg border border-[#E2E7ED] shadow-sm overflow-hidden">
+      <div class="overflow-x-auto"><table class="w-full">
+        <thead><tr class="h-[38px] bg-[#F8FAFC] border-b border-[#E2E7ED] text-[11px] font-semibold uppercase text-slate-500 tracking-wider">
+          <th class="py-2 px-4 text-left">Reference</th><th class="py-2 px-4 text-left">Certificate / Bank</th>
+          <th class="py-2 px-4 text-right">Principal</th><th class="py-2 px-4 text-left">Maturity</th>
+          <th class="py-2 px-4 text-left">Alert state</th><th class="py-2 px-4 text-right">Action</th>
+        </tr></thead>
+        <tbody>${rows}</tbody></table></div>
+    </div>
+    <div id="md-renew-form" class="hidden bg-white rounded-lg border border-[#E2E7ED] shadow-sm p-5">
+      <h2 class="font-headline-sm text-[16px] font-semibold text-[#142D4E]">Renew FDR <span id="md-renew-ref" class="font-tabular-num"></span></h2>
+      <p class="text-[11px] text-slate-500 mt-1">A new successor FDR record is created and linked to this one. The predecessor's maturity date carries over as the new issue date by default.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+        ${[['cert_no','New certificate number'],['maturity_date','New maturity date (YYYY-MM-DD)'],['principal_amount','Principal amount (₹)'],['issue_date','Issue date (defaults to previous maturity)']]
+          .map(([k,l]) => `<label class="flex flex-col gap-1"><span class="text-[12px] font-semibold text-slate-600 uppercase tracking-wide">${l}</span>
+          <input id="renew-${k}" class="h-9 px-3 text-[13px] border border-[#E2E7ED] rounded focus:outline-none focus:border-[#142D4E]" /></label>`).join('')}
+      </div>
+      <div class="flex items-center gap-2 mt-4">
+        <button class="px-4 py-2 bg-[#142D4E] text-white rounded text-xs font-semibold hover:bg-[#1E416F]" onclick="pageSubmit()">Submit renewal</button>
+        <span id="renew-status" class="text-[12px] text-slate-500"></span>
+      </div>
+    </div>`);
+}
+
+function pageOpenForm(id) {
+  const f = fdrs.find((x) => x.id === id);
+  formFdrId = id;
+  document.getElementById('md-renew-form').classList.remove('hidden');
+  document.getElementById('md-renew-ref').textContent = f.submission_ref;
+  document.getElementById('renew-cert_no').value = '';
+  document.getElementById('renew-maturity_date').value = '';
+  document.getElementById('renew-principal_amount').value = f.principal_amount;
+  document.getElementById('renew-issue_date').value = f.maturity_date;
+  document.getElementById('md-renew-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+let formFdrId = null;
+
+async function pageSubmit() {
+  const st = document.getElementById('renew-status');
+  st.textContent = 'Submitting…';
+  const body = { cert_no: document.getElementById('renew-cert_no').value.trim(), maturity_date: document.getElementById('renew-maturity_date').value.trim() };
+  const pa = Number(document.getElementById('renew-principal_amount').value);
+  if (Number.isFinite(pa) && pa) body.principal_amount = pa;
+  const isd = document.getElementById('renew-issue_date').value.trim();
+  if (isd) body.issue_date = isd;
+  try {
+    await MD.api('POST', `/college/fdrs/${formFdrId}/renew`, body);
+    MD.toast('Renewal submitted — successor FDR created and linked.', false);
+    st.textContent = '';
+    boot();
+  } catch (e) { MD.toast(e.message, true); st.textContent = ''; }
+}
+window.pageOpenForm = pageOpenForm; window.pageSubmit = pageSubmit;
+boot().catch((e) => MD.toast(e.message, true));
+</script>
+</body>
+</html>
